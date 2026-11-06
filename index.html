@@ -85,6 +85,16 @@
   </script>
   
   <style>
+    /* Disable default number input spin buttons to avoid overlap with unit badges */
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+    input[type=number] { 
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
     -webkit-tap-highlight-color: transparent;
     body {
       font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -256,22 +266,22 @@
               <div>
                 <label id="lblConcLength" class="block text-xs font-bold text-slate-700 mb-1">Length (Feet)</label>
                 <div class="relative">
-                  <input type="number" id="concLength" value="40" step="0.5" min="0" oninput="calcConcrete()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 focus:outline-none transition">
-                  <span id="unitConcLength" class="absolute right-3 top-2.5 text-xs text-slate-400 font-bold">ft</span>
+                  <input type="number" id="concLength" value="40" step="0.5" min="0" oninput="calcConcrete()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-10 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 focus:outline-none transition">
+                  <span id="unitConcLength" class="absolute right-3 top-2 sm:top-2.5 text-xs text-slate-400 font-bold pointer-events-none select-none">ft</span>
                 </div>
               </div>
               <div>
                 <label id="lblConcWidth" class="block text-xs font-bold text-slate-700 mb-1">Width (Feet)</label>
                 <div class="relative">
-                  <input type="number" id="concWidth" value="24" step="0.5" min="0" oninput="calcConcrete()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 focus:outline-none transition">
-                  <span id="unitConcWidth" class="absolute right-3 top-2.5 text-xs text-slate-400 font-bold">ft</span>
+                  <input type="number" id="concWidth" value="24" step="0.5" min="0" oninput="calcConcrete()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-10 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 focus:outline-none transition">
+                  <span id="unitConcWidth" class="absolute right-3 top-2 sm:top-2.5 text-xs text-slate-400 font-bold pointer-events-none select-none">ft</span>
                 </div>
               </div>
               <div>
                 <label id="lblConcDepth" class="block text-xs font-bold text-slate-700 mb-1">Thickness (Inches)</label>
                 <div class="relative">
-                  <input type="number" id="concDepth" value="4" step="0.25" min="0" oninput="onThicknessInputChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 focus:outline-none transition">
-                  <span id="unitConcDepth" class="absolute right-3 top-2.5 text-xs text-slate-400 font-bold">in</span>
+                  <input type="number" id="concDepth" value="4" step="0.25" min="0" oninput="onThicknessInputChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-10 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 focus:outline-none transition">
+                  <span id="unitConcDepth" class="absolute right-3 top-2 sm:top-2.5 text-xs text-slate-400 font-bold pointer-events-none select-none">in</span>
                 </div>
               </div>
             </div>
@@ -294,12 +304,12 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Waste Factor Margin</label>
-                <select id="concWaste" onchange="onWasteChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <select id="concWaste" onchange="onWasteChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-8 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                  <option value="10" selected>10% (Standard)</option>
+                  <option value="5">5% (Tight)</option>
+                  <option value="15">15% (Deep / Uneven)</option>
                   <option value="0">0% (Exact Net)</option>
-                  <option value="5">5% (Tight Tolerance)</option>
-                  <option value="10" selected>10% (Industry Standard Recommended)</option>
-                  <option value="15">15% (Uneven Ground / Deep Footings)</option>
-                  <option value="custom">Custom Waste %</option>
+                  <option value="custom">Custom %</option>
                 </select>
                 <div id="concWasteCustomBox" class="hidden mt-1.5 relative">
                   <input type="number" id="concWasteCustom" value="10" min="0" max="100" step="1" oninput="calcConcrete()" placeholder="Enter custom waste %" class="w-full bg-white border border-brand-500 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:ring-2 focus:ring-brand-500 focus:outline-none shadow-sm">
@@ -308,12 +318,12 @@
               </div>
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Rebar Grid Spacing (#4 Rebar)</label>
-                <select id="concRebarSpacing" onchange="onRebarSpacingChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
-                  <option value="12">12" on-center (Heavy Duty)</option>
-                  <option value="18" selected>18" on-center (Standard Residential)</option>
-                  <option value="24">24" on-center (Light Slab)</option>
-                  <option value="0">None (Mesh or Fiber only)</option>
-                  <option value="custom">Custom Spacing (Inches)</option>
+                <select id="concRebarSpacing" onchange="onRebarSpacingChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-8 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                  <option value="18" selected>18" OC (Standard)</option>
+                  <option value="12">12" OC (Heavy Duty)</option>
+                  <option value="24">24" OC (Light Slab)</option>
+                  <option value="0">None (Mesh/Fiber)</option>
+                  <option value="custom">Custom Spacing</option>
                 </select>
                 <div id="concRebarCustomBox" class="hidden mt-1.5 relative">
                   <input type="number" id="concRebarCustom" value="18" min="1" max="120" step="1" oninput="calcConcrete()" placeholder="Enter custom spacing in inches" class="w-full bg-white border border-brand-500 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:ring-2 focus:ring-brand-500 focus:outline-none shadow-sm">
@@ -419,14 +429,14 @@
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Total Wall Length / Perimeter (Feet)</label>
                 <div class="relative">
-                  <input type="number" id="frameLength" value="80" step="1" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                  <input type="number" id="frameLength" value="80" step="1" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-10 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-sky-500 focus:outline-none">
                   <span class="absolute right-3 top-2.5 text-xs text-slate-400 font-bold">ft</span>
                 </div>
               </div>
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Wall Height (Feet)</label>
                 <div class="relative">
-                  <input type="number" id="frameHeight" value="9" step="0.5" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                  <input type="number" id="frameHeight" value="9" step="0.5" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-10 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-sky-500 focus:outline-none">
                   <span class="absolute right-3 top-2.5 text-xs text-slate-400 font-bold">ft</span>
                 </div>
               </div>
@@ -448,10 +458,10 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Stud Spacing</label>
-                <select id="frameSpacing" onchange="onFrameSpacingChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-2 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-sky-500 focus:outline-none">
-                  <option value="16" selected>16" On-Center (Standard)</option>
-                  <option value="24">24" On-Center (Non-Load)</option>
-                  <option value="custom">Custom Spacing (Inches)</option>
+                <select id="frameSpacing" onchange="onFrameSpacingChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-2.5 pr-7 py-2 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                  <option value="16" selected>16" OC (Standard)</option>
+                  <option value="24">24" OC (Non-Load)</option>
+                  <option value="custom">Custom Spacing</option>
                 </select>
                 <div id="frameSpacingCustomBox" class="hidden mt-1.5 relative">
                   <input type="number" id="frameSpacingCustom" value="16" min="1" max="96" step="1" oninput="calcFraming()" placeholder="Custom spacing (in)" class="w-full bg-white border border-sky-500 rounded-xl px-2.5 py-1.5 text-xs font-bold text-slate-900 focus:ring-2 focus:ring-sky-500 focus:outline-none shadow-sm">
@@ -460,10 +470,10 @@
               </div>
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Drywall Sheet Size</label>
-                <select id="drywallSheetSize" onchange="onDrywallSheetChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-2 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-sky-500 focus:outline-none">
-                  <option value="32" selected>4' x 8' Sheet (32 SF)</option>
-                  <option value="48">4' x 12' Sheet (48 SF)</option>
-                  <option value="custom">Custom Sheet Area (SF)</option>
+                <select id="drywallSheetSize" onchange="onDrywallSheetChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-2.5 pr-7 py-2 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                  <option value="32" selected>4'x8' (32 SF)</option>
+                  <option value="48">4'x12' (48 SF)</option>
+                  <option value="custom">Custom SF</option>
                 </select>
                 <div id="drywallSheetCustomBox" class="hidden mt-1.5 relative">
                   <input type="number" id="drywallSheetCustom" value="32" min="1" max="200" step="1" oninput="calcFraming()" placeholder="Custom SF per sheet" class="w-full bg-white border border-sky-500 rounded-xl px-2.5 py-1.5 text-xs font-bold text-slate-900 focus:ring-2 focus:ring-sky-500 focus:outline-none shadow-sm">
@@ -472,9 +482,9 @@
               </div>
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Sides Boarded</label>
-                <select id="drywallSides" onchange="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-2 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                <select id="drywallSides" onchange="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-2.5 pr-7 py-2 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                  <option value="2" selected>Both Sides</option>
                   <option value="1">1 Side Only</option>
-                  <option value="2" selected>Both Sides (Interior)</option>
                 </select>
               </div>
             </div>
@@ -573,16 +583,16 @@
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Total Surface Area (Square Feet)</label>
                 <div class="relative">
-                  <input type="number" id="paintArea" value="1200" step="10" min="0" oninput="calcPaint()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                  <input type="number" id="paintArea" value="1200" step="10" min="0" oninput="calcPaint()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-14 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">
                   <span class="absolute right-3 top-2.5 text-xs text-slate-400 font-bold">sq ft</span>
                 </div>
               </div>
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Number of Finish Coats</label>
-                <select id="paintCoats" onchange="onPaintCoatsChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 text-slate-900 font-semibold focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                  <option value="1">1 Coat (Refresh / Same Color)</option>
-                  <option value="2" selected>2 Coats (Standard Professional)</option>
-                  <option value="3">3 Coats (High-Contrast / New Drywall)</option>
+                <select id="paintCoats" onchange="onPaintCoatsChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-8 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                  <option value="2" selected>2 Coats (Standard)</option>
+                  <option value="1">1 Coat (Refresh)</option>
+                  <option value="3">3 Coats (High-Contrast)</option>
                   <option value="custom">Custom Coats</option>
                 </select>
                 <div id="paintCoatsCustomBox" class="hidden mt-1.5 relative">
@@ -595,9 +605,9 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Include Primer Coat?</label>
-                <select id="paintPrimer" onchange="calcPaint()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 text-slate-900 font-semibold focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                  <option value="yes" selected>Yes (1 Coat Primer for New Drywall)</option>
-                  <option value="no">No (Pre-primed / 2-in-1 Paint)</option>
+                <select id="paintPrimer" onchange="calcPaint()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-8 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                  <option value="yes" selected>Yes (1 Primer Coat)</option>
+                  <option value="no">No (Pre-primed)</option>
                 </select>
               </div>
               <div>
@@ -736,13 +746,13 @@
               </div>
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Contractor Profit Margin</label>
-                <select id="bidProfitMargin" onchange="onBidProfitChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-2 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
-                  <option value="10">10% Margin</option>
-                  <option value="15">15% Standard</option>
-                  <option value="20" selected>20% Healthy Margin</option>
-                  <option value="25">25% High Yield</option>
-                  <option value="30">30% Premium</option>
-                  <option value="custom">Custom Margin %</option>
+                <select id="bidProfitMargin" onchange="onBidProfitChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-2.5 pr-7 py-2 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                  <option value="20" selected>20% (Healthy)</option>
+                  <option value="15">15% (Standard)</option>
+                  <option value="25">25% (High Yield)</option>
+                  <option value="10">10% (Low)</option>
+                  <option value="30">30% (Premium)</option>
+                  <option value="custom">Custom %</option>
                 </select>
                 <div id="bidProfitMarginCustomBox" class="hidden mt-1.5 relative">
                   <input type="number" id="bidProfitMarginCustom" value="20" min="0" max="100" step="1" oninput="calcBid()" placeholder="Custom margin %" class="w-full bg-white border border-brand-500 rounded-xl px-2.5 py-1.5 text-xs font-bold text-slate-900 focus:ring-2 focus:ring-brand-500 focus:outline-none shadow-sm">
@@ -1428,7 +1438,7 @@
     // PWA Service Worker Registration
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=5').then(reg => {
+        navigator.serviceWorker.register('./sw.js?v=6').then(reg => {
           console.log('BuildEstimate Service Worker registered with scope:', reg.scope);
         }).catch(err => {
           console.log('SW registration failed:', err);
