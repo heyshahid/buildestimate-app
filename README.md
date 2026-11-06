@@ -65,6 +65,8 @@ $$\text{Wall Studs (16\" OC)} = \left(\frac{\text{Wall Length (ft)} \times 12}{1
 - GitHub: [github.com/heyshahid](https://github.com/heyshahid)  
 - Portfolio: [byshahid.vercel.app](https://byshahid.vercel.app/)  
 - LinkedIn: [linkedin.com/in/shahidakram](https://www.linkedin.com/in/shahidakram/)  
+- Blogger: [byshahid.blogspot.com](https://byshahid.blogspot.com/)  
+- Substack: [byshahidakram.substack.com](https://byshahidakram.substack.com/)  
 - Email: [heyshahidakram@gmail.com](mailto:heyshahidakram@gmail.com)
 
 ---
