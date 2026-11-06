@@ -4,7 +4,7 @@ Thank you for investing your time in improving BuildEstimate Pro! We welcome con
 
 ---
 
-## 🛠️ How to Contribute
+##  How to Contribute
 
 ### 1. Reporting Bugs & Inaccuracies
 If you discover a formula discrepancy or a bug on job-site takeoffs:
@@ -39,14 +39,14 @@ Please open a Feature Request issue detailing:
 
 ---
 
-## 📐 Calculation Standards & Code Quality
+##  Calculation Standards & Code Quality
 - All dimensional calculations must support standard US customary units (feet, inches, cubic yards, square feet).
 - Inline custom overrides must always be available for dropdown options (waste factors, grid spacings, stud spacings).
 - PWA client logic must maintain zero third-party framework runtime dependencies for instant 60 FPS mobile performance.
 
 ---
 
-## 👤 Maintainer
+##  Maintainer
 **Shahid Akram** ([@heyshahid](https://github.com/heyshahid))  
 Lead Construction Operations & Paid Acquisition Specialist  
 Email: [heyshahidakram@gmail.com](mailto:heyshahidakram@gmail.com)
