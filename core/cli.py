@@ -23,7 +23,7 @@ console = Console()
 
 def print_banner():
     banner_text = (
-        "[bold yellow]🏗️  BuildEstimate Pro CLI v2.4.0[/bold yellow]\n"
+        "[bold yellow]  BuildEstimate Pro CLI v2.4.0[/bold yellow]\n"
         "[dim]Mobile-First Construction Material Takeoff & Bidding Suite[/dim]\n"
         "[dim cyan]Author: Shahid Akram | https://github.com/heyshahid[/dim cyan]"
     )
