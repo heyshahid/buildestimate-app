@@ -123,7 +123,16 @@
     }
   </style>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col pb-24 md:pb-8 selection:bg-brand-500 selection:text-white transition-colors duration-200">
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col pb-24 md:pb-8 selection:bg-brand-500 selection:text-white transition-colors duration-200 relative">
+
+  <!-- Architectural House & Materials Ambient Backdrop -->
+  <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden select-none" aria-hidden="true">
+    <picture>
+      <source srcset="assets/images/construction_hero.webp" type="image/webp">
+      <img src="assets/images/construction_hero.jpg" alt="Modern House Construction & Materials Background" class="w-full h-full object-cover object-center filter saturate-[0.88] opacity-35">
+    </picture>
+    <div class="absolute inset-0 bg-gradient-to-b from-slate-100/85 via-slate-100/70 to-slate-100/90 backdrop-blur-[1px]"></div>
+  </div>
 
   <!-- Desktop & Tablet Header (Clean Light Theme) -->
   <header class="no-print sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm px-4 py-3 sm:px-6">
@@ -161,7 +170,7 @@
   </header>
 
   <!-- Desktop Tab Selector (Hidden on Mobile) -->
-  <nav class="no-print hidden md:block bg-white border-b border-slate-200 px-4">
+  <nav class="no-print hidden md:block bg-white/90 backdrop-blur-md border-b border-slate-200/90 px-4 relative z-20">
     <div class="max-w-6xl mx-auto flex space-x-2">
       <button onclick="switchTab('concrete')" class="tab-btn px-4 py-3 text-sm font-bold border-b-2 border-brand-500 text-brand-600 flex items-center space-x-2 transition" data-target="concrete">
         <span>Concrete & Slabs</span>
@@ -182,14 +191,41 @@
   </nav>
 
   <!-- Main Content Container -->
-  <main class="no-print flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-5 sm:py-6">
+  <main class="no-print flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-5 sm:py-6 relative z-10">
+
+    <!-- Architectural Jobsite & Materials Banner -->
+    <div class="mb-6 rounded-2xl overflow-hidden border border-slate-200/90 bg-white/90 backdrop-blur-md shadow-md relative group">
+      <div class="relative h-32 sm:h-44 overflow-hidden">
+        <picture>
+          <source srcset="assets/images/construction_hero.webp" type="image/webp">
+          <img src="assets/images/construction_hero.jpg" alt="Modern Luxury Home Structural Construction" class="w-full h-full object-cover object-[center_35%] transform group-hover:scale-105 transition duration-700">
+        </picture>
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/65 to-transparent flex items-center px-5 sm:px-8">
+          <div class="max-w-xl text-white">
+            <div class="flex items-center space-x-2 mb-1.5">
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-500 text-slate-950">Active Jobsite Suite</span>
+              <span class="text-xs text-amber-300 font-semibold hidden sm:inline">Residential & Light Commercial Takeoff</span>
+            </div>
+            <h1 class="text-lg sm:text-2xl font-black tracking-tight text-white drop-shadow">Modern Structure Takeoff & Cost Intelligence</h1>
+            <p class="text-xs sm:text-sm text-slate-200 font-medium mt-1 drop-shadow line-clamp-1 sm:line-clamp-none">Instant structural concrete, lumber framing, drywall sheet count & client-ready 1-page PDF bids.</p>
+          </div>
+        </div>
+        <div class="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 items-center space-x-3 bg-slate-900/80 backdrop-blur-md border border-white/20 rounded-xl px-4 py-2.5 text-white shadow-xl">
+          <div class="text-right">
+            <span class="block text-[10px] uppercase font-bold text-amber-400">Field Specifications</span>
+            <span class="text-xs font-extrabold">Timber • Concrete • Finishes</span>
+          </div>
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        </div>
+      </div>
+    </div>
 
     <!-- TAB 1: CONCRETE & FOUNDATION SLAB ESTIMATOR -->
     <div id="tab-concrete" class="tab-panel">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         <!-- Input Form (Clean Light Card) -->
-        <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-sm">
+        <div class="lg:col-span-7 bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-sm">
           <div class="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
             <div>
               <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
@@ -357,7 +393,7 @@
     <div id="tab-framing" class="tab-panel hidden">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-sm">
+        <div class="lg:col-span-7 bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-sm">
           <div class="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
             <div>
               <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
@@ -511,7 +547,7 @@
     <div id="tab-paint" class="tab-panel hidden">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-sm">
+        <div class="lg:col-span-7 bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-sm">
           <div class="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
             <div>
               <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
@@ -613,7 +649,7 @@
     <div id="tab-bid" class="tab-panel hidden">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-sm">
+        <div class="lg:col-span-7 bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-sm">
           <div class="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
             <div>
               <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
@@ -783,7 +819,7 @@
 
     <!-- TAB 5: SAVED ESTIMATES & HISTORY -->
     <div id="tab-history" class="tab-panel hidden">
-      <div class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-sm">
+      <div class="bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-sm">
         <div class="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
           <div>
             <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
@@ -1383,7 +1419,7 @@
     // PWA Service Worker Registration
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').then(reg => {
+        navigator.serviceWorker.register('./sw.js?v=4').then(reg => {
           console.log('BuildEstimate Service Worker registered with scope:', reg.scope);
         }).catch(err => {
           console.log('SW registration failed:', err);
