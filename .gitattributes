@@ -1,0 +1,3 @@
+# GitHub Linguist Configuration
+# Tell GitHub Linguist to prioritize the Python core logic, automated test suites, and PWA scripts
+*.html linguist-detectable=false
