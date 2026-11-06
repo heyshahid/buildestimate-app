@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "buildestimate"
+version = "2.4.0"
+authors = [
+  { name = "Shahid Akram", email = "heyshahidakram@gmail.com" },
+]
+description = "Mobile-First Construction Material Takeoff & Contractor Bidding Suite"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Office/Business :: Financial :: Spreadsheet",
+    "Topic :: Scientific/Engineering :: Mathematics",
+]
+dependencies = [
+    "pydantic>=2.0.0",
+    "rich>=13.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+]
+
+[project.scripts]
+buildestimate = "core.cli:main"
+
+[project.urls]
+"Homepage" = "https://heyshahid.github.io/buildestimate-app/"
+"Bug Tracker" = "https://github.com/heyshahid/buildestimate-app/issues"
+"Author Portfolio" = "https://byshahid.vercel.app/"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
