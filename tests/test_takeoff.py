@@ -12,12 +12,15 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from core.engine import (
     calculate_concrete_slab,
+    calculate_mix_ratio_concrete,
+    calculate_brick_masonry,
     calculate_rebar_grid,
     calculate_wall_framing,
     calculate_drywall,
     calculate_paint,
     generate_contractor_bid,
 )
+from core.pricing import get_regional_benchmark
 
 
 def test_concrete_slab_volume():
@@ -33,6 +36,38 @@ def test_concrete_slab_volume():
     assert pytest.approx(res_waste.cubic_yards, 0.05) == 2.72
 
 
+def test_mix_ratio_concrete_asia_subcontinent():
+    # 1,000 CFT wet volume with 1:2:4 ratio:
+    # Dry Volume = 1,000 * 1.54 = 1,540 CFT
+    # Total parts = 7
+    # Cement CFT = 1,540 * (1/7) = 220 CFT
+    # Bags (50kg) = 220 / 1.25 = 176 bags
+    # Sand CFT = 1,540 * (2/7) = 440 CFT
+    # Bajri CFT = 1,540 * (4/7) = 880 CFT
+    takeoff = calculate_mix_ratio_concrete(
+        wet_volume_cft=1000.0,
+        ratio_cement=1.0,
+        ratio_sand=2.0,
+        ratio_aggregate=4.0,
+        dry_factor=1.54,
+    )
+    assert takeoff.dry_volume_cft == 1540.0
+    assert takeoff.cement_bags_50kg == 176
+    assert pytest.approx(takeoff.sand_cft, 0.5) == 440.0
+    assert pytest.approx(takeoff.bajri_cft, 0.5) == 880.0
+    assert takeoff.steel_kg > 0
+    assert takeoff.water_litres > 0
+
+
+def test_brick_masonry():
+    # 40ft wall, 10ft high, 9in thick (300 CFT)
+    # 300 * 13.5 = 4,050 bricks
+    masonry = calculate_brick_masonry(wall_length_ft=40.0, wall_height_ft=10.0, wall_thickness_in=9.0)
+    assert masonry.bricks_count == 4050
+    assert masonry.mortar_cement_bags_50kg > 0
+    assert masonry.mortar_sand_cft > 0
+
+
 def test_rebar_grid():
     rebar = calculate_rebar_grid(length_ft=30.0, width_ft=20.0, spacing_in=18.0, waste_percent=10.0)
     assert rebar.linear_feet > 0
@@ -42,40 +77,44 @@ def test_rebar_grid():
 
 
 def test_wall_framing_studs():
-    # 16ft wall with 16" OC:
-    # (16 * 12 / 16) + 1 = 13 base studs
-    # 13 + 15% corners/T-walls = 14.95 -> with 10% waste ~ 17 studs
     framing = calculate_wall_framing(wall_length_ft=16.0, wall_height_ft=8.0, spacing_in=16.0, waste_percent=10.0)
     assert framing.total_studs >= 16
-    assert framing.plates_16ft == 3  # (16 * 3) / 16 = 3 plates
+    assert framing.plates_16ft == 3
 
 
 def test_drywall_sheets():
-    # 40ft wall, 8ft height, both sides = 640 sq ft
-    # 4x8 sheet = 32 sq ft -> 20 sheets + 10% waste = 22 sheets
     dw = calculate_drywall(wall_length_ft=40.0, wall_height_ft=8.0, both_sides=True, waste_percent=10.0)
     assert dw.sheets_4x8 == 22
     assert dw.joint_compound_gal > 0
     assert dw.drywall_screws_lbs > 0
 
 
-def test_contractor_bid_calculation():
+def test_contractor_bid_global():
     bid = generate_contractor_bid(
         project_name="Residential Patio Slab",
         client_name="John Doe",
         materials_cost=2500.0,
         labor_hours=40.0,
-        labor_rate_hourly=65.0, # $2,600 labor
+        labor_rate_hourly=65.0,
         subcontractor_cost=500.0,
         contingency_percent=10.0,
         profit_margin_percent=20.0,
+        currency_code="PKR",
+        currency_symbol="Rs ",
     )
-    # Direct = 2500 + 2600 + 500 = $5,600
     assert bid.subtotal == 5600.0
-    # Contingency (10%) = $560
     assert bid.contingency_amount == 560.0
-    # Base with buffer = $6,160
-    # Profit (20%) = $1,232
     assert bid.profit_margin_amount == 1232.0
-    # Grand Total = $7,392
     assert bid.grand_total == 7392.0
+    assert bid.currency_code == "PKR"
+
+
+def test_regional_benchmarks():
+    us = get_regional_benchmark("us")
+    assert us["currency_code"] == "USD"
+    gcc = get_regional_benchmark("gcc")
+    assert gcc["currency_code"] == "AED"
+    asia = get_regional_benchmark("asia")
+    assert asia["currency_code"] == "PKR"
+    uk = get_regional_benchmark("uk")
+    assert uk["currency_code"] == "GBP"
