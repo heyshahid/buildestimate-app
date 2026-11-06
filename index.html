@@ -60,19 +60,28 @@
         padding: 0 !important;
         margin: 0 !important;
         height: auto !important;
+        min-height: auto !important;
+        overflow: visible !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
-      .no-print {
+      .no-print, header, nav, main, #tab-concrete, #tab-framing, #tab-paint, #tab-bid, #tab-history {
         display: none !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        visibility: hidden !important;
       }
       .print-only {
         display: block !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
+        page-break-before: avoid !important;
+        page-break-after: avoid !important;
         width: 100% !important;
+        max-width: 100% !important;
         box-sizing: border-box !important;
         padding: 14mm 16mm !important;
+        margin: 0 !important;
       }
     }
     .print-only {
@@ -108,7 +117,7 @@
           </svg>
           <span>Install App</span>
         </button>
-        <button onclick="window.print()" class="text-xs bg-brand-500 hover:bg-brand-600 text-slate-900 font-extrabold px-4 py-2 rounded-xl flex items-center space-x-1.5 transition shadow-sm">
+        <button onclick="exportPdf()" class="text-xs bg-brand-500 hover:bg-brand-600 text-slate-900 font-extrabold px-4 py-2 rounded-xl flex items-center space-x-1.5 transition shadow-sm">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
           </svg>
@@ -638,7 +647,7 @@
                 <span>Save to History</span>
               </button>
 
-              <button type="button" onclick="window.print()" class="text-xs bg-brand-500 hover:bg-brand-600 text-slate-900 font-extrabold px-5 py-2.5 rounded-xl shadow-md transition flex items-center space-x-1.5">
+              <button type="button" onclick="exportPdf()" class="text-xs bg-brand-500 hover:bg-brand-600 text-slate-900 font-extrabold px-5 py-2.5 rounded-xl shadow-md transition flex items-center space-x-1.5">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
                 </svg>
@@ -1151,6 +1160,11 @@
         labor: laborTotal,
         subcontractors: sub
       };
+    }
+
+    function exportPdf() {
+      calcBid();
+      window.print();
     }
 
     // 5. LOCAL STORAGE & HISTORY
