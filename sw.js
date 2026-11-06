@@ -1,4 +1,4 @@
-const CACHE_NAME = 'buildestimate-v2';
+const CACHE_NAME = 'buildestimate-v3';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
