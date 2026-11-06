@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Rounded Base Icon -->
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  
+  <!-- Blueprint Grid lines subtle -->
+  <path d="M 64 160 H 448 M 64 256 H 448 M 64 352 H 448" stroke="#334155" stroke-width="2" stroke-dasharray="6 6"/>
+  <path d="M 160 64 V 448 M 256 64 V 448 M 352 64 V 448" stroke="#334155" stroke-width="2" stroke-dasharray="6 6"/>
+  
+  <!-- Modern Construction Hardhat / Structure Shape -->
+  <path d="M 140 290 C 140 180 200 130 256 130 C 312 130 372 180 372 290 Z" fill="url(#amber)"/>
+  <!-- Helmet Rim -->
+  <rect x="110" y="280" width="292" height="32" rx="16" fill="#B45309"/>
+  <!-- Helmet Ridge -->
+  <path d="M 236 130 H 276 V 260 H 236 Z" fill="#FDE68A" opacity="0.4"/>
+  
+  <!-- Measurement Ruler Overlay / Compass lines -->
+  <path d="M 160 360 L 256 420 L 352 360" stroke="url(#cyan)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="256" cy="420" r="10" fill="#38BDF8"/>
+  
+  <!-- Small Digital Estimator Symbol -->
+  <text x="256" y="385" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="2">ESTIMATE</text>
+</svg>
