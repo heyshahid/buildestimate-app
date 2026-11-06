@@ -34,7 +34,9 @@ It simplifies job-site takeoffs into instant, real-time calculations:
 
 ## 👤 Author
 **Shahid Akram**  
-*Construction Operations & Virtual Assistant Specialist*  
+*Construction Operations, Estimating & Virtual Assistant Specialist*  
+- Live Web App: [heyshahid.github.io/buildestimate-app](https://heyshahid.github.io/buildestimate-app/)
+- GitHub: [github.com/heyshahid](https://github.com/heyshahid)
 - Portfolio: [byshahid.vercel.app](https://byshahid.vercel.app/)  
 - LinkedIn: [linkedin.com/in/shahidakram](https://www.linkedin.com/in/shahidakram/)  
-- WhatsApp / Phone: +92 300 4822560
+- Email: [heyshahidakram@gmail.com](mailto:heyshahidakram@gmail.com)
