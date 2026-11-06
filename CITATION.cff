@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use BuildEstimate Pro in your construction estimating workflows, commercial bidding, or civil engineering tools, please cite it as below."
+title: "BuildEstimate Pro: Mobile-First Construction Material Takeoff & Contractor Bidding Suite"
+version: 2.4.0
+date-released: 2026-11-06
+url: "https://heyshahid.github.io/buildestimate-app/"
+repository-code: "https://github.com/heyshahid/buildestimate-app"
+authors:
+  - family-names: "Akram"
+    given-names: "Shahid"
+    orcid: "https://orcid.org/0009-0000-0000-0000"
+license: "MIT"
+keywords:
+  - "construction-calculator"
+  - "material-takeoff"
+  - "concrete-estimator"
+  - "progressive-web-app"
+  - "contractor-bidding"
