@@ -1,12 +1,15 @@
 """
 BuildEstimate Pro - Mathematical Calculation Engine
-Formulas conform to ACI 318, ASTM A615 (Rebar), and International Building Code (IBC).
+Formulas conform to ACI 318, ASTM A615 (Rebar), BS EN 206 (Eurocode),
+and Subcontinent Civil Engineering Concrete Mix Ratio Standards.
 """
 
 import math
-from typing import Optional
+from typing import Optional, Tuple
 from .models import (
     ConcreteTakeoff,
+    MixRatioConcreteTakeoff,
+    BrickMasonryTakeoff,
     RebarTakeoff,
     FramingTakeoff,
     DrywallTakeoff,
@@ -22,7 +25,7 @@ def calculate_concrete_slab(
     waste_percent: float = 10.0,
 ) -> ConcreteTakeoff:
     """
-    Calculates slab concrete volume in cubic feet and cubic yards,
+    Calculates slab concrete volume in cubic feet, cubic yards, and cubic meters,
     plus ready-mix transit mixer truckloads and pre-bagged quantities.
     """
     thickness_ft = thickness_in / 12.0
@@ -30,8 +33,9 @@ def calculate_concrete_slab(
     multiplier = 1.0 + (waste_percent / 100.0)
     total_cuft = raw_cuft * multiplier
     total_cuyd = total_cuft / 27.0
+    total_m3 = total_cuyd * 0.764555
 
-    # 1 standard ready-mix truck carries 10 cubic yards
+    # 1 standard ready-mix truck carries 10 cubic yards (or 8 m³ in metric countries)
     truckloads = math.ceil(total_cuyd / 10.0)
 
     # Pre-bagged quick-setting mix:
@@ -44,12 +48,113 @@ def calculate_concrete_slab(
         length_ft=round(length_ft, 2),
         width_ft=round(width_ft, 2),
         thickness_in=round(thickness_in, 2),
-        waste_percent=round(waste_factor := waste_percent, 1),
+        waste_percent=round(waste_percent, 1),
         cubic_feet=round(total_cuft, 2),
         cubic_yards=round(total_cuyd, 2),
+        cubic_meters=round(total_m3, 2),
         ready_mix_trucks=truckloads,
         bags_80lb=bags_80,
         bags_60lb=bags_60,
+    )
+
+
+def calculate_mix_ratio_concrete(
+    wet_volume_cft: float,
+    ratio_cement: float = 1.0,
+    ratio_sand: float = 2.0,
+    ratio_aggregate: float = 4.0,
+    dry_factor: float = 1.54,
+    steel_percentage_volume: float = 1.0,
+    water_cement_ratio: float = 0.50,
+) -> MixRatioConcreteTakeoff:
+    """
+    Calculates exact site material quantities for Concrete Mix Ratios (1:2:4, 1:1.5:3, 1:3:6, etc.).
+    Uses the civil engineering 1.54 Dry Factor for void collapsing and drying shrinkage:
+      Dry Volume = Wet Volume * 1.54
+      One 50kg bag of cement has volume = 1.25 CFT = 0.035 m³
+    """
+    wet_m3 = wet_volume_cft / 35.3147
+    dry_cft = wet_volume_cft * dry_factor
+    total_parts = ratio_cement + ratio_sand + ratio_aggregate
+
+    # Cement
+    cement_cft = dry_cft * (ratio_cement / total_parts)
+    cement_bags = math.ceil(cement_cft / 1.25)
+
+    # Sand (fine aggregate / Rait)
+    sand_cft = dry_cft * (ratio_sand / total_parts)
+    sand_m3 = sand_cft / 35.3147
+
+    # Coarse Aggregate (Bajri / Stone Crush)
+    bajri_cft = dry_cft * (ratio_aggregate / total_parts)
+    bajri_m3 = bajri_cft / 35.3147
+
+    # Steel (Grade 60 Sariya): standard 1.0% volume for RCC slab = ~78.5 kg/m³
+    steel_kg = wet_m3 * (steel_percentage_volume * 78.5)
+    steel_tons = steel_kg / 1000.0
+
+    # Mixing water
+    water_litres = cement_bags * 50.0 * water_cement_ratio
+
+    ratio_label = f"{int(ratio_cement) if ratio_cement.is_integer() else ratio_cement}:{int(ratio_sand) if ratio_sand.is_integer() else ratio_sand}:{int(ratio_aggregate) if ratio_aggregate.is_integer() else ratio_aggregate}"
+
+    return MixRatioConcreteTakeoff(
+        wet_volume_cft=round(wet_volume_cft, 2),
+        wet_volume_m3=round(wet_m3, 2),
+        dry_volume_cft=round(dry_cft, 2),
+        dry_factor=dry_factor,
+        ratio_str=ratio_label,
+        cement_bags_50kg=cement_bags,
+        sand_cft=round(sand_cft, 1),
+        sand_m3=round(sand_m3, 2),
+        bajri_cft=round(bajri_cft, 1),
+        bajri_m3=round(bajri_m3, 2),
+        steel_kg=round(steel_kg, 1),
+        steel_metric_tons=round(steel_tons, 2),
+        water_litres=round(water_litres, 0),
+    )
+
+
+def calculate_brick_masonry(
+    wall_length_ft: float,
+    wall_height_ft: float,
+    wall_thickness_in: float = 9.0,
+    deductions_sqft: float = 0.0,
+    mortar_ratio: str = "1:6",
+) -> BrickMasonryTakeoff:
+    """
+    Calculates brick count and mortar ingredients for standard red clay bricks (9"x4.5"x3").
+    Standard engineering thumb rules:
+      - 1 CFT of masonry = 13.5 Bricks
+      - Dry mortar volume for 100 CFT masonry = 30 CFT
+    """
+    gross_area = wall_length_ft * wall_height_ft
+    net_area = max(0.0, gross_area - deductions_sqft)
+    thickness_ft = wall_thickness_in / 12.0
+    net_cft = net_area * thickness_ft
+
+    bricks_count = math.ceil(net_cft * 13.5)
+
+    # Mortar dry volume = 30% of masonry volume
+    dry_mortar_cft = net_cft * 0.30
+
+    if mortar_ratio == "1:4":
+        cement_cft = dry_mortar_cft * (1.0 / 5.0)
+        sand_cft = dry_mortar_cft * (4.0 / 5.0)
+    else:  # 1:6 standard
+        cement_cft = dry_mortar_cft * (1.0 / 7.0)
+        sand_cft = dry_mortar_cft * (6.0 / 7.0)
+
+    cement_bags = round(cement_cft / 1.25, 1)
+
+    return BrickMasonryTakeoff(
+        wall_length_ft=round(wall_length_ft, 2),
+        wall_height_ft=round(wall_height_ft, 2),
+        wall_thickness_in=round(wall_thickness_in, 1),
+        net_wall_cft=round(net_cft, 2),
+        bricks_count=bricks_count,
+        mortar_cement_bags_50kg=cement_bags,
+        mortar_sand_cft=round(sand_cft, 1),
     )
 
 
@@ -177,7 +282,7 @@ def calculate_paint(
     coverage_sqft_per_gal: float = 350.0,
 ) -> PaintTakeoff:
     """
-    Calculates primer and finish coat gallonage and standard container sizes.
+    Calculates primer and finish coat gallonage, litres, and container packaging.
     """
     finish_effective_sqft = total_sqft * coats
     finish_gals = finish_effective_sqft / coverage_sqft_per_gal
@@ -189,6 +294,7 @@ def calculate_paint(
     five_gal = int(total_gals // 5)
     remaining = total_gals % 5
     one_gal = math.ceil(remaining)
+    total_litres = total_gals * 3.78541
 
     return PaintTakeoff(
         total_sqft=round(total_sqft, 1),
@@ -198,6 +304,7 @@ def calculate_paint(
         primer_gallons=round(primer_gals, 1),
         five_gal_buckets=five_gal,
         one_gal_cans=one_gal,
+        total_litres=round(total_litres, 1),
     )
 
 
@@ -211,10 +318,12 @@ def generate_contractor_bid(
     equipment_cost: float = 0.0,
     contingency_percent: float = 5.0,
     profit_margin_percent: float = 20.0,
+    currency_code: str = "USD",
+    currency_symbol: str = "$",
 ) -> MasterBidProposal:
     """
     Synthesizes direct costs, labor, overhead, contingency buffer,
-    and contractor gross profit margin into an executive bid.
+    and contractor gross profit margin into an executive bid in any world currency.
     """
     direct_labor = labor_hours * labor_rate_hourly
     direct_cost = materials_cost + direct_labor + subcontractor_cost + equipment_cost
@@ -222,14 +331,14 @@ def generate_contractor_bid(
     contingency = direct_cost * (contingency_percent / 100.0)
     subtotal_with_buffer = direct_cost + contingency
 
-    # Contractor markup formula: Margin % on Selling Price
-    # Price = Cost / (1 - Margin%) OR Cost * (1 + Markup%)
     profit_amount = subtotal_with_buffer * (profit_margin_percent / 100.0)
     grand_total = subtotal_with_buffer + profit_amount
 
     return MasterBidProposal(
         project_name=project_name,
         client_name=client_name,
+        currency_code=currency_code,
+        currency_symbol=currency_symbol,
         materials_cost=round(materials_cost, 2),
         labor_hours=round(labor_hours, 1),
         labor_rate_hourly=round(labor_rate_hourly, 2),
