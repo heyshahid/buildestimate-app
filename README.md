@@ -1,4 +1,4 @@
-# BuildEstimate Pro 🏗️
+# BuildEstimate Pro
 
 [![Live App](https://img.shields.io/badge/Live_App-heyshahid.github.io%2Fbuildestimate--app-EA580C?style=for-the-badge&logo=googlechrome&logoColor=white)](https://heyshahid.github.io/buildestimate-app/)
 [![PWA Ready](https://img.shields.io/badge/PWA-Installable_Offline-10B981?style=for-the-badge&logo=pwa&logoColor=white)](https://heyshahid.github.io/buildestimate-app/)
@@ -10,13 +10,13 @@
 
 ---
 
-## ⚡ Live Web Application
-👉 **Launch Tool:** **[https://heyshahid.github.io/buildestimate-app/](https://heyshahid.github.io/buildestimate-app/)**  
+## Live Web Application
+Launch Tool: [https://heyshahid.github.io/buildestimate-app/](https://heyshahid.github.io/buildestimate-app/)  
 *(Installable directly to iOS, Android, macOS, and Windows home screens).*
 
 ---
 
-## 🌟 Overview & Field Workflows
+## Overview & Field Workflows
 **BuildEstimate Pro** is an open-source, mobile-first construction estimation suite tailored for general contractors, project managers, construction estimators, and Virtual Assistants.
 
 It simplifies job-site takeoffs into instant, real-time calculations:
@@ -29,14 +29,14 @@ It simplifies job-site takeoffs into instant, real-time calculations:
 
 ---
 
-## 📱 Mobile App (PWA) Features
+## Mobile App (PWA) Features
 - **Android:** 1-tap "Install App" prompt saves to your home screen as a native standalone app.
 - **iOS (iPhone/iPad):** Open in Safari $\rightarrow$ Tap Share $\rightarrow$ "Add to Home Screen".
 - **Offline Capable:** Powered by Service Workers (`sw.js`) and Web App Manifest (`manifest.json`).
 
 ---
 
-## 📐 Material Estimation Formulas
+## Material Estimation Formulas
 
 $$\text{Cubic Yards} = \frac{\text{Length (ft)} \times \text{Width (ft)} \times \frac{\text{Thickness (in)}}{12}}{27} \times (1 + \text{Waste Factor})$$
 
@@ -46,19 +46,19 @@ $$\text{Wall Studs (16\" OC)} = \left(\frac{\text{Wall Length (ft)} \times 12}{1
 
 ---
 
-## 💻 Tech Stack
+## Tech Stack
 - **Frontend:** Pure HTML5, Modern Tailwind CSS
 - **App Platform:** Progressive Web App (PWA)
 - **Zero Dependencies:** Pure vanilla JS logic for instant 60 FPS mobile responsiveness.
 
 ---
 
-## 🏷️ Search & Topic Tags
+## Search & Topic Tags
 `concrete-calculator`, `construction-calculator`, `construction-management`, `contractor-bidding`, `cost-estimator`, `drywall-estimator`, `framing-calculator`, `material-takeoff`, `progressive-web-app`, `pwa`
 
 ---
 
-## 👤 Author
+## Author
 **Shahid Akram**  
 *Construction Operations, Estimating & Paid Acquisition Specialist*  
 - Live Web App: [heyshahid.github.io/buildestimate-app](https://heyshahid.github.io/buildestimate-app/)  
@@ -71,5 +71,5 @@ $$\text{Wall Studs (16\" OC)} = \left(\frac{\text{Wall Length (ft)} \times 12}{1
 
 ---
 
-## 📄 License
+## License
 This project is open-source under the [MIT License](LICENSE).
