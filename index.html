@@ -50,15 +50,18 @@
 
     /* Print Stylesheet for 1-Page Official Bid PDF */
     @page {
-      margin: 10mm 12mm;
+      margin: 0;
       size: letter portrait;
     }
     @media print {
-      body {
+      html, body {
         background: #ffffff !important;
         color: #000000 !important;
         padding: 0 !important;
         margin: 0 !important;
+        height: auto !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
       .no-print {
         display: none !important;
@@ -66,8 +69,10 @@
       .print-only {
         display: block !important;
         page-break-inside: avoid !important;
+        break-inside: avoid !important;
         width: 100% !important;
-        padding: 0 !important;
+        box-sizing: border-box !important;
+        padding: 14mm 16mm !important;
       }
     }
     .print-only {
@@ -136,7 +141,7 @@
   </nav>
 
   <!-- Main Content Container -->
-  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-5 sm:py-6">
+  <main class="no-print flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-5 sm:py-6">
 
     <!-- TAB 1: CONCRETE & FOUNDATION SLAB ESTIMATOR -->
     <div id="tab-concrete" class="tab-panel">
@@ -795,7 +800,6 @@
         <p class="font-extrabold text-black text-sm mt-0.5">Shahid Akram</p>
         <p class="text-[11px] text-gray-600">Construction Virtual Assistant & Operations Specialist</p>
         <p class="text-[11px] text-gray-600">Email: heyshahidakram@gmail.com</p>
-        <p class="text-[10px] text-gray-500 mt-2">App: <a href="https://shd13021990-cloud.github.io/buildestimate-app/" style="color:#2563eb; text-decoration:none;">shd13021990-cloud.github.io/buildestimate-app/</a></p>
       </div>
       <div class="text-right">
         <p class="text-[10px] uppercase font-bold text-gray-500">Client Acceptance Signature:</p>
