@@ -369,22 +369,22 @@
           <source srcset="assets/images/construction_hero.webp" type="image/webp">
           <img src="assets/images/construction_hero.jpg" alt="Modern Luxury Home Structural Construction" class="w-full h-full object-cover object-[center_35%] transform group-hover:scale-105 transition duration-700">
         </picture>
-        <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/65 to-transparent flex items-center px-5 sm:px-8">
-          <div class="w-full max-w-2xl lg:max-w-3xl text-white">
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-900/80 to-slate-900/40 flex items-center justify-between px-5 sm:px-8 gap-4">
+          <div class="flex-1 min-w-0 max-w-2xl text-white">
             <div class="flex items-center space-x-2.5 mb-1.5 flex-nowrap overflow-hidden">
               <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-500 text-slate-950 shrink-0 whitespace-nowrap shadow-xs">Global Standard Suite</span>
               <span id="bannerRegionLabel" class="text-xs text-amber-300 font-semibold whitespace-nowrap truncate">North America Standards (US / Canada)</span>
             </div>
-            <h1 class="text-lg sm:text-2xl font-black tracking-tight text-white drop-shadow">Universal Structure Takeoff & Cost Intelligence</h1>
+            <h1 class="text-lg sm:text-2xl font-black tracking-tight text-white drop-shadow truncate sm:whitespace-normal">Universal Structure Takeoff & Cost Intelligence</h1>
             <p class="text-xs sm:text-sm text-slate-200 font-medium mt-1 drop-shadow line-clamp-1 sm:line-clamp-none"><span data-i18n="banner_desc">Accurate ready-mix, 1:2:4 nominal mix ratios, steel reinforcement, drywall, brick masonry & 1-page PDF bids.</span></p>
           </div>
-        </div>
-        <div class="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 items-center space-x-3 bg-slate-900/80 backdrop-blur-md border border-white/20 rounded-xl px-4 py-2.5 text-white shadow-xl">
-          <div class="text-right">
-            <span class="block text-[10px] uppercase font-bold text-amber-400">Civil Engineering Standards</span>
-            <span id="bannerCodeStandards" class="text-xs font-extrabold">ACI 318 · BS EN · 1.54 Dry Factor</span>
+          <div class="hidden lg:flex shrink-0 items-center space-x-3 bg-slate-900/85 backdrop-blur-md border border-white/20 rounded-xl px-4 py-2.5 text-white shadow-xl max-w-xs">
+            <div class="text-right">
+              <span class="block text-[10px] uppercase font-bold text-amber-400 tracking-wider whitespace-nowrap">Civil Engineering Standards</span>
+              <span id="bannerCodeStandards" class="text-xs font-extrabold block whitespace-nowrap">ACI 318 / IBC (Imperial)</span>
+            </div>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
           </div>
-          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
         </div>
       </div>
     </div>
@@ -2808,7 +2808,7 @@
       asia: {
         id: 'asia',
         name: 'Asia & Subcontinent (PK / IN / BD)',
-        standardCode: 'Nominal Mix Ratios (1:2:4 / 1:1.5:3) · 1.54 Dry Factor · CFT',
+        standardCode: 'IS 456 / PS 232 · 1:2:4 Nominal Mix',
         badge: 'Asia Standard: Nominal 1:2:4 Mix · 1.54 Dry Factor · 50kg Bags · Sand/Bajri CFT · PKR/INR',
         bannerLabel: 'Subcontinent Standards (Pakistan · India · Bangladesh)',
         unitSystem: 'imperial',
@@ -3503,7 +3503,7 @@
     // PWA Service Worker Registration
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=11').then(reg => {
+        navigator.serviceWorker.register('./sw.js?v=12').then(reg => {
           console.log('BuildEstimate Service Worker registered with scope:', reg.scope);
         }).catch(err => {
           console.log('SW registration failed:', err);
