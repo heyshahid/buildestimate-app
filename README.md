@@ -4,10 +4,14 @@
 [![PWA Ready](https://img.shields.io/badge/PWA-Installable_Offline-10B981?style=for-the-badge&logo=pwa&logoColor=white)](https://heyshahid.github.io/buildestimate-app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-F59E0B?style=for-the-badge)](LICENSE)
 [![Author: Shahid Akram](https://img.shields.io/badge/Author-Shahid_Akram-1E293B?style=for-the-badge&logo=github&logoColor=white)](https://github.com/heyshahid)
+[![GitHub Stars](https://img.shields.io/github/stars/heyshahid/buildestimate-app?style=for-the-badge&logo=github&color=F59E0B)](https://github.com/heyshahid/buildestimate-app/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/heyshahid/buildestimate-app?style=for-the-badge&logo=github&color=3B82F6)](https://github.com/heyshahid/buildestimate-app/network/members)
 [![Python Engine](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python&logoColor=white)](pyproject.toml)
 
 > **Global Construction Material Takeoff & Contractor Bid Proposal Suite (Progressive Web App)**  
 > Universal multi-region support across **North America (Imperial), GCC & Middle East (Metric), Asia & Subcontinent (1:2:4 Nominal Mix Ratios & CFT), and UK/Europe (Eurocode)**. Runs seamlessly offline on iOS, Android, macOS, and Windows.
+> 
+> **Support this Project:** If you find BuildEstimate Pro helpful for your engineering projects or construction estimates, please give it a **Star on GitHub**. It directly supports continuous open-source civil engineering tools!
 
 ---
 
@@ -112,6 +116,16 @@ Expected result:
 ```
 ============================== 8 passed in 0.37s ==============================
 ```
+
+---
+
+## Fork & White-Label for Your Construction Business
+Contractors, project managers, and engineering consultancies can white-label BuildEstimate Pro for their own firm:
+1. Click **Fork** at the top right of this repository.
+2. Clone your forked repo: `git clone https://github.com/YOUR_USERNAME/buildestimate-app.git`
+3. Replace `./icons/icon.svg` with your company logo.
+4. Customize default regional rates in `index.html` to match your local suppliers.
+5. Deploy instantly for free using **GitHub Pages** or **Vercel**.
 
 ---
 
