@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>BuildEstimate Pro - Global Construction Takeoff & Contractor Bid Suite</title>
+  <title>BuildEstimate Pro · Contractor Takeoff Suite</title>
   
   <!-- Meta & SEO Tags -->
   <meta name="description" content="Professional Global Construction Material Takeoff & Contractor Bid Proposal Suite. Accurate regional standards for North America (Imperial), GCC & Middle East (Metric), Asia & Subcontinent (Nominal Mix Ratios 1:2:4, 50kg bags, CFT), and UK/Europe (Eurocode).">
@@ -208,8 +208,8 @@
   <header class="no-print sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm px-4 py-3 sm:px-6">
     <div class="max-w-6xl mx-auto flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <div class="relative group">
-          <img src="icons/icon-192.png" alt="BuildEstimate Pro Logo" class="w-11 h-11 object-contain rounded-xl bg-amber-500/10 p-0.5 border border-amber-500/20 shadow-md">
+        <div class="relative group shrink-0">
+          <img src="icons/icon.svg" alt="BuildEstimate Pro Logo" class="w-11 h-11 object-contain rounded-xl bg-slate-900 p-1 border border-slate-700/80 shadow-md hover:scale-105 transition transform">
         </div>
         <div>
           <div class="flex items-center space-x-2">
@@ -296,11 +296,13 @@
           </select>
         </div>
 
-        <button id="pwaInstallBtn" class="hidden text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 px-2.5 py-1.5 rounded-xl items-center space-x-1 transition font-semibold shrink-0">
-          <svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- PWA Install App Button (Always Visible & Interactive) -->
+        <button id="pwaInstallBtn" type="button" onclick="installApp()" class="flex text-xs bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300/80 px-2.5 py-1.5 rounded-xl items-center space-x-1.5 transition font-bold shrink-0 shadow-2xs hover:shadow-xs cursor-pointer" title="Install BuildEstimate Pro as a standalone app on your PC or mobile">
+          <svg class="w-4 h-4 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
           </svg>
-          <span class="hidden md:inline" data-i18n="btn_install_app">Install App</span>
+          <span class="hidden sm:inline" data-i18n="btn_install_app">Install App</span>
+          <span class="sm:hidden text-[11px]">App</span>
         </button>
         
         <button onclick="exportPdf()" class="text-xs bg-brand-500 hover:bg-brand-600 text-slate-900 font-extrabold px-3 py-1.5 rounded-xl flex items-center space-x-1.5 transition shadow-sm shrink-0 whitespace-nowrap">
@@ -369,7 +371,10 @@
         <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/65 to-transparent flex items-center px-5 sm:px-8">
           <div class="w-full max-w-2xl lg:max-w-3xl text-white">
             <div class="flex items-center space-x-2.5 mb-1.5 flex-nowrap overflow-hidden">
-              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-500 text-slate-950 shrink-0 whitespace-nowrap">Global Standard Suite</span>
+              <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-500 text-slate-950 shrink-0 whitespace-nowrap shadow-xs">
+                <img src="icons/icon.svg" class="w-3.5 h-3.5 rounded-sm inline shrink-0" alt="App Icon">
+                <span>Global Standard Suite</span>
+              </span>
               <span id="bannerRegionLabel" class="text-xs text-amber-300 font-semibold whitespace-nowrap truncate">North America Standards (US / Canada)</span>
             </div>
             <h1 class="text-lg sm:text-2xl font-black tracking-tight text-white drop-shadow">Universal Structure Takeoff & Cost Intelligence</h1>
@@ -3500,7 +3505,7 @@
     // PWA Service Worker Registration
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=9').then(reg => {
+        navigator.serviceWorker.register('./sw.js?v=10').then(reg => {
           console.log('BuildEstimate Service Worker registered with scope:', reg.scope);
         }).catch(err => {
           console.log('SW registration failed:', err);
@@ -3508,27 +3513,41 @@
       });
     }
 
-    // PWA Install Prompt
-    let deferredPrompt;
-    const installBtn = document.getElementById('pwaInstallBtn');
+    // PWA Install Handling & Interactive Modal Trigger
+    let deferredPrompt = null;
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      if (installBtn) {
-        installBtn.classList.remove('hidden');
-        installBtn.classList.add('flex');
-      }
     });
 
-    if (installBtn) {
-      installBtn.addEventListener('click', async () => {
-        if (!deferredPrompt) return;
+    function installApp() {
+      if (deferredPrompt) {
         deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log(`User response to install prompt: ${outcome}`);
-        deferredPrompt = null;
-        installBtn.classList.add('hidden');
-      });
+        deferredPrompt.userChoice.then((choiceResult) => {
+          console.log('User response to install prompt:', choiceResult.outcome);
+          if (choiceResult.outcome === 'accepted') {
+            deferredPrompt = null;
+          }
+        });
+      } else {
+        showInstallModal();
+      }
+    }
+
+    function showInstallModal() {
+      const modal = document.getElementById('installModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    }
+
+    function closeInstallModal() {
+      const modal = document.getElementById('installModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
     }
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -3538,5 +3557,25 @@
       onGlobalCountryChange(savedCountry);
     });
   </script>
+  <!-- Modal: Install App Guide -->
+  <div id="installModal" class="no-print fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 transform transition-all text-slate-800">
+      <div class="flex items-center space-x-3 mb-4">
+        <img src="icons/icon.svg" class="w-12 h-12 rounded-xl bg-slate-900 p-1 shadow-md" alt="BuildEstimate Pro">
+        <div>
+          <h3 class="font-extrabold text-base text-slate-900">Install BuildEstimate Pro</h3>
+          <p class="text-xs text-slate-500">Universal Construction Suite · Offline Capable</p>
+        </div>
+      </div>
+      <div class="space-y-2.5 text-xs text-slate-600 bg-slate-50 p-4 rounded-xl border border-slate-200/80 mb-5">
+        <p><strong>Desktop (Chrome & Edge):</strong> Click the <em>Install</em> icon in your browser address bar (top-right), or open Chrome/Edge menu (...) &gt; <em>"Install BuildEstimate Pro"</em> to install as a standalone desktop app.</p>
+        <p><strong>Android:</strong> Tap the 3 dots in Chrome &gt; select <em>"Add to Home screen"</em> or <em>"Install app"</em>.</p>
+        <p><strong>iPhone / iPad (Safari):</strong> Tap the <em>Share</em> button at the bottom of Safari &gt; select <em>"Add to Home Screen"</em>.</p>
+      </div>
+      <div class="flex justify-end space-x-2">
+        <button type="button" onclick="closeInstallModal()" class="px-4 py-2 text-xs font-bold bg-brand-500 hover:bg-brand-600 text-slate-900 rounded-xl transition cursor-pointer">Got it</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
