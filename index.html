@@ -156,6 +156,27 @@
     .print-only {
       display: none;
     }
+      /* RTL Direction Support for Arabic & Urdu */
+    html[dir="rtl"] {
+      direction: rtl;
+      text-align: right;
+    }
+    html[dir="rtl"] body {
+      font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    }
+    html[dir="rtl"] .space-x-1 > :not([hidden]) ~ :not([hidden]),
+    html[dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]),
+    html[dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]),
+    html[dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+      --tw-space-x-reverse: 1;
+    }
+    html[dir="rtl"] .text-right {
+      text-align: left !important;
+    }
+    html[dir="rtl"] .num-ltr {
+      direction: ltr !important;
+      display: inline-block !important;
+    }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col pb-24 md:pb-8 selection:bg-brand-500 selection:text-white transition-colors duration-200 relative">
@@ -181,16 +202,48 @@
             <span class="font-extrabold text-lg tracking-tight text-slate-900">BuildEstimate<span class="text-brand-600">Pro</span></span>
             <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">v3.0 Global</span>
           </div>
-          <p class="text-xs text-slate-500 hidden sm:block">Global Material Takeoff & Contractor Bid Suite</p>
+          <p class="text-xs text-slate-500 hidden sm:block" data-i18n="tagline">Global Material Takeoff & Contractor Bid Suite</p>
         </div>
       </div>
 
-      <!-- Quick Action Buttons & Currency Selector -->
-      <div class="flex items-center space-x-2 sm:space-x-3">
+      <!-- Country, Currency, Language Selectors & Action Buttons -->
+      <div class="flex items-center flex-wrap gap-2">
         
+        <!-- Global Country Selector -->
+        <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm hover:border-slate-300 transition">
+          <label for="globalCountry" class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mr-1.5 hidden sm:inline" data-i18n="lbl_country">Country</label>
+          <select id="globalCountry" onchange="onGlobalCountryChange(this.value)" class="bg-transparent text-xs font-bold text-slate-900 focus:outline-none cursor-pointer max-w-[130px] sm:max-w-none">
+            <option value="US">United States (USD)</option>
+            <option value="CA">Canada (CAD)</option>
+            <option value="PK">Pakistan (PKR)</option>
+            <option value="IN">India (INR)</option>
+            <option value="BD">Bangladesh (BDT)</option>
+            <option value="AE">UAE (AED)</option>
+            <option value="SA">Saudi Arabia (SAR)</option>
+            <option value="QA">Qatar (QAR)</option>
+            <option value="KW">Kuwait (KWD)</option>
+            <option value="OM">Oman (OMR)</option>
+            <option value="BH">Bahrain (BHD)</option>
+            <option value="GB">United Kingdom (GBP)</option>
+            <option value="DE">Germany (EUR)</option>
+            <option value="FR">France (EUR)</option>
+            <option value="ES">Spain (EUR)</option>
+            <option value="IT">Italy (EUR)</option>
+            <option value="AU">Australia (AUD)</option>
+            <option value="NZ">New Zealand (NZD)</option>
+            <option value="SG">Singapore (SGD)</option>
+            <option value="MY">Malaysia (MYR)</option>
+            <option value="TR">Turkey (TRY)</option>
+            <option value="EG">Egypt (EGP)</option>
+            <option value="ZA">South Africa (ZAR)</option>
+            <option value="BR">Brazil (BRL)</option>
+            <option value="MX">Mexico (MXN)</option>
+          </select>
+        </div>
+
         <!-- Worldwide Currency Selector -->
         <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm hover:border-slate-300 transition">
-          <label for="globalCurrency" class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mr-1.5 hidden sm:inline">Currency</label>
+          <label for="globalCurrency" class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mr-1.5 hidden sm:inline" data-i18n="lbl_currency">Currency</label>
           <select id="globalCurrency" onchange="onGlobalCurrencyChange(this.value)" class="bg-transparent text-xs font-extrabold text-slate-900 focus:outline-none cursor-pointer">
             <option value="USD">USD ($)</option>
             <option value="EUR">EUR (€)</option>
@@ -199,11 +252,36 @@
             <option value="SAR">SAR (SAR)</option>
             <option value="QAR">QAR (QAR)</option>
             <option value="KWD">KWD (KD)</option>
+            <option value="OMR">OMR (OMR)</option>
+            <option value="BHD">BHD (BD)</option>
             <option value="PKR">PKR (Rs)</option>
             <option value="INR">INR (₹)</option>
             <option value="BDT">BDT (৳)</option>
             <option value="CAD">CAD (C$)</option>
             <option value="AUD">AUD (A$)</option>
+            <option value="NZD">NZD (NZ$)</option>
+            <option value="SGD">SGD (S$)</option>
+            <option value="MYR">MYR (RM)</option>
+            <option value="TRY">TRY (₺)</option>
+            <option value="EGP">EGP (E£)</option>
+            <option value="ZAR">ZAR (R)</option>
+            <option value="BRL">BRL (R$)</option>
+            <option value="MXN">MXN (Mex$)</option>
+          </select>
+        </div>
+
+        <!-- Language Selector Tab / Dropdown -->
+        <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm hover:border-slate-300 transition">
+          <label for="globalLanguage" class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mr-1.5 hidden sm:inline" data-i18n="lbl_language">Language</label>
+          <select id="globalLanguage" onchange="setLanguage(this.value)" class="bg-transparent text-xs font-bold text-slate-900 focus:outline-none cursor-pointer">
+            <option value="en">English (Default)</option>
+            <option value="ar">العربية (Arabic)</option>
+            <option value="ur">اردو (Urdu)</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="bn">বাংলা (Bengali)</option>
+            <option value="es">Español (Spanish)</option>
+            <option value="fr">Français (French)</option>
+            <option value="de">Deutsch (German)</option>
           </select>
         </div>
 
@@ -211,14 +289,14 @@
           <svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
           </svg>
-          <span class="hidden md:inline">Install App</span>
+          <span class="hidden md:inline" data-i18n="btn_install_app">Install App</span>
         </button>
         
-        <button onclick="exportPdf()" class="text-xs bg-brand-500 hover:bg-brand-600 text-slate-900 font-extrabold px-3.5 py-2 rounded-xl flex items-center space-x-1.5 transition shadow-sm">
+        <button onclick="exportPdf()" class="text-xs bg-brand-500 hover:bg-brand-600 text-slate-900 font-extrabold px-3 py-1.5 rounded-xl flex items-center space-x-1.5 transition shadow-sm shrink-0">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
           </svg>
-          <span class="hidden sm:inline">Export Bid PDF</span>
+          <span class="hidden sm:inline" data-i18n="btn_export_pdf">Export Bid PDF</span>
           <span class="sm:hidden">PDF</span>
         </button>
       </div>
@@ -231,7 +309,7 @@
       <div class="flex items-center space-x-2 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
         <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 shrink-0 flex items-center space-x-1">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>Regional Standard:</span>
+          <span data-i18n="lbl_regional_std">Regional Standard:</span>
         </span>
         <div class="inline-flex rounded-xl p-0.5 bg-slate-100 border border-slate-200 shrink-0">
           <button type="button" onclick="setGlobalRegion('us')" id="btnRegionUS" class="region-btn px-2.5 py-1 text-xs font-bold rounded-lg transition bg-white text-slate-900 shadow-sm border border-slate-200/60">North America [US/CA]</button>
@@ -250,19 +328,19 @@
   <nav class="no-print hidden md:block bg-white/90 backdrop-blur-md border-b border-slate-200/90 px-4 relative z-20">
     <div class="max-w-6xl mx-auto flex space-x-2">
       <button onclick="switchTab('concrete')" class="tab-btn px-4 py-3 text-sm font-bold border-b-2 border-brand-500 text-brand-600 flex items-center space-x-2 transition" data-target="concrete">
-        <span>Concrete & Slabs</span>
+        <span data-i18n="nav_concrete">Concrete & Slabs</span>
       </button>
       <button onclick="switchTab('framing')" class="tab-btn px-4 py-3 text-sm font-bold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center space-x-2 transition" data-target="framing">
-        <span>Wall Framing & Masonry</span>
+        <span data-i18n="nav_framing">Wall Framing & Masonry</span>
       </button>
       <button onclick="switchTab('paint')" class="tab-btn px-4 py-3 text-sm font-bold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center space-x-2 transition" data-target="paint">
-        <span>Paint & Coatings</span>
+        <span data-i18n="nav_paint">Paint & Coatings</span>
       </button>
       <button onclick="switchTab('bid')" class="tab-btn px-4 py-3 text-sm font-bold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center space-x-2 transition" data-target="bid">
-        <span>Project Bid & Markup</span>
+        <span data-i18n="nav_bid">Project Bid & Markup</span>
       </button>
       <button onclick="switchTab('history')" class="tab-btn px-4 py-3 text-sm font-bold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center space-x-2 transition" data-target="history">
-        <span>Saved Estimates</span>
+        <span data-i18n="nav_history">Saved Estimates</span>
       </button>
     </div>
   </nav>
@@ -284,7 +362,7 @@
               <span id="bannerRegionLabel" class="text-xs text-amber-300 font-semibold hidden sm:inline">North America & Global Engineering</span>
             </div>
             <h1 class="text-lg sm:text-2xl font-black tracking-tight text-white drop-shadow">Universal Structure Takeoff & Cost Intelligence</h1>
-            <p class="text-xs sm:text-sm text-slate-200 font-medium mt-1 drop-shadow line-clamp-1 sm:line-clamp-none">Accurate ready-mix, 1:2:4 nominal mix ratios, steel reinforcement, drywall, brick masonry & 1-page PDF bids.</p>
+            <p class="text-xs sm:text-sm text-slate-200 font-medium mt-1 drop-shadow line-clamp-1 sm:line-clamp-none"><span data-i18n="banner_desc">Accurate ready-mix, 1:2:4 nominal mix ratios, steel reinforcement, drywall, brick masonry & 1-page PDF bids.</span></p>
           </div>
         </div>
         <div class="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 items-center space-x-3 bg-slate-900/80 backdrop-blur-md border border-white/20 rounded-xl px-4 py-2.5 text-white shadow-xl">
@@ -308,9 +386,9 @@
             <div>
               <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
                 <span class="w-3 h-3 rounded-full bg-brand-500"></span>
-                <span>Concrete & Foundation Slab Takeoff</span>
+                <span data-i18n="conc_title">Concrete & Foundation Slab Takeoff</span>
               </h2>
-              <p id="lblConcSubtitle" class="text-xs text-slate-500">Calculate volume, ready-mix transit mixers & rebar grid</p>
+              <p id="lblConcSubtitle" class="text-xs text-slate-500" data-i18n="conc_desc">Calculate volume, ready-mix transit mixers & rebar grid</p>
             </div>
             <!-- Units Toggle -->
             <div class="flex items-center bg-slate-100 rounded-lg p-1 border border-slate-200">
@@ -347,13 +425,13 @@
 
             <!-- Standard Thickness Buttons with Active Highlight & Custom Option -->
             <div class="pt-1">
-              <label class="block text-xs font-bold text-slate-700 mb-1.5">Standard Thickness Quick Selector:</label>
+              <label class="block text-xs font-bold text-slate-700 mb-1.5"><span data-i18n="lbl_quick_thickness">Standard Thickness Quick Selector:</span></label>
               <div class="flex flex-wrap gap-2 text-xs">
                 <button type="button" id="btnDepth4" onclick="setDepth(4, this)" class="thickness-btn px-3 py-1.5 rounded-lg border font-bold transition shadow-sm bg-brand-500 text-white border-brand-500">4" (10cm Slab)</button>
                 <button type="button" id="btnDepth5" onclick="setDepth(5, this)" class="thickness-btn px-3 py-1.5 rounded-lg border font-semibold transition bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300">5" (12.5cm Patio)</button>
                 <button type="button" id="btnDepth6" onclick="setDepth(6, this)" class="thickness-btn px-3 py-1.5 rounded-lg border font-semibold transition bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300">6" (15cm Roof / Driveway)</button>
                 <button type="button" id="btnDepth8" onclick="setDepth(8, this)" class="thickness-btn px-3 py-1.5 rounded-lg border font-semibold transition bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300">8" (20cm Heavy RCC)</button>
-                <button type="button" id="btnDepthCustom" onclick="focusCustomDepth(this)" class="thickness-btn px-3 py-1.5 rounded-lg border font-semibold transition bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300">Custom Thickness</button>
+                <button type="button" id="btnDepthCustom" onclick="focusCustomDepth(this)" class="thickness-btn px-3 py-1.5 rounded-lg border font-semibold transition bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300"><span data-i18n="btn_custom_thickness">Custom Thickness</span></button>
               </div>
             </div>
 
@@ -403,7 +481,7 @@
                 </span>
                 <span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded border border-amber-200">Site Batched</span>
               </div>
-              <p class="text-[11px] text-amber-800/80 mb-3">Calculates exact 50kg cement bags, sand (CFT/m³), crushed stone / bajri (CFT/m³), and Grade 60 steel reinforcement.</p>
+              <p class="text-[11px] text-amber-800/80 mb-3"><span data-i18n="conc_mix_desc">Calculates exact 50kg cement bags, sand, crushed stone / bajri, and Grade 60 steel reinforcement.</span></p>
 
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
                 <div>
@@ -477,13 +555,13 @@
         <div class="lg:col-span-5 bg-slate-900 text-white rounded-2xl border border-slate-800 p-5 sm:p-6 shadow-xl flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-              <span class="text-xs font-bold text-brand-400 uppercase tracking-wider">Concrete Takeoff Summary</span>
-              <span class="text-[11px] bg-brand-500/20 text-brand-400 px-2.5 py-0.5 rounded-full font-semibold">Live Calculated</span>
+              <span class="text-xs font-bold text-brand-400 uppercase tracking-wider" data-i18n="conc_summary_title">Concrete Takeoff Summary</span>
+              <span class="text-[11px] bg-brand-500/20 text-brand-400 px-2.5 py-0.5 rounded-full font-semibold" data-i18n="conc_summary_badge">Live Calculated</span>
             </div>
 
             <!-- Primary Metric: Volume -->
             <div class="bg-slate-800/90 rounded-xl p-4 border border-slate-700/60 mb-4 text-center">
-              <span class="text-xs text-slate-400 uppercase font-semibold">Total Wet Concrete Volume (With Waste)</span>
+              <span class="text-xs text-slate-400 uppercase font-semibold" data-i18n="conc_total_vol">Total Wet Concrete Volume (With Waste)</span>
               <div class="flex items-baseline justify-center space-x-2 mt-1">
                 <span id="resConcCubicYards" class="text-3xl sm:text-4xl font-extrabold text-white">13.07</span>
                 <span id="resConcUnitLabel" class="text-brand-400 font-bold text-lg">yd³</span>
@@ -558,15 +636,15 @@
             <div>
               <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
                 <span class="w-3 h-3 rounded-full bg-brand-500"></span>
-                <span>Wall Framing, Drywall & Brick Masonry</span>
+                <span data-i18n="wall_title">Wall Framing, Drywall & Brick Masonry</span>
               </h2>
-              <p class="text-xs text-slate-500">Stud partitions, gypsum plasterboards & red clay brick walls</p>
+              <p class="text-xs text-slate-500" data-i18n="framing_desc">Stud partitions, gypsum plasterboards & red clay brick walls</p>
             </div>
             
             <!-- Framing Mode Selector -->
             <div class="flex items-center bg-slate-100 rounded-lg p-1 border border-slate-200">
-              <button type="button" onclick="setWallMode('drywall')" id="btnWallDrywall" class="px-2.5 py-1 text-xs font-bold rounded-md bg-white text-slate-900 shadow-sm transition">Drywall / Studs</button>
-              <button type="button" onclick="setWallMode('brick')" id="btnWallBrick" class="px-2.5 py-1 text-xs font-semibold rounded-md text-slate-500 hover:text-slate-900 transition">Red Brick Masonry</button>
+              <button type="button" onclick="setWallMode('drywall')" id="btnWallDrywall" class="px-2.5 py-1 text-xs font-bold rounded-md bg-white text-slate-900 shadow-sm transition" data-i18n="wall_type_drywall">Drywall / Studs</button>
+              <button type="button" onclick="setWallMode('brick')" id="btnWallBrick" class="px-2.5 py-1 text-xs font-semibold rounded-md text-slate-500 hover:text-slate-900 transition" data-i18n="wall_type_brick">Red Brick Masonry</button>
             </div>
           </div>
 
@@ -574,14 +652,14 @@
             <!-- Wall Dimensions -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label id="lblFrameLen" class="block text-xs font-bold text-slate-700 mb-1">Total Wall Length (Feet)</label>
+                <label id="lblFrameLen" class="block text-xs font-bold text-slate-700 mb-1" data-i18n="lbl_wall_len">Total Wall Length (Feet)</label>
                 <div class="relative">
                   <input type="number" id="frameLength" value="50" step="1" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-10 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
                   <span id="unitFrameLen" class="absolute right-3 top-2 sm:top-2.5 text-xs text-slate-400 font-bold">ft</span>
                 </div>
               </div>
               <div>
-                <label id="lblFrameHgt" class="block text-xs font-bold text-slate-700 mb-1">Wall Height (Feet)</label>
+                <label id="lblFrameHgt" class="block text-xs font-bold text-slate-700 mb-1" data-i18n="lbl_wall_hgt">Wall Height (Feet)</label>
                 <div class="relative">
                   <input type="number" id="frameHeight" value="9" step="0.5" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-10 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
                   <span id="unitFrameHgt" class="absolute right-3 top-2 sm:top-2.5 text-xs text-slate-400 font-bold">ft</span>
@@ -592,11 +670,11 @@
             <!-- Openings Deductions -->
             <div class="grid grid-cols-2 gap-3">
               <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">Number of Doors</label>
+                <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="lbl_doors">Number of Doors</label>
                 <input type="number" id="frameDoors" value="2" step="1" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
               </div>
               <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">Number of Windows</label>
+                <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="lbl_windows">Number of Windows</label>
                 <input type="number" id="frameWindows" value="3" step="1" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
               </div>
             </div>
@@ -655,7 +733,7 @@
             <!-- RED BRICK MASONRY FORM -->
             <div id="boxBrickForm" class="hidden space-y-4 pt-1 p-4 rounded-xl border border-rose-200 bg-rose-50/50">
               <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-rose-900 uppercase tracking-wider">Red Clay Brick Masonry (Standard 9" x 4.5" x 3")</span>
+                <span class="text-xs font-bold text-rose-900 uppercase tracking-wider"><span data-i18n="masonry_title">Red Clay Brick Masonry (Standard 9" x 4.5" x 3")</span></span>
                 <span class="text-[10px] font-bold text-rose-700 bg-rose-100 px-2 py-0.5 rounded border border-rose-200">13.5 Bricks/CFT</span>
               </div>
 
@@ -708,34 +786,34 @@
         <div class="lg:col-span-5 bg-slate-900 text-white rounded-2xl border border-slate-800 p-5 sm:p-6 shadow-xl flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-              <span id="resWallHeaderTitle" class="text-xs font-bold text-brand-400 uppercase tracking-wider">Wall Takeoff Summary</span>
+              <span id="resWallHeaderTitle" class="text-xs font-bold text-brand-400 uppercase tracking-wider" data-i18n="wall_summary_title">Wall Takeoff Summary</span>
               <span id="resNetWallArea" class="text-xs font-bold text-slate-300">Net Wall: 363 SF</span>
             </div>
 
             <!-- Deliverables -->
             <div id="resDrywallList" class="space-y-2.5 text-xs sm:text-sm">
               <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0">Total Framing Studs:</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="studs_count">Total Framing Studs:</span>
                 <span id="resFrameStuds" class="font-extrabold text-white whitespace-nowrap text-right">48 Studs</span>
               </div>
               <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0">Top & Bottom Plates:</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="plates_len">Top & Bottom Plates:</span>
                 <span id="resFramePlates" class="font-bold text-slate-200 whitespace-nowrap text-right">150 LF (10 x 16' Boards)</span>
               </div>
               <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0">Drywall Sheets (Both Sides):</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="drywall_sheets">Drywall Sheets (Both Sides):</span>
                 <span id="resDrywallSheets" class="font-bold text-slate-200 whitespace-nowrap text-right">25 Sheets (4'x8')</span>
               </div>
               <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0">Drywall Screws:</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="drywall_screws">Drywall Screws:</span>
                 <span id="resDrywallScrews" class="font-bold text-slate-200 whitespace-nowrap text-right">~800 Screws (1 x 5lb Box)</span>
               </div>
               <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0">Joint Compound / Mud:</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="drywall_mud">Joint Compound / Mud:</span>
                 <span id="resDrywallMud" class="font-bold text-slate-200 whitespace-nowrap text-right">2 Buckets (4.5 Gal)</span>
               </div>
               <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0">Joint Tape Rolls:</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="drywall_tape">Joint Tape Rolls:</span>
                 <span id="resDrywallTape" class="font-bold text-slate-200 whitespace-nowrap text-right">2 Rolls (250 ft)</span>
               </div>
             </div>
@@ -743,7 +821,7 @@
             <!-- Brick Deliverables (When Brick Mode is Active) -->
             <div id="resBrickList" class="hidden space-y-2.5 text-xs sm:text-sm">
               <div class="p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-center">
-                <span class="text-xs text-rose-300 uppercase font-semibold">Total Red Clay Bricks Required</span>
+                <span class="text-xs text-rose-300 uppercase font-semibold" data-i18n="brick_total">Total Red Clay Bricks Required</span>
                 <div class="text-3xl font-black text-white mt-1" id="resBrickTotalCount">3,675 Bricks</div>
                 <p class="text-[11px] text-slate-400 mt-0.5">Based on 13.5 bricks per CFT of 9" masonry</p>
               </div>
@@ -780,9 +858,9 @@
             <div>
               <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
                 <span class="w-3 h-3 rounded-full bg-brand-500"></span>
-                <span>Paint & Surface Coatings Takeoff</span>
+                <span data-i18n="paint_title">Paint & Surface Coatings Takeoff</span>
               </h2>
-              <p class="text-xs text-slate-500">Primer & finish coat gallonage, litres & drum breakdown</p>
+              <p class="text-xs text-slate-500" data-i18n="paint_desc">Primer & finish coat gallonage, litres & drum breakdown</p>
             </div>
           </div>
 
@@ -840,13 +918,13 @@
         <div class="lg:col-span-5 bg-slate-900 text-white rounded-2xl border border-slate-800 p-5 sm:p-6 shadow-xl flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-              <span class="text-xs font-bold text-brand-400 uppercase tracking-wider">Paint Takeoff Summary</span>
+              <span class="text-xs font-bold text-brand-400 uppercase tracking-wider" data-i18n="paint_summary_title">Paint Takeoff Summary</span>
               <span class="text-[11px] bg-brand-500/20 text-brand-400 px-2.5 py-0.5 rounded-full font-semibold">Standard 350 SF/Gal</span>
             </div>
 
             <!-- Volume Metric -->
             <div class="bg-slate-800/90 rounded-xl p-4 border border-slate-700/60 mb-4 text-center">
-              <span class="text-xs text-slate-400 uppercase font-semibold">Total Paint Quantity</span>
+              <span class="text-xs text-slate-400 uppercase font-semibold" data-i18n="paint_total_vol">Total Paint Quantity</span>
               <div class="flex items-baseline justify-center space-x-2 mt-1">
                 <span id="resPaintTotalGal" class="text-3xl sm:text-4xl font-extrabold text-white">7</span>
                 <span id="unitPaintResult" class="text-brand-400 font-bold text-lg">Gallons</span>
@@ -856,7 +934,7 @@
 
             <div class="space-y-2.5 text-xs sm:text-sm">
               <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0">Container Packaging:</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="paint_packaging">Container Packaging:</span>
                 <span id="resPaintCanBreakdown" class="font-extrabold text-white whitespace-nowrap text-right">1 x 5-Gal + 2 x 1-Gal</span>
               </div>
               <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
@@ -887,9 +965,9 @@
             <div>
               <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
                 <span class="w-3 h-3 rounded-full bg-brand-500"></span>
-                <span>Contractor Bid & Markup Proposal</span>
+                <span data-i18n="bid_title">Contractor Bid & Markup Proposal</span>
               </h2>
-              <p class="text-xs text-slate-500">Labor hours, equipment rentals, contingency buffer & margin</p>
+              <p class="text-xs text-slate-500" data-i18n="bid_desc">Labor hours, equipment rentals, contingency buffer & margin</p>
             </div>
           </div>
 
@@ -929,14 +1007,14 @@
             </div>
 
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Equipment Rentals, Freight & Permits</label>
+              <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="lbl_equipment">Equipment Rentals, Freight & Permits</label>
               <input type="number" id="bidEquipmentCost" value="450" step="25" min="0" oninput="calcBid()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
             </div>
 
             <!-- Contingency & Profit Margins -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">Contingency Buffer Reserve</label>
+                <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="lbl_contingency">Contingency Buffer Reserve</label>
                 <select id="bidContingency" onchange="onBidContingencyChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
                   <option value="5">5% (Low Risk)</option>
                   <option value="10" selected>10% (Standard)</option>
@@ -965,7 +1043,7 @@
             <div class="pt-4 flex flex-col sm:flex-row gap-2.5 justify-end">
               <button type="button" onclick="saveCurrentEstimate()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center justify-center space-x-1.5 shadow-sm">
                 <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
-                <span>Save to History</span>
+                <span><span data-i18n="btn_save_history">Save to History</span></span>
               </button>
               <button type="button" onclick="exportPdf()" class="text-xs bg-brand-500 hover:bg-brand-600 text-slate-900 font-extrabold px-5 py-2.5 rounded-xl transition flex items-center justify-center space-x-1.5 shadow-sm">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
@@ -979,32 +1057,32 @@
         <div class="lg:col-span-5 bg-slate-900 text-white rounded-2xl border border-slate-800 p-5 sm:p-6 shadow-xl flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-              <span class="text-xs font-bold text-brand-400 uppercase tracking-wider">Executive Bid Summary</span>
+              <span class="text-xs font-bold text-brand-400 uppercase tracking-wider" data-i18n="bid_summary_title">Executive Bid Summary</span>
               <span class="text-[11px] bg-emerald-500/20 text-emerald-400 px-2.5 py-0.5 rounded-full font-semibold">Ready for Client</span>
             </div>
 
             <!-- Big Final Price Callout -->
             <div class="bg-slate-800/90 rounded-xl p-4 border border-slate-700/60 mb-4 text-center">
-              <span class="text-xs text-slate-400 uppercase font-semibold">Total Client Proposal Price</span>
+              <span class="text-xs text-slate-400 uppercase font-semibold" data-i18n="bid_final_callout">Total Client Proposal Price</span>
               <div id="resBidFinalPrice" class="text-3xl sm:text-4xl font-black text-brand-400 mt-1">$9,222.00</div>
               <p class="text-xs text-slate-400 mt-0.5">Includes Contingency Buffer & Profit</p>
             </div>
 
             <div class="space-y-2 text-xs sm:text-sm">
               <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0">Direct Materials:</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="bid_direct_materials">Direct Materials:</span>
                 <span id="resBidMatTotal" class="font-bold text-white whitespace-nowrap text-right">$3,046.00</span>
               </div>
               <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0">Direct Labor Costs:</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="bid_direct_labor">Direct Labor Costs:</span>
                 <span id="resBidLaborTotal" class="font-bold text-white whitespace-nowrap text-right">$2,640.00</span>
               </div>
               <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0">Subcontractor Total:</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="bid_subcontractor">Subcontractor Total:</span>
                 <span id="resBidSubTotal" class="font-bold text-white whitespace-nowrap text-right">$850.00</span>
               </div>
               <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0">Equipment & Freight:</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="bid_equipment">Equipment & Freight:</span>
                 <span id="resBidEquipTotal" class="font-bold text-white whitespace-nowrap text-right">$450.00</span>
               </div>
               <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/70 border border-slate-700/60 font-semibold">
@@ -1032,8 +1110,8 @@
       <div class="max-w-4xl mx-auto bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-sm">
         <div class="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
           <div>
-            <h2 class="text-lg font-bold text-slate-900">Saved Project Estimates</h2>
-            <p class="text-xs text-slate-500">Locally saved proposals on this device (offline capable)</p>
+            <h2 class="text-lg font-bold text-slate-900" data-i18n="history_title">Saved Project Estimates</h2>
+            <p class="text-xs text-slate-500" data-i18n="history_desc">Locally saved proposals on this device (offline capable)</p>
           </div>
           <button onclick="clearHistory()" class="text-xs text-rose-600 hover:text-rose-700 font-semibold px-3 py-1.5 rounded-lg hover:bg-rose-50 border border-rose-200 transition">
             Clear History
@@ -1052,23 +1130,23 @@
   <div class="no-print md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 py-1.5 px-3 flex items-center justify-around shadow-lg">
     <button onclick="switchTab('concrete')" class="mobile-tab-btn flex flex-col items-center p-1 text-brand-600 font-bold transition" data-target="concrete">
       <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-      <span class="text-[10px]">Concrete</span>
+      <span class="text-[10px]" data-i18n="nav_concrete">Concrete</span>
     </button>
     <button onclick="switchTab('framing')" class="mobile-tab-btn flex flex-col items-center p-1 text-slate-500 font-medium transition" data-target="framing">
       <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
-      <span class="text-[10px]">Walls</span>
+      <span class="text-[10px]" data-i18n="nav_framing">Walls</span>
     </button>
     <button onclick="switchTab('paint')" class="mobile-tab-btn flex flex-col items-center p-1 text-slate-500 font-medium transition" data-target="paint">
       <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4 5 5 0 011.66-3.8 9.94 9.94 0 016.34-2.2 9.94 9.94 0 016.34 2.2A5 5 0 0119 17a4 4 0 01-4 4H7z"/></svg>
-      <span class="text-[10px]">Paint</span>
+      <span class="text-[10px]" data-i18n="nav_paint">Paint</span>
     </button>
     <button onclick="switchTab('bid')" class="mobile-tab-btn flex flex-col items-center p-1 text-slate-500 font-medium transition" data-target="bid">
       <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-      <span class="text-[10px]">Bid</span>
+      <span class="text-[10px]" data-i18n="nav_bid">Bid</span>
     </button>
     <button onclick="switchTab('history')" class="mobile-tab-btn flex flex-col items-center p-1 text-slate-500 font-medium transition" data-target="history">
       <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      <span class="text-[10px]">History</span>
+      <span class="text-[10px]" data-i18n="nav_history">History</span>
     </button>
   </div>
 
@@ -1077,7 +1155,7 @@
   <div class="print-only max-w-3xl mx-auto text-black font-sans">
     <div class="flex justify-between items-start border-b-2 border-black pb-3 mb-4">
       <div>
-        <h1 class="text-xl font-black uppercase tracking-tight text-black">Project Estimate & Bid Proposal</h1>
+        <h1 class="text-xl font-black uppercase tracking-tight text-black" data-i18n="pdf_header_title">Project Estimate & Bid Proposal</h1>
         <p class="text-[11px] text-gray-700">BuildEstimate Pro · Global Construction Management Suite</p>
         <p id="printStandardLine" class="text-[10px] text-gray-500 font-medium">Standard: North America (ACI 318) · Imperial Units</p>
       </div>
@@ -1102,8 +1180,8 @@
     <table class="w-full text-xs text-left border-collapse mb-5">
       <thead>
         <tr class="border-b-2 border-black bg-gray-100">
-          <th class="py-1.5 px-3">Item Description</th>
-          <th class="py-1.5 px-3 text-right" id="printThCost">Cost Amount</th>
+          <th class="py-1.5 px-3" data-i18n="pdf_item_desc">Item Description</th>
+          <th class="py-1.5 px-3 text-right" id="printThCost" data-i18n="pdf_cost_amount">Cost Amount</th>
         </tr>
       </thead>
       <tbody class="divide-y divide-gray-200">
@@ -1139,20 +1217,20 @@
     </table>
 
     <div class="border border-gray-300 rounded p-3 text-[10px] text-gray-600 mb-6 bg-gray-50">
-      <p class="font-bold text-gray-700 mb-1">PROPOSAL CONDITIONS & ACCEPTANCE:</p>
-      <p>This estimate is based on preliminary material takeoffs and standard regional labor rates. Prices are valid for 30 calendar days from the proposal date. Material price escalations beyond standard margins shall be billed via formal change orders upon owner approval.</p>
+      <p class="font-bold text-gray-700 mb-1" data-i18n="pdf_terms_title">PROPOSAL CONDITIONS & ACCEPTANCE:</p>
+      <p data-i18n="pdf_terms_body">This estimate is based on preliminary material takeoffs and standard regional labor rates. Prices are valid for 30 calendar days from the proposal date. Material price escalations beyond standard margins shall be billed via formal change orders upon owner approval.</p>
     </div>
 
     <div class="grid grid-cols-2 gap-8 text-xs pt-3 border-t border-gray-400">
       <div>
-        <p class="text-[9px] uppercase font-bold text-gray-500 mb-6">Contractor / Estimator Signature</p>
+        <p class="text-[9px] uppercase font-bold text-gray-500 mb-6" data-i18n="pdf_contractor_sig">Contractor / Estimator Signature</p>
         <div class="border-b border-black w-48 mb-1"></div>
-        <p class="text-[10px] text-gray-600">Authorized Representative</p>
+        <p class="text-[10px] text-gray-600" data-i18n="pdf_auth_rep">Authorized Representative</p>
       </div>
       <div>
-        <p class="text-[9px] uppercase font-bold text-gray-500 mb-6">Client Acceptance Signature</p>
+        <p class="text-[9px] uppercase font-bold text-gray-500 mb-6" data-i18n="pdf_client_sig">Client Acceptance Signature</p>
         <div class="border-b border-black w-48 mb-1"></div>
-        <p class="text-[10px] text-gray-600">Authorized Signature & Date</p>
+        <p class="text-[10px] text-gray-600" data-i18n="pdf_auth_date">Authorized Signature & Date</p>
       </div>
     </div>
   </div>
@@ -1160,7 +1238,7 @@
 
   <!-- Core Global JavaScript Engine -->
   <script>
-    // GLOBAL CURRENCY REGISTRY
+    // GLOBAL CURRENCY REGISTRY (22 Worldwide Currencies)
     const CURRENCIES = {
       'USD': { symbol: '$', code: 'USD', name: 'US Dollar' },
       'EUR': { symbol: '€', code: 'EUR', name: 'Euro' },
@@ -1169,12 +1247,1458 @@
       'SAR': { symbol: 'SAR ', code: 'SAR', name: 'Saudi Riyal' },
       'QAR': { symbol: 'QAR ', code: 'QAR', name: 'Qatari Riyal' },
       'KWD': { symbol: 'KD ', code: 'KWD', name: 'Kuwaiti Dinar' },
+      'OMR': { symbol: 'OMR ', code: 'OMR', name: 'Omani Rial' },
+      'BHD': { symbol: 'BD ', code: 'BHD', name: 'Bahraini Dinar' },
       'PKR': { symbol: 'Rs ', code: 'PKR', name: 'Pakistani Rupee' },
       'INR': { symbol: '₹', code: 'INR', name: 'Indian Rupee' },
       'BDT': { symbol: '৳', code: 'BDT', name: 'Bangladeshi Taka' },
       'CAD': { symbol: 'C$', code: 'CAD', name: 'Canadian Dollar' },
       'AUD': { symbol: 'A$', code: 'AUD', name: 'Australian Dollar' },
+      'NZD': { symbol: 'NZ$', code: 'NZD', name: 'New Zealand Dollar' },
+      'SGD': { symbol: 'S$', code: 'SGD', name: 'Singapore Dollar' },
+      'MYR': { symbol: 'RM ', code: 'MYR', name: 'Malaysian Ringgit' },
+      'TRY': { symbol: '₺', code: 'TRY', name: 'Turkish Lira' },
+      'EGP': { symbol: 'E£ ', code: 'EGP', name: 'Egyptian Pound' },
+      'ZAR': { symbol: 'R ', code: 'ZAR', name: 'South African Rand' },
+      'BRL': { symbol: 'R$ ', code: 'BRL', name: 'Brazilian Real' },
+      'MXN': { symbol: 'Mex$ ', code: 'MXN', name: 'Mexican Peso' }
     };
+
+    // GLOBAL COUNTRIES REGISTRY (25 Top Construction Markets)
+    const COUNTRIES = [
+      {
+            "code": "US",
+            "name": "United States",
+            "currency": "USD",
+            "region": "us",
+            "unit": "imperial",
+            "lang": "en"
+      },
+      {
+            "code": "CA",
+            "name": "Canada",
+            "currency": "CAD",
+            "region": "us",
+            "unit": "imperial",
+            "lang": "en"
+      },
+      {
+            "code": "PK",
+            "name": "Pakistan",
+            "currency": "PKR",
+            "region": "asia",
+            "unit": "imperial",
+            "lang": "ur"
+      },
+      {
+            "code": "IN",
+            "name": "India",
+            "currency": "INR",
+            "region": "asia",
+            "unit": "imperial",
+            "lang": "hi"
+      },
+      {
+            "code": "BD",
+            "name": "Bangladesh",
+            "currency": "BDT",
+            "region": "asia",
+            "unit": "imperial",
+            "lang": "bn"
+      },
+      {
+            "code": "AE",
+            "name": "United Arab Emirates",
+            "currency": "AED",
+            "region": "gcc",
+            "unit": "metric",
+            "lang": "ar"
+      },
+      {
+            "code": "SA",
+            "name": "Saudi Arabia",
+            "currency": "SAR",
+            "region": "gcc",
+            "unit": "metric",
+            "lang": "ar"
+      },
+      {
+            "code": "QA",
+            "name": "Qatar",
+            "currency": "QAR",
+            "region": "gcc",
+            "unit": "metric",
+            "lang": "ar"
+      },
+      {
+            "code": "KW",
+            "name": "Kuwait",
+            "currency": "KWD",
+            "region": "gcc",
+            "unit": "metric",
+            "lang": "ar"
+      },
+      {
+            "code": "OM",
+            "name": "Oman",
+            "currency": "OMR",
+            "region": "gcc",
+            "unit": "metric",
+            "lang": "ar"
+      },
+      {
+            "code": "BH",
+            "name": "Bahrain",
+            "currency": "BHD",
+            "region": "gcc",
+            "unit": "metric",
+            "lang": "ar"
+      },
+      {
+            "code": "GB",
+            "name": "United Kingdom",
+            "currency": "GBP",
+            "region": "uk",
+            "unit": "metric",
+            "lang": "en"
+      },
+      {
+            "code": "DE",
+            "name": "Germany",
+            "currency": "EUR",
+            "region": "uk",
+            "unit": "metric",
+            "lang": "de"
+      },
+      {
+            "code": "FR",
+            "name": "France",
+            "currency": "EUR",
+            "region": "uk",
+            "unit": "metric",
+            "lang": "fr"
+      },
+      {
+            "code": "ES",
+            "name": "Spain",
+            "currency": "EUR",
+            "region": "uk",
+            "unit": "metric",
+            "lang": "es"
+      },
+      {
+            "code": "IT",
+            "name": "Italy",
+            "currency": "EUR",
+            "region": "uk",
+            "unit": "metric",
+            "lang": "en"
+      },
+      {
+            "code": "AU",
+            "name": "Australia",
+            "currency": "AUD",
+            "region": "uk",
+            "unit": "metric",
+            "lang": "en"
+      },
+      {
+            "code": "NZ",
+            "name": "New Zealand",
+            "currency": "NZD",
+            "region": "uk",
+            "unit": "metric",
+            "lang": "en"
+      },
+      {
+            "code": "SG",
+            "name": "Singapore",
+            "currency": "SGD",
+            "region": "asia",
+            "unit": "metric",
+            "lang": "en"
+      },
+      {
+            "code": "MY",
+            "name": "Malaysia",
+            "currency": "MYR",
+            "region": "asia",
+            "unit": "metric",
+            "lang": "en"
+      },
+      {
+            "code": "TR",
+            "name": "Turkey",
+            "currency": "TRY",
+            "region": "gcc",
+            "unit": "metric",
+            "lang": "en"
+      },
+      {
+            "code": "EG",
+            "name": "Egypt",
+            "currency": "EGP",
+            "region": "gcc",
+            "unit": "metric",
+            "lang": "ar"
+      },
+      {
+            "code": "ZA",
+            "name": "South Africa",
+            "currency": "ZAR",
+            "region": "uk",
+            "unit": "metric",
+            "lang": "en"
+      },
+      {
+            "code": "BR",
+            "name": "Brazil",
+            "currency": "BRL",
+            "region": "us",
+            "unit": "metric",
+            "lang": "es"
+      },
+      {
+            "code": "MX",
+            "name": "Mexico",
+            "currency": "MXN",
+            "region": "us",
+            "unit": "metric",
+            "lang": "es"
+      }
+];
+
+    // GLOBAL MULTILINGUAL TRANSLATION ENGINE (8 Languages: EN, AR, UR, HI, BN, ES, FR, DE)
+    const TRANSLATIONS = {
+      "en": {
+            "lbl_country": "Country",
+            "lbl_currency": "Currency",
+            "lbl_language": "Language",
+            "lbl_regional_std": "Regional Standard:",
+            "nav_concrete": "Concrete & Slabs",
+            "nav_framing": "Wall Framing & Masonry",
+            "nav_paint": "Paint & Coatings",
+            "nav_bid": "Project Bid & Markup",
+            "nav_history": "Saved Estimates",
+            "btn_export_pdf": "Export Bid PDF",
+            "btn_install_app": "Install App",
+            "banner_suite": "Global Standard Suite",
+            "banner_title": "Universal Structure Takeoff & Cost Intelligence",
+            "banner_desc": "Accurate ready-mix, 1:2:4 nominal mix ratios, steel reinforcement, drywall, brick masonry & 1-page PDF bids.",
+            "banner_standards_title": "Civil Engineering Standards",
+            "conc_title": "Concrete & Foundation Slab Takeoff",
+            "conc_desc": "Calculate volume, ready-mix transit mixers & rebar grid",
+            "lbl_length": "Length",
+            "lbl_width": "Width",
+            "lbl_thickness": "Thickness",
+            "lbl_quick_thickness": "Standard Thickness Quick Selector:",
+            "btn_custom_thickness": "Custom Thickness",
+            "lbl_waste_margin": "Waste Factor Margin",
+            "lbl_rebar_spacing": "Rebar Grid Spacing",
+            "conc_mix_title": "Nominal Mix Ratio & Raw Ingredients (1.54 Dry Factor)",
+            "conc_mix_badge": "Site Batched",
+            "conc_mix_desc": "Calculates exact 50kg cement bags, sand, crushed stone / bajri, and Grade 60 steel reinforcement.",
+            "lbl_mix_ratio": "Nominal Concrete Mix Ratio",
+            "lbl_dry_multiplier": "Dry Volume Multiplier Factor",
+            "lbl_cement_rate": "50kg Cement Bag",
+            "lbl_sand_rate": "Sand (per CFT/m³)",
+            "lbl_bajri_rate": "Bajri / Crushed Stone (per CFT/m³)",
+            "lbl_steel_rate": "Steel Sariya (kg)",
+            "lbl_ready_mix_rate": "Ready-Mix Concrete Unit Price",
+            "btn_add_conc_bid": "+ Add Concrete Takeoff to Master Project Bid",
+            "conc_summary_title": "Concrete Takeoff Summary",
+            "conc_summary_badge": "Live Calculated",
+            "conc_total_vol": "Total Wet Concrete Volume (With Waste)",
+            "conc_ready_mix_trucks": "Ready-Mix Trucks:",
+            "conc_site_batched_title": "Site Batched Takeoff (1.54 Factor)",
+            "conc_cement_bags": "50kg Cement Bags:",
+            "conc_sand": "Sand (Rait):",
+            "conc_bajri": "Bajri / Aggregate:",
+            "conc_water": "Mixing Water (0.50 W/C):",
+            "conc_steel": "Steel Reinforcement (Sariya):",
+            "conc_rebar_len": "Rebar Linear Length:",
+            "conc_estimated_cost": "Estimated Concrete Cost:",
+            "wall_title": "Wall Framing, Drywall & Brick Masonry",
+            "wall_desc": "Stud partitions, gypsum plasterboards & red clay brick walls",
+            "wall_type_drywall": "Drywall / Studs",
+            "wall_type_brick": "Red Brick Masonry",
+            "lbl_wall_len": "Total Wall Length",
+            "lbl_wall_hgt": "Wall Height",
+            "lbl_doors": "Number of Doors",
+            "lbl_windows": "Number of Windows",
+            "wall_summary_title": "Wall Takeoff Summary",
+            "studs_count": "Total Framing Studs:",
+            "plates_len": "Top & Bottom Plates:",
+            "drywall_sheets": "Drywall Sheets (Both Sides):",
+            "drywall_screws": "Drywall Screws:",
+            "drywall_mud": "Joint Compound / Mud:",
+            "drywall_tape": "Joint Tape Rolls:",
+            "brick_total": "Total Red Clay Bricks Required",
+            "brick_cement": "Mortar Cement Bags (50kg):",
+            "brick_sand": "Mortar Sand (Rait):",
+            "wall_estimated_cost": "Estimated Wall Material Cost:",
+            "btn_add_wall_bid": "+ Add Wall Takeoff to Master Project Bid",
+            "paint_title": "Surface Coating & Paint Material Takeoff",
+            "paint_desc": "Wall area coverage, primer undercoats & multi-coat gallon packaging",
+            "paint_summary_title": "Paint Takeoff Summary",
+            "paint_total_vol": "Total Paint Quantity",
+            "paint_packaging": "Container Packaging:",
+            "paint_primer": "PVA Primer Undercoat:",
+            "paint_estimated_cost": "Estimated Coating Cost:",
+            "btn_add_paint_bid": "+ Add Paint Takeoff to Master Project Bid",
+            "bid_title": "Master Project Estimate & Contractor Bid",
+            "bid_desc": "Consolidate structural takeoffs, labor, subcontractor margins & generate 1-page client bid PDF",
+            "lbl_proj_name": "Project Name / Location",
+            "lbl_client_name": "Client / General Contractor",
+            "lbl_material_subtotal": "Direct Material Subtotal",
+            "lbl_labor_costs": "Direct In-House Labor Costs",
+            "lbl_subcontractors": "Subcontractor Specialty Trades",
+            "lbl_equipment": "Equipment Rentals, Freight & Permits",
+            "lbl_contingency": "Contingency Buffer Reserve",
+            "lbl_profit_margin": "Contractor Markup / Profit Margin",
+            "btn_save_history": "Save to History",
+            "btn_print_pdf": "Print Official 1-Page PDF",
+            "bid_summary_title": "Executive Bid Summary",
+            "bid_final_callout": "Total Client Proposal Price",
+            "bid_direct_materials": "Direct Materials:",
+            "bid_direct_labor": "Direct Labor Costs:",
+            "bid_subcontractor": "Subcontractor Total:",
+            "bid_equipment": "Equipment & Freight:",
+            "bid_total_direct": "Total Direct Job Costs:",
+            "bid_contingency": "Contingency Buffer Reserve:",
+            "bid_gross_profit": "Contractor Gross Profit:",
+            "history_title": "Saved Project Estimates",
+            "history_desc": "Offline history of locally generated contractor proposals and takeoffs.",
+            "tagline": "Global Material Takeoff & Contractor Bid Suite",
+            "lbl_length_ft": "Length (Feet)",
+            "lbl_length_m": "Length (Meters)",
+            "lbl_width_ft": "Width (Feet)",
+            "lbl_width_m": "Width (Meters)",
+            "lbl_thickness_in": "Thickness (Inches)",
+            "lbl_thickness_cm": "Thickness (cm)",
+            "unit_ft": "ft",
+            "unit_in": "in",
+            "unit_m": "m",
+            "unit_cm": "cm",
+            "badge_live": "Live Calculated",
+            "badge_batched": "Site Batched",
+            "btn_pdf": "Export Bid PDF",
+            "unit_paint_litres": "Litres",
+            "unit_paint_gallons": "Gallons",
+            "pdf_header_title": "PROJECT ESTIMATE & BID PROPOSAL",
+            "pdf_item_desc": "Item Description",
+            "pdf_cost_amount": "Cost Amount",
+            "pdf_terms_title": "PROPOSAL CONDITIONS & ACCEPTANCE:",
+            "pdf_terms_body": "This estimate is based on preliminary material takeoffs and standard regional labor rates. Prices are valid for 30 calendar days from the proposal date. Material price escalations beyond standard margins shall be billed via formal change orders upon owner approval.",
+            "pdf_contractor_sig": "Contractor / Estimator Signature",
+            "pdf_client_sig": "Client Acceptance Signature",
+            "pdf_auth_rep": "Authorized Representative",
+            "pdf_auth_date": "Authorized Signature & Date",
+            "conc_rebar_length": "Rebar Linear Length:",
+            "conc_total_cost": "Estimated Concrete Cost:",
+            "framing_title": "Wall Framing, Drywall & Brick Masonry",
+            "framing_desc": "Stud partitions, gypsum plasterboards & red clay brick walls",
+            "lbl_wall_length": "Total Wall Length",
+            "lbl_wall_height": "Wall Height",
+            "lbl_num_doors": "Number of Doors",
+            "lbl_num_windows": "Number of Windows",
+            "framing_summary_title": "Wall Takeoff Summary",
+            "framing_total_bricks": "Total Red Clay Bricks Required",
+            "framing_mortar_cement": "Mortar Cement Bags (50kg):",
+            "framing_mortar_sand": "Mortar Sand (Rait):",
+            "framing_total_cost": "Estimated Wall Material Cost:",
+            "paint_total_gallons": "Total Paint Quantity",
+            "paint_primer_required": "PVA Primer Undercoat:",
+            "paint_total_cost": "Estimated Coating Cost:",
+            "lbl_project_name": "Project Name / Location",
+            "lbl_labor_rate": "Direct In-House Labor Costs",
+            "lbl_subcontractor": "Subcontractor Specialty Trades",
+            "masonry_title": "Red Brick Masonry"
+      },
+      "ar": {
+            "lbl_country": "الدولة",
+            "lbl_currency": "العملة",
+            "lbl_language": "اللغة",
+            "lbl_regional_std": "المعيار الإقليمي:",
+            "nav_concrete": "الخرسانة والأساسات",
+            "nav_framing": "الجدران والبناء",
+            "nav_paint": "الدهانات والطلاء",
+            "nav_bid": "عرض السعر والعقد",
+            "nav_history": "المشاريع المحفوظة",
+            "btn_export_pdf": "تصدير عرض السعر PDF",
+            "btn_install_app": "تثبيت التطبيق",
+            "banner_suite": "جناح المعايير العالمية",
+            "banner_title": "حساب كميات الهيكل الإنشائي والتكاليف",
+            "banner_desc": "حساب دقيق للخرسانة الجاهزة، نسب الخلط 1:2:4، حديد التسليح، القواطع الجبسية وبناء الطوب.",
+            "banner_standards_title": "معايير الهندسة المدنية",
+            "conc_title": "حساب كميات الخرسانة المسلحة والأساسات",
+            "conc_desc": "حساب الحجم، شاحنات الخرسانة الجاهزة وشبكة حديد التسليح",
+            "lbl_length": "الطول",
+            "lbl_width": "العرض",
+            "lbl_thickness": "السماكة",
+            "lbl_quick_thickness": "محدد السماكة القياسية:",
+            "btn_custom_thickness": "سماكة مخصصة",
+            "lbl_waste_margin": "نسبة الهدر المضافة",
+            "lbl_rebar_spacing": "المسافة بين أسياخ الحديد",
+            "conc_mix_title": "نسب الخلط الاسمي والمكونات الجافة (معامل 1.54)",
+            "conc_mix_badge": "خلط موقعي",
+            "conc_mix_desc": "حساب أكياس الإسمنت 50 كغ، الرمل، البحص/الحصى، وحديد التسليح عالي المقاومة.",
+            "lbl_mix_ratio": "نسبة خلط الخرسانة الاسمية",
+            "lbl_dry_multiplier": "معامل الحجم الجاف",
+            "lbl_cement_rate": "كيس إسمنت 50 كغ",
+            "lbl_sand_rate": "الرمل (لكل م³ / قدم³)",
+            "lbl_bajri_rate": "الحصى / البحص (لكل م³ / قدم³)",
+            "lbl_steel_rate": "حديد التسليح (كغ)",
+            "lbl_ready_mix_rate": "سعر المتر للخرسانة الجاهزة",
+            "btn_add_conc_bid": "+ إضافة خرسانة المشروع إلى عرض السعر العام",
+            "conc_summary_title": "ملخص كميات الخرسانة",
+            "conc_summary_badge": "حساب فوري",
+            "conc_total_vol": "إجمالي حجم الخرسانة الرطبة (مع الهدر)",
+            "conc_ready_mix_trucks": "شاحنات الخرسانة الجاهزة:",
+            "conc_site_batched_title": "حساب الخلط الموقعي (معامل 1.54)",
+            "conc_cement_bags": "أكياس إسمنت (50 كغ):",
+            "conc_sand": "الرمل المطلوب:",
+            "conc_bajri": "البحص / الحصى:",
+            "conc_water": "ماء الخلط المطلوب:",
+            "conc_steel": "حديد التسليح الإجمالي:",
+            "conc_rebar_len": "إجمالي أطوال الأسياخ:",
+            "conc_estimated_cost": "التكلفة الإجمالية للخرسانة:",
+            "wall_title": "قواطع الجبس وبناء الجدران بالطوب",
+            "wall_desc": "قواطع الجبس بورد، الإطارات المعدنية وبناء الطوب الإسمنتي والأحمر",
+            "wall_type_drywall": "جبس بورد / قواطع",
+            "wall_type_brick": "بناء الطوب الأحمر",
+            "lbl_wall_len": "إجمالي طول الجدار",
+            "lbl_wall_hgt": "ارتفاع الجدار",
+            "lbl_doors": "عدد الأبواب",
+            "lbl_windows": "عدد النوافذ",
+            "wall_summary_title": "ملخص كميات الجدران",
+            "studs_count": "إجمالي قطاعات الحديد:",
+            "plates_len": "المسارات العلوية والسفلية:",
+            "drywall_sheets": "ألواح الجبس بورد (الجانبين):",
+            "drywall_screws": "براغي التثبيت:",
+            "drywall_mud": "معجون الفواصل:",
+            "drywall_tape": "شريط الفواصل:",
+            "brick_total": "إجمالي عدد الطوب المطلوب",
+            "brick_cement": "إسمنت المونة (أكياس 50 كغ):",
+            "brick_sand": "رمل المونة المطلوب:",
+            "wall_estimated_cost": "تكلفة مواد الجدران التقديرية:",
+            "btn_add_wall_bid": "+ إضافة مواد الجدران إلى العرض العام",
+            "paint_title": "حساب كميات الدهانات والتشطيبات",
+            "paint_desc": "تغطية مساحات الجدران، طبقات الأساس والتعبئة بالغالون واللتر",
+            "paint_summary_title": "ملخص كميات الدهانات",
+            "paint_total_vol": "إجمالي كمية الدهان المطلوبة",
+            "paint_packaging": "توزيع العبوات:",
+            "paint_primer": "دهان الأساس (برايمر):",
+            "paint_estimated_cost": "التكلفة التقديرية للدهانات:",
+            "btn_add_paint_bid": "+ إضافة الدهانات إلى العرض العام",
+            "bid_title": "جدول الكميات العام وعرض المقاول",
+            "bid_desc": "دمج حسابات الهيكل الإنشائي والعمالة ومقاولي الباطن وتصدير عرض سعر رسمي",
+            "lbl_proj_name": "اسم المشروع والموقع",
+            "lbl_client_name": "العميل / المقاول العام",
+            "lbl_material_subtotal": "إجمالي تكلفة المواد المباشرة",
+            "lbl_labor_costs": "تكلفة العمالة المباشرة",
+            "lbl_subcontractors": "مقاولو الباطن والأعمال المتخصصة",
+            "lbl_equipment": "تأجير المعدات والنقل والتصاريح",
+            "lbl_contingency": "احتياطي الطوارئ والتقلبات",
+            "lbl_profit_margin": "هامش ربح المقاول",
+            "btn_save_history": "حفظ في السجل",
+            "btn_print_pdf": "طباعة العرض الرسمي PDF",
+            "bid_summary_title": "ملخص العرض التنفيذي",
+            "bid_final_callout": "إجمالي سعر العرض النهائي",
+            "bid_direct_materials": "المواد المباشرة:",
+            "bid_direct_labor": "أجور العمالة:",
+            "bid_subcontractor": "مقاولو الباطن:",
+            "bid_equipment": "المعدات والنقل:",
+            "bid_total_direct": "إجمالي التكاليف المباشرة:",
+            "bid_contingency": "احتياطي الطوارئ:",
+            "bid_gross_profit": "هامش الربح الإجمالي:",
+            "history_title": "المشاريع المحفوظة",
+            "history_desc": "سجل عروض الأسعار وحسابات الكميات المحفوظة محلياً.",
+            "tagline": "منظومة حصر المواد الإنشائية وعروض مقاولات البناء العالمية",
+            "lbl_length_ft": "الطول (قدم)",
+            "lbl_length_m": "الطول (متر)",
+            "lbl_width_ft": "العرض (قدم)",
+            "lbl_width_m": "العرض (متر)",
+            "lbl_thickness_in": "السماكة (بوصة)",
+            "lbl_thickness_cm": "السماكة (سم)",
+            "unit_ft": "قدم",
+            "unit_in": "بوصة",
+            "unit_m": "م",
+            "unit_cm": "سم",
+            "badge_live": "حساب مباشر",
+            "badge_batched": "خلط موقعي",
+            "btn_pdf": "تصدير عرض السعر PDF",
+            "unit_paint_litres": "لتر",
+            "unit_paint_gallons": "جالون",
+            "pdf_header_title": "تقدير المشروع وعرض السعر المالي",
+            "pdf_item_desc": "وصف البند الإنشائي",
+            "pdf_cost_amount": "مبلغ التكلفة",
+            "pdf_terms_title": "شروط العرض والموافقة الرسمية:",
+            "pdf_terms_body": "يستند هذا التقدير إلى حصر المواد الأولي ومعدلات العمالة الإقليمية القياسية. الأسعار صالحة لمدة 30 يوما من تاريخ العرض. أي زيادات في أسعار المواد خارج الهوامش القياسية تخضع لأوامر تغيير رسمية بعد موافقة المالك.",
+            "pdf_contractor_sig": "توقيع المقاول / مهندس التقدير",
+            "pdf_client_sig": "توقيع قبول العميل / المالك",
+            "pdf_auth_rep": "الممثل المعتمد",
+            "pdf_auth_date": "التوقيع والتاريخ المعتمد",
+            "conc_rebar_length": "إجمالي أطوال الأسياخ:",
+            "conc_total_cost": "التكلفة الإجمالية للخرسانة:",
+            "framing_title": "قواطع الجبس وبناء الجدران بالطوب",
+            "framing_desc": "قواطع الجبس بورد، الإطارات المعدنية وبناء الطوب الإسمنتي والأحمر",
+            "lbl_wall_length": "إجمالي طول الجدار",
+            "lbl_wall_height": "ارتفاع الجدار",
+            "lbl_num_doors": "عدد الأبواب",
+            "lbl_num_windows": "عدد النوافذ",
+            "framing_summary_title": "ملخص كميات الجدران",
+            "framing_total_bricks": "إجمالي عدد الطوب المطلوب",
+            "framing_mortar_cement": "إسمنت المونة (أكياس 50 كغ):",
+            "framing_mortar_sand": "رمل المونة المطلوب:",
+            "framing_total_cost": "تكلفة مواد الجدران التقديرية:",
+            "paint_total_gallons": "إجمالي كمية الدهان المطلوبة",
+            "paint_primer_required": "دهان الأساس (برايمر):",
+            "paint_total_cost": "التكلفة التقديرية للدهانات:",
+            "lbl_project_name": "اسم المشروع والموقع",
+            "lbl_labor_rate": "تكلفة العمالة المباشرة",
+            "lbl_subcontractor": "مقاولو الباطن والأعمال المتخصصة",
+            "masonry_title": "بناء الطوب الأحمر"
+      },
+      "ur": {
+            "lbl_country": "ملک",
+            "lbl_currency": "کرنسی",
+            "lbl_language": "زبان",
+            "lbl_regional_std": "علاقائی معیار:",
+            "nav_concrete": "کنکریٹ اور سلیب",
+            "nav_framing": "دیواریں اور چنائی",
+            "nav_paint": "رنگ و روغن اور پینٹ",
+            "nav_bid": "پروجیکٹ تخمینہ و کوٹیشن",
+            "nav_history": "محفوظ شدہ تخمینہ جات",
+            "btn_export_pdf": "پی ڈی ایف کوٹیشن بنائیں",
+            "btn_install_app": "ایپ انسٹال کریں",
+            "banner_suite": "عالمی کنسٹرکشن سٹینڈرڈ سوٹ",
+            "banner_title": "تعمیراتی میٹریل تخمینہ اور کوٹیشن سسٹم",
+            "banner_desc": "تیار کنکریٹ، 1:2:4 ریشو، سریا، ڈرائی وال، اینٹوں کی چنائی اور آفیشل 1 پیج کوٹیشن۔",
+            "banner_standards_title": "سول انجینئرنگ سٹینڈرڈز",
+            "conc_title": "کنکریٹ سلیب اور فاؤنڈیشن میٹریل تخمینہ",
+            "conc_desc": "والیم، ریڈی مکس ٹرانزٹ مکسر اور سریا کا مکمل حساب",
+            "lbl_length": "لمبائی",
+            "lbl_width": "چوڑائی",
+            "lbl_thickness": "موٹائی",
+            "lbl_quick_thickness": "سٹینڈرڈ موٹائی سلیکٹر:",
+            "btn_custom_thickness": "اپنی مرضی کی موٹائی",
+            "lbl_waste_margin": "ویسٹیج مارجن",
+            "lbl_rebar_spacing": "سریے کے جال کا فاصلہ",
+            "conc_mix_title": "کنکریٹ مکس ریشو اور خام مال (1.54 ڈرائی فیکٹر)",
+            "conc_mix_badge": "سائٹ مکس",
+            "conc_mix_desc": "50 کلو سیمنٹ بوری، ریت، بجری اور گریڈ 60 سریے کا بالکل درست حساب۔",
+            "lbl_mix_ratio": "کنکریٹ مکس تناسب (ریشو)",
+            "lbl_dry_multiplier": "ڈرائی والیم ملٹی پلائر فیکٹر",
+            "lbl_cement_rate": "سیمنٹ بوری (50 کلو)",
+            "lbl_sand_rate": "ریت (فی کیوبک فٹ / میٹر)",
+            "lbl_bajri_rate": "بجری (فی کیوبک فٹ / میٹر)",
+            "lbl_steel_rate": "سٹیل سریا (فی کلو)",
+            "lbl_ready_mix_rate": "ریڈی مکس کنکریٹ یونٹ ریٹ",
+            "btn_add_conc_bid": "+ کنکریٹ تخمینہ ماسٹر بل میں شامل کریں",
+            "conc_summary_title": "کنکریٹ تخمینہ سمری",
+            "conc_summary_badge": "لائیو کیلکولیٹڈ",
+            "conc_total_vol": "کل کنکریٹ والیم (مع ویسٹیج)",
+            "conc_ready_mix_trucks": "ریڈی مکس ٹرک:",
+            "conc_site_batched_title": "سائٹ مکس میٹریل (1.54 فیکٹر)",
+            "conc_cement_bags": "50 کلو سیمنٹ بوریاں:",
+            "conc_sand": "ریت (کیوبک فٹ):",
+            "conc_bajri": "بجری (کیوبک فٹ):",
+            "conc_water": "مکسنگ پانی کی مقدار:",
+            "conc_steel": "سٹیل سریا (وزن):",
+            "conc_rebar_len": "سریے کی کل لمبائی:",
+            "conc_estimated_cost": "کنکریٹ کل تخمینہ لاگت:",
+            "wall_title": "دیوار کی چنائی اور ڈرائی وال پارٹیشن",
+            "wall_desc": "سٹڈ پارٹیشنز، جپسم بورڈز اور لال اینٹوں کی چنائی کا تخمینہ",
+            "wall_type_drywall": "ڈرائی وال / جپسم",
+            "wall_type_brick": "لال اینٹوں کی چنائی",
+            "lbl_wall_len": "دیوار کی کل لمبائی",
+            "lbl_wall_hgt": "دیوار کی اونچائی",
+            "lbl_doors": "دروازوں کی تعداد",
+            "lbl_windows": "کھڑکیوں کی تعداد",
+            "wall_summary_title": "دیوار میٹریل سمری",
+            "studs_count": "کل فریم سٹڈز:",
+            "plates_len": "ٹاپ اور باٹم پلیٹس:",
+            "drywall_sheets": "جپسم شیٹس (دونوں طرف):",
+            "drywall_screws": "ڈرائی وال اسکرو:",
+            "drywall_mud": "جوائنٹ کمپاؤنڈ / پٹین:",
+            "drywall_tape": "جوائنٹ ٹیپ رولز:",
+            "brick_total": "کل درکار لال اینٹیں",
+            "brick_cement": "مارٹر سیمنٹ بوریاں (50 کلو):",
+            "brick_sand": "مارٹر ریت کی مقدار:",
+            "wall_estimated_cost": "دیوار میٹریل کل لاگت:",
+            "btn_add_wall_bid": "+ دیوار میٹریل ماسٹر بل میں شامل کریں",
+            "paint_title": "پینٹ اور کوٹنگ میٹریل تخمینہ",
+            "paint_desc": "دیواروں اور چھت کا رقبہ، پرائمر کوٹ اور گیلن پیکنگ",
+            "paint_summary_title": "پینٹ میٹریل سمری",
+            "paint_total_vol": "پینٹ کی کل مطلوبہ مقدار",
+            "paint_packaging": "کنٹینر پیکنگ تفصیل:",
+            "paint_primer": "پرائمر انڈر کوٹ:",
+            "paint_estimated_cost": "پینٹ میٹریل تخمینہ لاگت:",
+            "btn_add_paint_bid": "+ پینٹ میٹریل ماسٹر بل میں شامل کریں",
+            "bid_title": "ماسٹر پراجیکٹ تخمینہ و کوٹیشن",
+            "bid_desc": "تمام سٹرکچرل میٹریل، لیبر، سب کنٹریکٹر لاگت جمع کر کے 1 پیج پی ڈی ایف تیار کریں",
+            "lbl_proj_name": "پراجیکٹ کا نام اور پتہ",
+            "lbl_client_name": "کلائنٹ / جنرل کنٹریکٹر",
+            "lbl_material_subtotal": "کل میٹریل لاگت",
+            "lbl_labor_costs": "مزدوری اور لیبر لاگت",
+            "lbl_subcontractors": "سب کنٹریکٹر اسپیشلٹی کام",
+            "lbl_equipment": "مشینری کرایہ، ٹرانسپورٹ اور پرمٹس",
+            "lbl_contingency": "ہنگامی فنڈ / بفر مارجن",
+            "lbl_profit_margin": "کنٹریکٹر منافع (پرافٹ مارجن)",
+            "btn_save_history": "ریکارڈ میں محفوظ کریں",
+            "btn_print_pdf": "آفیشل 1 پیج پی ڈی ایف پرنٹ کریں",
+            "bid_summary_title": "ایگزیکٹو کوٹیشن سمری",
+            "bid_final_callout": "کل فائنل کوٹیشن رقم",
+            "bid_direct_materials": "کل میٹریل خرچ:",
+            "bid_direct_labor": "کل لیبر خرچ:",
+            "bid_subcontractor": "سب کنٹریکٹر لاگت:",
+            "bid_equipment": "مشینری اور کرایہ:",
+            "bid_total_direct": "کل بنیادی پراجیکٹ خرچ:",
+            "bid_contingency": "ہنگامی بفر فنڈ:",
+            "bid_gross_profit": "کنٹریکٹر منافع:",
+            "history_title": "محفوظ شدہ پراجیکٹ تخمینہ جات",
+            "history_desc": "آپ کے تیار کردہ تمام پراجیکٹ کوٹیشنز کا مقامی ریکارڈ۔",
+            "tagline": "عالمی مٹیریل تخمینہ اور کنٹریکٹر بلنگ سسٹم",
+            "lbl_length_ft": "لمبائی (فٹ)",
+            "lbl_length_m": "لمبائی (میٹر)",
+            "lbl_width_ft": "چوڑائی (فٹ)",
+            "lbl_width_m": "چوڑائی (میٹر)",
+            "lbl_thickness_in": "موٹائی (انچ)",
+            "lbl_thickness_cm": "موٹائی (سینٹی میٹر)",
+            "unit_ft": "فٹ",
+            "unit_in": "انچ",
+            "unit_m": "میٹر",
+            "unit_cm": "سینٹی میٹر",
+            "badge_live": "لائیو حساب",
+            "badge_batched": "سائٹ مکسنگ",
+            "btn_pdf": "پی ڈی ایف پروپوزل نکالیں",
+            "unit_paint_litres": "لیٹر",
+            "unit_paint_gallons": "گیلن",
+            "pdf_header_title": "پروجیکٹ تخمینہ اور باضابطہ کنٹریکٹر پروپوزل",
+            "pdf_item_desc": "آئٹم کی تفصیل",
+            "pdf_cost_amount": "لاگت کی رقم",
+            "pdf_terms_title": "پروپوزل کی شرائط اور منظوری:",
+            "pdf_terms_body": "یہ تخمینہ ابتدائی میٹریل ٹیک آف اور معیاری ریجنل لیبر ریٹس پر مبنی ہے۔ قیمتیں پروپوزل کی تاریخ سے 30 یوم کے لیے کارآمد ہیں۔ مٹیریل قیمتوں میں اضافہ باضابطہ چینج آرڈر کے ذریعے نافذ ہوگا۔",
+            "pdf_contractor_sig": "دستخط کنٹریکٹر / انجینئر",
+            "pdf_client_sig": "دستخط کلائنٹ / منظور کنندہ",
+            "pdf_auth_rep": "مجاز نمائندہ",
+            "pdf_auth_date": "تاریخ اور مجاز دستخط",
+            "conc_rebar_length": "سریے کی کل لمبائی:",
+            "conc_total_cost": "کنکریٹ کل تخمینہ لاگت:",
+            "framing_title": "دیوار کی چنائی اور ڈرائی وال پارٹیشن",
+            "framing_desc": "سٹڈ پارٹیشنز، جپسم بورڈز اور لال اینٹوں کی چنائی کا تخمینہ",
+            "lbl_wall_length": "دیوار کی کل لمبائی",
+            "lbl_wall_height": "دیوار کی اونچائی",
+            "lbl_num_doors": "دروازوں کی تعداد",
+            "lbl_num_windows": "کھڑکیوں کی تعداد",
+            "framing_summary_title": "دیوار میٹریل سمری",
+            "framing_total_bricks": "کل درکار لال اینٹیں",
+            "framing_mortar_cement": "مارٹر سیمنٹ بوریاں (50 کلو):",
+            "framing_mortar_sand": "مارٹر ریت کی مقدار:",
+            "framing_total_cost": "دیوار میٹریل کل لاگت:",
+            "paint_total_gallons": "پینٹ کی کل مطلوبہ مقدار",
+            "paint_primer_required": "پرائمر انڈر کوٹ:",
+            "paint_total_cost": "پینٹ میٹریل تخمینہ لاگت:",
+            "lbl_project_name": "پراجیکٹ کا نام اور پتہ",
+            "lbl_labor_rate": "مزدوری اور لیبر لاگت",
+            "lbl_subcontractor": "سب کنٹریکٹر اسپیشلٹی کام",
+            "masonry_title": "لال اینٹوں کی چنائی"
+      },
+      "hi": {
+            "lbl_country": "देश",
+            "lbl_currency": "मुद्रा",
+            "lbl_language": "भाषा",
+            "lbl_regional_std": "क्षेत्रीय मानक:",
+            "nav_concrete": "कंक्रीट और स्लैब",
+            "nav_framing": "दीवार और चिनाई",
+            "nav_paint": "पेंट और कोटिंग्स",
+            "nav_bid": "प्रोजेक्ट बिड और लागत",
+            "nav_history": "सहेजे गए अनुमान",
+            "btn_export_pdf": "बिड पीडीएफ निकालें",
+            "btn_install_app": "ऐप इंस्टॉल करें",
+            "banner_suite": "ग्लोबल कंस्ट्रक्शन मानक",
+            "banner_title": "निर्माण सामग्री अनुमान और लागत प्रणाली",
+            "banner_desc": "सटीक रेडी-मिक्स, 1:2:4 अनुपात, सरिया, ड्राईवॉल, ईंट चिनाई और 1-पेज पीडीएफ प्रस्ताव।",
+            "banner_standards_title": "सिविल इंजीनियरिंग मानक",
+            "conc_title": "कंक्रीट स्लैब और नींव सामग्री अनुमान",
+            "conc_desc": "आयतन, रेडी-मिक्स ट्रांजिट मिक्सर और सरिया ग्रिड की गणना",
+            "lbl_length": "लंबाई",
+            "lbl_width": "चौड़ाई",
+            "lbl_thickness": "मोटाई",
+            "lbl_quick_thickness": "मानक मोटाई चयनकर्ता:",
+            "btn_custom_thickness": "कस्टम मोटाई",
+            "lbl_waste_margin": "अपव्यय मार्जिन",
+            "lbl_rebar_spacing": "सरिया ग्रिड की दूरी",
+            "conc_mix_title": "कंक्रीट मिक्स अनुपात और सामग्री (1.54 ड्राई फैक्टर)",
+            "conc_mix_badge": "साइट मिक्स्ड",
+            "conc_mix_desc": "50 किग्रा सीमेंट बोरी, रेत, बजरी और ग्रेड 60 सरिया की सटीक गणना।",
+            "lbl_mix_ratio": "कंक्रीट मिक्स अनुपात",
+            "lbl_dry_multiplier": "ड्राई वॉल्यूम गुणक",
+            "lbl_cement_rate": "50 किग्रा सीमेंट बोरी",
+            "lbl_sand_rate": "रेत (प्रति CFT/m³)",
+            "lbl_bajri_rate": "बजरी / गिट्टी (प्रति CFT/m³)",
+            "lbl_steel_rate": "स्टील सरिया (प्रति किग्रा)",
+            "lbl_ready_mix_rate": "रेडी-मिक्स कंक्रीट प्रति यूनिट दर",
+            "btn_add_conc_bid": "+ कंक्रीट अनुमान को मुख्य बिड में जोड़ें",
+            "conc_summary_title": "कंक्रीट सामग्री सारांश",
+            "conc_summary_badge": "लाइव परिकलित",
+            "conc_total_vol": "कुल गीला कंक्रीट आयतन (अपव्यय सहित)",
+            "conc_ready_mix_trucks": "रेडी-मिक्स ट्रक:",
+            "conc_site_batched_title": "साइट मिक्स्ड सामग्री (1.54 फैक्टर)",
+            "conc_cement_bags": "50 किग्रा सीमेंट बोरियां:",
+            "conc_sand": "रेत (CFT):",
+            "conc_bajri": "बजरी / गिट्टी (CFT):",
+            "conc_water": "मिश्रण जल:",
+            "conc_steel": "स्टील सरिया (वजन):",
+            "conc_rebar_len": "सरिया की कुल लंबाई:",
+            "conc_estimated_cost": "अनुमानित कंक्रीट लागत:",
+            "wall_title": "दीवार फ्रेमिंग, ड्राईवॉल और ईंट चिनाई",
+            "wall_desc": "स्टड विभाजन, जिप्सम बोर्ड और लाल ईंट चिनाई का अनुमान",
+            "wall_type_drywall": "ड्राईवॉल / जिप्सम",
+            "wall_type_brick": "लाल ईंट चिनाई",
+            "lbl_wall_len": "दीवार की कुल लंबाई",
+            "lbl_wall_hgt": "दीवार की ऊंचाई",
+            "lbl_doors": "दरवाजों की संख्या",
+            "lbl_windows": "खिड़कियों की संख्या",
+            "wall_summary_title": "दीवार सामग्री सारांश",
+            "studs_count": "कुल फ्रेमिंग स्टड:",
+            "plates_len": "शीर्ष और निचले प्लेट:",
+            "drywall_sheets": "जिप्सम शीट (दोनों तरफ):",
+            "drywall_screws": "ड्राईवॉल स्क्रू:",
+            "drywall_mud": "ज्वाइंट कंपाउंड / पुट्टी:",
+            "drywall_tape": "ज्वाइंट टेप रोल:",
+            "brick_total": "आवश्यक कुल लाल ईंटें",
+            "brick_cement": "मोर्टार सीमेंट बोरियां (50 किग्रा):",
+            "brick_sand": "मोर्टार रेत की मात्रा:",
+            "wall_estimated_cost": "अनुमानित दीवार सामग्री लागत:",
+            "btn_add_wall_bid": "+ दीवार सामग्री को मुख्य बिड में जोड़ें",
+            "paint_title": "सतह कोटिंग और पेंट सामग्री अनुमान",
+            "paint_desc": "दीवार और छत कवरेज, प्राइमर अंडरकोट और गैलन पैकेजिंग",
+            "paint_summary_title": "पेंट सामग्री सारांश",
+            "paint_total_vol": "कुल पेंट मात्रा",
+            "paint_packaging": "कंटेनर पैकेजिंग:",
+            "paint_primer": "प्राइमर अंडरकोट:",
+            "paint_estimated_cost": "अनुमानित पेंट लागत:",
+            "btn_add_paint_bid": "+ पेंट सामग्री को मुख्य बिड में जोड़ें",
+            "bid_title": "मास्टर प्रोजेक्ट अनुमान और ठेकेदार बिड",
+            "bid_desc": "स्ट्रक्चरल सामग्री, श्रम, उपठेकेदार लागत समेकित करें और 1-पेज पीडीएफ बनाएं",
+            "lbl_proj_name": "प्रोजेक्ट का नाम / स्थान",
+            "lbl_client_name": "ग्राहक / सामान्य ठेकेदार",
+            "lbl_material_subtotal": "प्रत्यक्ष सामग्री उप-योग",
+            "lbl_labor_costs": "प्रत्यक्ष इन-हाउस श्रम लागत",
+            "lbl_subcontractors": "उपठेकेदार विशेषज्ञ कार्य",
+            "lbl_equipment": "उपकरण किराया, भाड़ा और परमिट",
+            "lbl_contingency": "आकस्मिक बफर रिज़र्व",
+            "lbl_profit_margin": "ठेकेदार मार्कअप / लाभ मार्जिन",
+            "btn_save_history": "इतिहास में सहेजें",
+            "btn_print_pdf": "आधिकारिक 1-पेज पीडीएफ प्रिंट करें",
+            "bid_summary_title": "कार्यकारी बिड सारांश",
+            "bid_final_callout": "कुल ग्राहक प्रस्ताव मूल्य",
+            "bid_direct_materials": "प्रत्यक्ष सामग्री:",
+            "bid_direct_labor": "प्रत्यक्ष श्रम लागत:",
+            "bid_subcontractor": "उपठेकेदार कुल:",
+            "bid_equipment": "उपकरण और भाड़ा:",
+            "bid_total_direct": "कुल प्रत्यक्ष लागत:",
+            "bid_contingency": "आकस्मिक बफर रिज़र्व:",
+            "bid_gross_profit": "ठेकेदार सकल लाभ:",
+            "history_title": "सहेजे गए प्रोजेक्ट अनुमान",
+            "history_desc": "स्थानीय रूप से उत्पन्न ठेकेदार प्रस्तावों का ऑफ़लाइन इतिहास।",
+            "tagline": "वैश्विक सामग्री टेकऑफ़ और ठेकेदार बोली प्रणाली",
+            "lbl_length_ft": "लंबाई (फीट)",
+            "lbl_length_m": "लंबाई (मीटर)",
+            "lbl_width_ft": "चौड़ाई (फीट)",
+            "lbl_width_m": "चौड़ाई (मीटर)",
+            "lbl_thickness_in": "मोटाई (इंच)",
+            "lbl_thickness_cm": "मोटाई (सेमी)",
+            "unit_ft": "फीट",
+            "unit_in": "इंच",
+            "unit_m": "मीटर",
+            "unit_cm": "सेमी",
+            "badge_live": "लाइव परिकलित",
+            "badge_batched": "साइट पर तैयार",
+            "btn_pdf": "बोली पीडीएफ निर्यात करें",
+            "unit_paint_litres": "लीटर",
+            "unit_paint_gallons": "गैलन",
+            "pdf_header_title": "परियोजना अनुमान और बोली प्रस्ताव",
+            "pdf_item_desc": "मद विवरण",
+            "pdf_cost_amount": "लागत राशि",
+            "pdf_terms_title": "प्रस्ताव की शर्तें और स्वीकृति:",
+            "pdf_terms_body": "यह अनुमान सामग्री टेकऑफ़ और क्षेत्रीय श्रम दरों पर आधारित है। कीमतें 30 दिनों के लिए मान्य हैं।",
+            "pdf_contractor_sig": "ठेकेदार / अनुमानक हस्ताक्षर",
+            "pdf_client_sig": "ग्राहक स्वीकृति हस्ताक्षर",
+            "pdf_auth_rep": "अधिकृत प्रतिनिधि",
+            "pdf_auth_date": "अधिकृत हस्ताक्षर और दिनांक",
+            "conc_rebar_length": "सरिया की कुल लंबाई:",
+            "conc_total_cost": "अनुमानित कंक्रीट लागत:",
+            "framing_title": "दीवार फ्रेमिंग, ड्राईवॉल और ईंट चिनाई",
+            "framing_desc": "स्टड विभाजन, जिप्सम बोर्ड और लाल ईंट चिनाई का अनुमान",
+            "lbl_wall_length": "दीवार की कुल लंबाई",
+            "lbl_wall_height": "दीवार की ऊंचाई",
+            "lbl_num_doors": "दरवाजों की संख्या",
+            "lbl_num_windows": "खिड़कियों की संख्या",
+            "framing_summary_title": "दीवार सामग्री सारांश",
+            "framing_total_bricks": "आवश्यक कुल लाल ईंटें",
+            "framing_mortar_cement": "मोर्टार सीमेंट बोरियां (50 किग्रा):",
+            "framing_mortar_sand": "मोर्टार रेत की मात्रा:",
+            "framing_total_cost": "अनुमानित दीवार सामग्री लागत:",
+            "paint_total_gallons": "कुल पेंट मात्रा",
+            "paint_primer_required": "प्राइमर अंडरकोट:",
+            "paint_total_cost": "अनुमानित पेंट लागत:",
+            "lbl_project_name": "प्रोजेक्ट का नाम / स्थान",
+            "lbl_labor_rate": "प्रत्यक्ष इन-हाउस श्रम लागत",
+            "lbl_subcontractor": "उपठेकेदार विशेषज्ञ कार्य",
+            "masonry_title": "लाल ईंट चिनाई"
+      },
+      "bn": {
+            "lbl_country": "দেশ",
+            "lbl_currency": "মুদ্রা",
+            "lbl_language": "ভাষা",
+            "lbl_regional_std": "আঞ্চলিক মান:",
+            "nav_concrete": "কংক্রিট ও স্ল্যাব",
+            "nav_framing": "দেয়াল ও গাঁথুনি",
+            "nav_paint": "রং ও কোটিং",
+            "nav_bid": "প্রকল্প দরপত্র ও খরচ",
+            "nav_history": "সংরক্ষিত প্রাক্কলন",
+            "btn_export_pdf": "দরপত্র পিডিএফ তৈরি করুন",
+            "btn_install_app": "অ্যাপ ইনস্টল করুন",
+            "banner_suite": "গ্লোবাল স্ট্যান্ডার্ড স্যুট",
+            "banner_title": "নির্মাণ সামগ্রী প্রাক্কলন ও খরচ ব্যবস্থাপনা",
+            "banner_desc": "সঠিক রেডি-মিক্স, ১:২:৪ অনুপাত, রড/স্টিল, ড্রাইওয়াল, ইটের গাঁথুনি এবং ১-পৃষ্ঠা পিডিএফ প্রস্তাব।",
+            "banner_standards_title": "সিভিল ইঞ্জিনিয়ারিং স্ট্যান্ডার্ড",
+            "conc_title": "কংক্রিট স্ল্যাব ও ফাউন্ডেশন সামগ্রী প্রাক্কলন",
+            "conc_desc": "আয়তন, রেডি-মিক্স ট্রানজিট মিক্সার এবং রড জালের হিসাব",
+            "lbl_length": "দৈর্ঘ্য",
+            "lbl_width": "প্রস্থ",
+            "lbl_thickness": "পুরুত্ব",
+            "lbl_quick_thickness": "স্ট্যান্ডার্ড পুরুত্ব নির্বাচক:",
+            "btn_custom_thickness": "কাস্টম পুরুত্ব",
+            "lbl_waste_margin": "অপচয় মার্জিন",
+            "lbl_rebar_spacing": "রড গ্রিড ব্যবধান",
+            "conc_mix_title": "কংক্রিট মিক্স অনুপাত ও কাঁচামাল (১.৫৪ ড্রাই ফ্যাক্টর)",
+            "conc_mix_badge": "সাইট মিক্সড",
+            "conc_mix_desc": "৫০ কেজি সিমেন্ট ব্যাগ, বালু, পাথর/খোয়া এবং গ্রেড ৬০ রডের নির্ভুল হিসাব।",
+            "lbl_mix_ratio": "কংক্রিট মিক্স অনুপাত",
+            "lbl_dry_multiplier": "ড্রাই ভলিউম গুণক ফ্যাক্টর",
+            "lbl_cement_rate": "৫০ কেজি সিমেন্ট ব্যাগ",
+            "lbl_sand_rate": "বালু (প্রতি CFT/m³)",
+            "lbl_bajri_rate": "পাথর/খোয়া (প্রতি CFT/m³)",
+            "lbl_steel_rate": "স্টিল রড (প্রতি কেজি)",
+            "lbl_ready_mix_rate": "রেডি-মিক্স কংক্রিট প্রতি ইউনিট দর",
+            "btn_add_conc_bid": "+ কংক্রিট হিসাব মাস্টার বিডে যোগ করুন",
+            "conc_summary_title": "কংক্রিট প্রাক্কলন সারাংশ",
+            "conc_summary_badge": "লাইভ গণনাকৃত",
+            "conc_total_vol": "মোট ভেজা কংক্রিটের পরিমাণ (অপচয় সহ)",
+            "conc_ready_mix_trucks": "রেডি-মিক্স ট্রাক:",
+            "conc_site_batched_title": "সাইট মিক্স সামগ্রী (১.৫৪ ফ্যাক্টর)",
+            "conc_cement_bags": "৫০ কেজি সিমেন্ট ব্যাগ:",
+            "conc_sand": "বালু (CFT):",
+            "conc_bajri": "পাথর / খোয়া (CFT):",
+            "conc_water": "মিশ্রণ পানি:",
+            "conc_steel": "স্টিল রড (ওজন):",
+            "conc_rebar_len": "রডের মোট দৈর্ঘ্য:",
+            "conc_estimated_cost": "আনুমানিক কংক্রিট খরচ:",
+            "wall_title": "দেয়াল ফ্রেম, ড্রাইওয়াল ও ইটের গাঁথুনি",
+            "wall_desc": "স্টাড পার্টিশন, জিপসাম বোর্ড এবং লাল ইটের গাঁথুনির হিসাব",
+            "wall_type_drywall": "ড্রাইওয়াল / জিপসাম",
+            "wall_type_brick": "লাল ইটের গাঁথুনি",
+            "lbl_wall_len": "দেয়ালের মোট দৈর্ঘ্য",
+            "lbl_wall_hgt": "দেয়ালের উচ্চতা",
+            "lbl_doors": "দরজার সংখ্যা",
+            "lbl_windows": "জানালার সংখ্যা",
+            "wall_summary_title": "দেয়াল সামগ্রী সারাংশ",
+            "studs_count": "মোট ফ্রেমিং স্টাড:",
+            "plates_len": "টপ ও বটম প্লেট:",
+            "drywall_sheets": "জিপসাম শিট (উভয় পাশ):",
+            "drywall_screws": "ড্রাইওয়াল স্ক্রু:",
+            "drywall_mud": "জয়েন্ট কম্পাউন্ড / পুটি:",
+            "drywall_tape": "জয়েন্ট টেপ রোল:",
+            "brick_total": "প্রয়োজনীয় মোট লাল ইট",
+            "brick_cement": "মর্টার সিমেন্ট ব্যাগ (৫০ কেজি):",
+            "brick_sand": "মর্টার বালুর পরিমাণ:",
+            "wall_estimated_cost": "দেয়াল সামগ্রীর আনুমানিক খরচ:",
+            "btn_add_wall_bid": "+ দেয়াল সামগ্রী মাস্টার বিডে যোগ করুন",
+            "paint_title": "পৃষ্ঠতল রং ও পেইন্ট সামগ্রী হিসাব",
+            "paint_desc": "দেয়াল ও ছাদের আয়তন, প্রাইমার আন্ডারকোট ও গ্যালন প্যাকেজিং",
+            "paint_summary_title": "রং সামগ্রী সারাংশ",
+            "paint_total_vol": "মোট রঙের পরিমাণ",
+            "paint_packaging": "কন্টেইনার প্যাকেজিং:",
+            "paint_primer": "প্রাইমার আন্ডারকোট:",
+            "paint_estimated_cost": "রং করার আনুমানিক খরচ:",
+            "btn_add_paint_bid": "+ রং সামগ্রী মাস্টার বিডে যোগ করুন",
+            "bid_title": "মাস্টার প্রজেক্ট প্রাক্কলন ও দরপত্র",
+            "bid_desc": "কাঠামোগত সামগ্রী, শ্রম ও সাব-কন্ট্রাক্টর খরচ একত্রিত করে ১-পৃষ্ঠা পিডিএফ তৈরি করুন",
+            "lbl_proj_name": "প্রকল্পের নাম ও অবস্থান",
+            "lbl_client_name": "ক্লায়েন্ট / সাধারণ ঠিকাদার",
+            "lbl_material_subtotal": "প্রত্যক্ষ সামগ্রী উপমোট",
+            "lbl_labor_costs": "প্রত্যক্ষ ইন-হাউস শ্রম খরচ",
+            "lbl_subcontractors": "সাব-কন্ট্রাক্টর বিশেষ কাজ",
+            "lbl_equipment": "যন্ত্রপাতি ভাড়া, পরিবহন ও অনুমতি",
+            "lbl_contingency": "জরুরী বাফার তহবিল",
+            "lbl_profit_margin": "কন্ট্রাক্টর লাভ (প্রফিট মার্জিন)",
+            "btn_save_history": "রেকর্ডে সংরক্ষণ করুন",
+            "btn_print_pdf": "অফিসিয়াল ১-পৃষ্ঠা পিডিএফ প্রিন্ট করুন",
+            "bid_summary_title": "নির্বাহী দরপত্র সারাংশ",
+            "bid_final_callout": "মোট চূড়ান্ত প্রস্তাব মূল্য",
+            "bid_direct_materials": "প্রত্যক্ষ সামগ্রী:",
+            "bid_direct_labor": "শ্রমিক মজুরি:",
+            "bid_subcontractor": "সাব-কন্ট্রাক্টর মোট:",
+            "bid_equipment": "যন্ত্রপাতি ও পরিবহন:",
+            "bid_total_direct": "মোট প্রত্যক্ষ ব্যয়:",
+            "bid_contingency": "জরুরী বাফার তহবিল:",
+            "bid_gross_profit": "কন্ট্রাক্টরের মোট লাভ:",
+            "history_title": "সংরক্ষিত প্রাক্কলনসমূহ",
+            "history_desc": "স্থানীয়ভাবে তৈরি ঠিকাদারি প্রস্তাব ও হিসাবের ইতিহাস।",
+            "tagline": "আন্তর্জাতিক নির্মাণ সামগ্রী হিসাব ও ঠিকাদার দরপত্র স্যুট",
+            "lbl_length_ft": "দৈর্ঘ্য (ফুট)",
+            "lbl_length_m": "দৈর্ঘ্য (মিটার)",
+            "lbl_width_ft": "প্রস্থ (ফুট)",
+            "lbl_width_m": "প্রস্থ (মিটার)",
+            "lbl_thickness_in": "পুরুত্ব (ইঞ্চি)",
+            "lbl_thickness_cm": "পুরুত্ব (সেমি)",
+            "unit_ft": "ফুট",
+            "unit_in": "ইঞ্চি",
+            "unit_m": "মিটার",
+            "unit_cm": "সেমি",
+            "badge_live": "লাইভ গণনাকৃত",
+            "badge_batched": "সাইট মিক্সড",
+            "btn_pdf": "দরপত্র পিডিএফ ডাউনলোড",
+            "unit_paint_litres": "লিটার",
+            "unit_paint_gallons": "গ্যালন",
+            "pdf_header_title": "প্রকল্প প্রাক্কলন ও ঠিকাদার দরপত্র",
+            "pdf_item_desc": "কাজের বিবরণ",
+            "pdf_cost_amount": "খরচের পরিমাণ",
+            "pdf_terms_title": "দরপত্রের শর্তাবলী ও স্বীকৃতি:",
+            "pdf_terms_body": "এই প্রাক্কলন নির্মাণ সামগ্রীর প্রাথমিক হিসাব এবং আঞ্চলিক শ্রম হারের উপর ভিত্তি করে প্রস্তুত। দরপত্রের মূল্য ৩০ দিন পর্যন্ত কার্যকর।",
+            "pdf_contractor_sig": "ঠিকাদার / হিসাবকারী স্বাক্ষর",
+            "pdf_client_sig": "ক্লায়েন্ট স্বীকৃতি স্বাক্ষর",
+            "pdf_auth_rep": "অনুমোদিত প্রতিনিধি",
+            "pdf_auth_date": "স্বাক্ষর ও তারিখ",
+            "conc_rebar_length": "রডের মোট দৈর্ঘ্য:",
+            "conc_total_cost": "আনুমানিক কংক্রিট খরচ:",
+            "framing_title": "দেয়াল ফ্রেম, ড্রাইওয়াল ও ইটের গাঁথুনি",
+            "framing_desc": "স্টাড পার্টিশন, জিপসাম বোর্ড এবং লাল ইটের গাঁথুনির হিসাব",
+            "lbl_wall_length": "দেয়ালের মোট দৈর্ঘ্য",
+            "lbl_wall_height": "দেয়ালের উচ্চতা",
+            "lbl_num_doors": "দরজার সংখ্যা",
+            "lbl_num_windows": "জানালার সংখ্যা",
+            "framing_summary_title": "দেয়াল সামগ্রী সারাংশ",
+            "framing_total_bricks": "প্রয়োজনীয় মোট লাল ইট",
+            "framing_mortar_cement": "মর্টার সিমেন্ট ব্যাগ (৫০ কেজি):",
+            "framing_mortar_sand": "মর্টার বালুর পরিমাণ:",
+            "framing_total_cost": "দেয়াল সামগ্রীর আনুমানিক খরচ:",
+            "paint_total_gallons": "মোট রঙের পরিমাণ",
+            "paint_primer_required": "প্রাইমার আন্ডারকোট:",
+            "paint_total_cost": "রং করার আনুমানিক খরচ:",
+            "lbl_project_name": "প্রকল্পের নাম ও অবস্থান",
+            "lbl_labor_rate": "প্রত্যক্ষ ইন-হাউস শ্রম খরচ",
+            "lbl_subcontractor": "সাব-কন্ট্রাক্টর বিশেষ কাজ",
+            "masonry_title": "লাল ইটের গাঁথুনি"
+      },
+      "es": {
+            "lbl_country": "País",
+            "lbl_currency": "Moneda",
+            "lbl_language": "Idioma",
+            "lbl_regional_std": "Estándar Regional:",
+            "nav_concrete": "Hormigón y Losas",
+            "nav_framing": "Tabiquería y Muros",
+            "nav_paint": "Pintura y Acabados",
+            "nav_bid": "Propuesta y Presupuesto",
+            "nav_history": "Presupuestos Guardados",
+            "btn_export_pdf": "Exportar Presupuesto PDF",
+            "btn_install_app": "Instalar Aplicación",
+            "banner_suite": "Suite de Estándares Globales",
+            "banner_title": "Cómputo Métrico Estructural e Inteligencia de Costos",
+            "banner_desc": "Cálculo exacto de hormigón preparado, dosificación 1:2:4, armadura de acero, placas de yeso y ladrillo.",
+            "banner_standards_title": "Normas de Ingeniería Civil",
+            "conc_title": "Cómputo de Hormigón y Losas de Cimentación",
+            "conc_desc": "Cálculo de volumen, camiones hormigonera y malla de armadura",
+            "lbl_length": "Longitud",
+            "lbl_width": "Anchura",
+            "lbl_thickness": "Espesor",
+            "lbl_quick_thickness": "Selector Rápido de Espesor:",
+            "btn_custom_thickness": "Espesor Personalizado",
+            "lbl_waste_margin": "Margen de Desperdicio",
+            "lbl_rebar_spacing": "Separación de Malla de Acero",
+            "conc_mix_title": "Dosificación Nominal y Materiales (Factor Seco 1.54)",
+            "conc_mix_badge": "Elaborado en Obra",
+            "conc_mix_desc": "Calcula sacos de cemento de 50kg, arena, grava/árido y acero corrugado Grado 60.",
+            "lbl_mix_ratio": "Relación de Mezcla Nominal",
+            "lbl_dry_multiplier": "Factor Multiplicador de Volumen Seco",
+            "lbl_cement_rate": "Saco de Cemento de 50kg",
+            "lbl_sand_rate": "Arena (por m³ / pie³)",
+            "lbl_bajri_rate": "Grava / Árido (por m³ / pie³)",
+            "lbl_steel_rate": "Acero Corrugado (kg)",
+            "lbl_ready_mix_rate": "Precio Unitario de Hormigón Preparado",
+            "btn_add_conc_bid": "+ Añadir Hormigón al Presupuesto General",
+            "conc_summary_title": "Resumen de Hormigón",
+            "conc_summary_badge": "Cálculo en Vivo",
+            "conc_total_vol": "Volumen Total de Hormigón Húmedo (Con Pérdidas)",
+            "conc_ready_mix_trucks": "Camiones Hormigonera:",
+            "conc_site_batched_title": "Mezcla en Obra (Factor 1.54)",
+            "conc_cement_bags": "Sacos de Cemento (50kg):",
+            "conc_sand": "Arena Requerida:",
+            "conc_bajri": "Grava / Árido:",
+            "conc_water": "Agua de Amasado:",
+            "conc_steel": "Armadura de Acero:",
+            "conc_rebar_len": "Longitud Lineal de Barras:",
+            "conc_estimated_cost": "Coste Estimado de Hormigón:",
+            "wall_title": "Tabiquería Seca y Muros de Ladrillo",
+            "wall_desc": "Estructuras de montantes, placas de yeso y fábrica de ladrillo cerámico",
+            "wall_type_drywall": "Placa de Yeso / Drywall",
+            "wall_type_brick": "Fábrica de Ladrillo Rojo",
+            "lbl_wall_len": "Longitud Total del Muro",
+            "lbl_wall_hgt": "Altura del Muro",
+            "lbl_doors": "Número de Puertas",
+            "lbl_windows": "Número de Ventanas",
+            "wall_summary_title": "Resumen de Muros",
+            "studs_count": "Total Montantes de Estructura:",
+            "plates_len": "Perfiles Guía Superior e Inferior:",
+            "drywall_sheets": "Placas de Yeso (Ambas Caras):",
+            "drywall_screws": "Tornillos de Fijación:",
+            "drywall_mud": "Pasta para Juntas:",
+            "drywall_tape": "Cinta de Juntas:",
+            "brick_total": "Total Ladrillos Cerámicos Requeridos",
+            "brick_cement": "Cemento de Mortero (Sacos 50kg):",
+            "brick_sand": "Arena de Mortero Requerida:",
+            "wall_estimated_cost": "Coste Estimado de Materiales:",
+            "btn_add_wall_bid": "+ Añadir Muros al Presupuesto General",
+            "paint_title": "Cómputo de Pintura y Revestimientos",
+            "paint_desc": "Cobertura de superficies, imprimación fijadora y envasado en galones/litros",
+            "paint_summary_title": "Resumen de Pintura",
+            "paint_total_vol": "Cantidad Total de Pintura",
+            "paint_packaging": "Distribución de Envases:",
+            "paint_primer": "Imprimación Fijadora:",
+            "paint_estimated_cost": "Coste Estimado de Pintura:",
+            "btn_add_paint_bid": "+ Añadir Pintura al Presupuesto General",
+            "bid_title": "Presupuesto Maestro y Oferta de Contrata",
+            "bid_desc": "Consolide mediciones estructurales, mano de obra, subcontratas y genere PDF oficial de 1 página",
+            "lbl_proj_name": "Nombre del Proyecto y Ubicación",
+            "lbl_client_name": "Cliente / Contratista Principal",
+            "lbl_material_subtotal": "Coste Directo de Materiales",
+            "lbl_labor_costs": "Mano de Obra Directa",
+            "lbl_subcontractors": "Oficios Especialistas y Subcontratas",
+            "lbl_equipment": "Alquiler de Maquinaria y Permisos",
+            "lbl_contingency": "Reserva para Imprevistos",
+            "lbl_profit_margin": "Margen de Beneficio del Contratista",
+            "btn_save_history": "Guardar en Historial",
+            "btn_print_pdf": "Imprimir Propuesta Oficial PDF",
+            "bid_summary_title": "Resumen Ejecutivo de la Oferta",
+            "bid_final_callout": "Precio Total de la Propuesta",
+            "bid_direct_materials": "Materiales Directos:",
+            "bid_direct_labor": "Mano de Obra Directa:",
+            "bid_subcontractor": "Subcontratas:",
+            "bid_equipment": "Maquinaria y Fletes:",
+            "bid_total_direct": "Coste Directo Total:",
+            "bid_contingency": "Fondo de Imprevistos:",
+            "bid_gross_profit": "Beneficio Bruto Contratista:",
+            "history_title": "Presupuestos Guardados",
+            "history_desc": "Historial local de ofertas y cómputos métricos generados.",
+            "tagline": "Cálculo Global de Materiales y Presupuestos de Construcción",
+            "lbl_length_ft": "Longitud (Pies)",
+            "lbl_length_m": "Longitud (Metros)",
+            "lbl_width_ft": "Ancho (Pies)",
+            "lbl_width_m": "Ancho (Metros)",
+            "lbl_thickness_in": "Espesor (Pulgadas)",
+            "lbl_thickness_cm": "Espesor (cm)",
+            "unit_ft": "pies",
+            "unit_in": "pulg",
+            "unit_m": "m",
+            "unit_cm": "cm",
+            "badge_live": "Cálculo en Vivo",
+            "badge_batched": "Mezclado en Obra",
+            "btn_pdf": "Exportar Presupuesto PDF",
+            "unit_paint_litres": "Litros",
+            "unit_paint_gallons": "Galones",
+            "pdf_header_title": "PRESUPUESTO DE PROYECTO Y PROPUESTA DE CONTRATISTA",
+            "pdf_item_desc": "Descripción del Concepto",
+            "pdf_cost_amount": "Monto de Costo",
+            "pdf_terms_title": "CONDICIONES Y ACEPTACIÓN DE LA PROPUESTA:",
+            "pdf_terms_body": "Este presupuesto se basa en cuantificaciones preliminares de materiales y tarifas estándar de mano de obra. Válido por 30 días.",
+            "pdf_contractor_sig": "Firma del Contratista / Estimador",
+            "pdf_client_sig": "Firma de Aceptación del Cliente",
+            "pdf_auth_rep": "Representante Autorizado",
+            "pdf_auth_date": "Firma Autorizada y Fecha",
+            "conc_rebar_length": "Longitud Lineal de Barras:",
+            "conc_total_cost": "Coste Estimado de Hormigón:",
+            "framing_title": "Tabiquería Seca y Muros de Ladrillo",
+            "framing_desc": "Estructuras de montantes, placas de yeso y fábrica de ladrillo cerámico",
+            "lbl_wall_length": "Longitud Total del Muro",
+            "lbl_wall_height": "Altura del Muro",
+            "lbl_num_doors": "Número de Puertas",
+            "lbl_num_windows": "Número de Ventanas",
+            "framing_summary_title": "Resumen de Muros",
+            "framing_total_bricks": "Total Ladrillos Cerámicos Requeridos",
+            "framing_mortar_cement": "Cemento de Mortero (Sacos 50kg):",
+            "framing_mortar_sand": "Arena de Mortero Requerida:",
+            "framing_total_cost": "Coste Estimado de Materiales:",
+            "paint_total_gallons": "Cantidad Total de Pintura",
+            "paint_primer_required": "Imprimación Fijadora:",
+            "paint_total_cost": "Coste Estimado de Pintura:",
+            "lbl_project_name": "Nombre del Proyecto y Ubicación",
+            "lbl_labor_rate": "Mano de Obra Directa",
+            "lbl_subcontractor": "Oficios Especialistas y Subcontratas",
+            "masonry_title": "Fábrica de Ladrillo Rojo"
+      },
+      "fr": {
+            "lbl_country": "Pays",
+            "lbl_currency": "Devise",
+            "lbl_language": "Langue",
+            "lbl_regional_std": "Norme Régionale:",
+            "nav_concrete": "Béton & Dalles",
+            "nav_framing": "Murs & Maçonnerie",
+            "nav_paint": "Peinture & Finitions",
+            "nav_bid": "Devis & Chiffrage",
+            "nav_history": "Devis Enregistrés",
+            "btn_export_pdf": "Exporter Devis PDF",
+            "btn_install_app": "Installer l'Application",
+            "banner_suite": "Suite de Normes Internationales",
+            "banner_title": "Métré Gros-Œuvre & Intelligence des Coûts",
+            "banner_desc": "Calcul précis du béton prêt à l'emploi, dosage 1:2:4, armatures acier, plaques de plâtre et maçonnerie.",
+            "banner_standards_title": "Normes de Génie Civil",
+            "conc_title": "Métré Béton Armé & Dalles de Fondation",
+            "conc_desc": "Calcul du volume, camions toupies et ferraillage",
+            "lbl_length": "Longueur",
+            "lbl_width": "Largeur",
+            "lbl_thickness": "Épaisseur",
+            "lbl_quick_thickness": "Sélecteur Rapide d'Épaisseur:",
+            "btn_custom_thickness": "Épaisseur Personnalisée",
+            "lbl_waste_margin": "Marge de Perte",
+            "lbl_rebar_spacing": "Espacement du Treillis d'Armature",
+            "conc_mix_title": "Dosage Béton et Ingrédients (Facteur Sec 1.54)",
+            "conc_mix_badge": "Bétonnière Chantier",
+            "conc_mix_desc": "Calcule les sacs de ciment de 50kg, sable, gravier et armatures en acier HA.",
+            "lbl_mix_ratio": "Rapport de Dosage Nominal",
+            "lbl_dry_multiplier": "Facteur Multiplicateur Volume Sec",
+            "lbl_cement_rate": "Sac de Ciment 50kg",
+            "lbl_sand_rate": "Sable (au m³ / pi³)",
+            "lbl_bajri_rate": "Gravier / Granulat (au m³ / pi³)",
+            "lbl_steel_rate": "Armature Acier (kg)",
+            "lbl_ready_mix_rate": "Prix Unitaire Béton Toupie",
+            "btn_add_conc_bid": "+ Ajouter le Béton au Devis Global",
+            "conc_summary_title": "Résumé Métré Béton",
+            "conc_summary_badge": "Calcul en Direct",
+            "conc_total_vol": "Volume Total Béton Frais (Avec Pertes)",
+            "conc_ready_mix_trucks": "Camions Toupies:",
+            "conc_site_batched_title": "Béton Chantier (Facteur 1.54)",
+            "conc_cement_bags": "Sacs de Ciment (50kg):",
+            "conc_sand": "Sable Requis:",
+            "conc_bajri": "Gravier Requis:",
+            "conc_water": "Eau de Gâchage:",
+            "conc_steel": "Armature Acier Totale:",
+            "conc_rebar_len": "Longueur Linéaire Fers:",
+            "conc_estimated_cost": "Coût Estimé du Béton:",
+            "wall_title": "Cloisons Sèches et Murs en Maçonnerie",
+            "wall_desc": "Ossatures métalliques, plaques de plâtre et maçonnerie de briques",
+            "wall_type_drywall": "Plaque de Plâtre / Placo",
+            "wall_type_brick": "Maçonnerie de Briques",
+            "lbl_wall_len": "Longueur Totale du Mur",
+            "lbl_wall_hgt": "Hauteur du Mur",
+            "lbl_doors": "Nombre de Portes",
+            "lbl_windows": "Nombre de Fenêtres",
+            "wall_summary_title": "Résumé Métré Murs",
+            "studs_count": "Montants d'Ossature:",
+            "plates_len": "Rails Haut et Bas:",
+            "drywall_sheets": "Plaques de Plâtre (Deux Faces):",
+            "drywall_screws": "Vis pour Plaques:",
+            "drywall_mud": "Enduit pour Joints:",
+            "drywall_tape": "Bande à Joint:",
+            "brick_total": "Total Briques Requises",
+            "brick_cement": "Ciment pour Mortier (Sacs 50kg):",
+            "brick_sand": "Sable pour Mortier:",
+            "wall_estimated_cost": "Coût Estimé des Matériaux:",
+            "btn_add_wall_bid": "+ Ajouter les Murs au Devis Global",
+            "paint_title": "Métré Peinture & Revêtements de Surface",
+            "paint_desc": "Surfaces murales et plafonds, sous-couche primaire et conditionnement",
+            "paint_summary_title": "Résumé Métré Peinture",
+            "paint_total_vol": "Quantité Totale de Peinture",
+            "paint_packaging": "Conditionnement Bacs/Fûts:",
+            "paint_primer": "Sous-Couche Primaire:",
+            "paint_estimated_cost": "Coût Estimé Peinture:",
+            "btn_add_paint_bid": "+ Ajouter la Peinture au Devis Global",
+            "bid_title": "Chiffrage Général & Devis Entrepreneur",
+            "bid_desc": "Regroupez gros-œuvre, main d'œuvre, sous-traitance et générez un PDF professionnel de 1 page",
+            "lbl_proj_name": "Nom du Chantier / Emplacement",
+            "lbl_client_name": "Client / Maître d'Ouvrage",
+            "lbl_material_subtotal": "Total Matériaux Directs",
+            "lbl_labor_costs": "Main d'Œuvre Directe",
+            "lbl_subcontractors": "Sous-Traitance & Lots Spécialisés",
+            "lbl_equipment": "Location Matériel, Benne & Autorisations",
+            "lbl_contingency": "Provision pour Aléas & Imprévus",
+            "lbl_profit_margin": "Marge Bénéficiaire de l'Entreprise",
+            "btn_save_history": "Enregistrer dans l'Historique",
+            "btn_print_pdf": "Imprimer Devis Officiel PDF",
+            "bid_summary_title": "Synthèse Financière du Devis",
+            "bid_final_callout": "Montant Total TTC de l'Offre",
+            "bid_direct_materials": "Matériaux Directs:",
+            "bid_direct_labor": "Main d'Œuvre:",
+            "bid_subcontractor": "Sous-Traitance:",
+            "bid_equipment": "Matériel & Transport:",
+            "bid_total_direct": "Coût Direct Total:",
+            "bid_contingency": "Provision Imprévus:",
+            "bid_gross_profit": "Marge Brute Entreprise:",
+            "history_title": "Devis Enregistrés",
+            "history_desc": "Historique local de vos devis et métrés de chantier.",
+            "tagline": "Métré Global des Matériaux et Devis pour Entrepreneurs",
+            "lbl_length_ft": "Longueur (Pieds)",
+            "lbl_length_m": "Longueur (Mètres)",
+            "lbl_width_ft": "Largeur (Pieds)",
+            "lbl_width_m": "Largeur (Mètres)",
+            "lbl_thickness_in": "Épaisseur (Pouces)",
+            "lbl_thickness_cm": "Épaisseur (cm)",
+            "unit_ft": "pi",
+            "unit_in": "po",
+            "unit_m": "m",
+            "unit_cm": "cm",
+            "badge_live": "Calcul en Direct",
+            "badge_batched": "Dosé sur Chantier",
+            "btn_pdf": "Exporter le Devis en PDF",
+            "unit_paint_litres": "Litres",
+            "unit_paint_gallons": "Gallons",
+            "pdf_header_title": "DEVIS DU PROJET ET PROPOSITION DE L'ENTREPRENEUR",
+            "pdf_item_desc": "Désignation des Travaux",
+            "pdf_cost_amount": "Montant HT",
+            "pdf_terms_title": "CONDITIONS DE L'OFFRE ET BON POUR ACCORD :",
+            "pdf_terms_body": "Ce devis est établi sur la base des métrés préliminaires et des taux régionaux de main d'œuvre. Prix valables 30 jours calendaires.",
+            "pdf_contractor_sig": "Signature de l'Entrepreneur / Métreur",
+            "pdf_client_sig": "Signature d'Acceptation du Client",
+            "pdf_auth_rep": "Représentant Agréé",
+            "pdf_auth_date": "Date et Signature Autorisée",
+            "conc_rebar_length": "Longueur Linéaire Fers:",
+            "conc_total_cost": "Coût Estimé du Béton:",
+            "framing_title": "Cloisons Sèches et Murs en Maçonnerie",
+            "framing_desc": "Ossatures métalliques, plaques de plâtre et maçonnerie de briques",
+            "lbl_wall_length": "Longueur Totale du Mur",
+            "lbl_wall_height": "Hauteur du Mur",
+            "lbl_num_doors": "Nombre de Portes",
+            "lbl_num_windows": "Nombre de Fenêtres",
+            "framing_summary_title": "Résumé Métré Murs",
+            "framing_total_bricks": "Total Briques Requises",
+            "framing_mortar_cement": "Ciment pour Mortier (Sacs 50kg):",
+            "framing_mortar_sand": "Sable pour Mortier:",
+            "framing_total_cost": "Coût Estimé des Matériaux:",
+            "paint_total_gallons": "Quantité Totale de Peinture",
+            "paint_primer_required": "Sous-Couche Primaire:",
+            "paint_total_cost": "Coût Estimé Peinture:",
+            "lbl_project_name": "Nom du Chantier / Emplacement",
+            "lbl_labor_rate": "Main d'Œuvre Directe",
+            "lbl_subcontractor": "Sous-Traitance & Lots Spécialisés",
+            "masonry_title": "Maçonnerie de Briques"
+      },
+      "de": {
+            "lbl_country": "Land",
+            "lbl_currency": "Währung",
+            "lbl_language": "Sprache",
+            "lbl_regional_std": "Regionaler Standard:",
+            "nav_concrete": "Beton & Decken",
+            "nav_framing": "Trockenbau & Mauerwerk",
+            "nav_paint": "Malerarbeiten & Beschichtung",
+            "nav_bid": "Projektangebot & Aufschlag",
+            "nav_history": "Gespeicherte Angebote",
+            "btn_export_pdf": "Angebot als PDF exportieren",
+            "btn_install_app": "App Installieren",
+            "banner_suite": "Globales Baunormen-System",
+            "banner_title": "Massenermittlung Rohbau & Kostenkalkulation",
+            "banner_desc": "Präzise Berechnung von Transportbeton, 1:2:4 Mischverhältnis, Bewehrungsstahl, Trockenbau & Ziegelmauerwerk.",
+            "banner_standards_title": "Bauingenieur-Normen",
+            "conc_title": "Massenermittlung Beton & Fundamentplatten",
+            "conc_desc": "Berechnung von Volumen, Fahrmischer-Ladungen und Bewehrungsmatten",
+            "lbl_length": "Länge",
+            "lbl_width": "Breite",
+            "lbl_thickness": "Dicke / Stärke",
+            "lbl_quick_thickness": "Schnellauswahl Plattenstärke:",
+            "btn_custom_thickness": "Eigene Stärke",
+            "lbl_waste_margin": "Verschnittzuschlag",
+            "lbl_rebar_spacing": "Bewehrungsabstand",
+            "conc_mix_title": "Mischungsverhältnis & Rohstoffe (Trockenfaktor 1.54)",
+            "conc_mix_badge": "Baustellenmischung",
+            "conc_mix_desc": "Berechnet exakt 50kg Zementsäcke, Sand, Kies und B500A/B Bewehrungsstahl.",
+            "lbl_mix_ratio": "Beton-Mischungsverhältnis",
+            "lbl_dry_multiplier": "Trockenvolumen-Multiplikator",
+            "lbl_cement_rate": "50kg Zementsack",
+            "lbl_sand_rate": "Sand (pro m³ / ft³)",
+            "lbl_bajri_rate": "Kies / Gesteinskörnung (pro m³ / ft³)",
+            "lbl_steel_rate": "Bewehrungsstahl (kg)",
+            "lbl_ready_mix_rate": "Transportbeton Einheitspreis",
+            "btn_add_conc_bid": "+ Beton in Hauptkalkulation übernehmen",
+            "conc_summary_title": "Zusammenfassung Betonmassen",
+            "conc_summary_badge": "Echtzeit-Berechnung",
+            "conc_total_vol": "Gesamtvolumen Frischbeton (inkl. Verschnitt)",
+            "conc_ready_mix_trucks": "Fahrmischer-Ladungen:",
+            "conc_site_batched_title": "Baustellenmischung (Faktor 1.54)",
+            "conc_cement_bags": "50kg Zementsäcke:",
+            "conc_sand": "Benötigter Sand:",
+            "conc_bajri": "Kies / Zuschlag:",
+            "conc_water": "Zugabewasser:",
+            "conc_steel": "Bewehrungsstahl Gesamt:",
+            "conc_rebar_len": "Gesamtlänge Bewehrungsstäbe:",
+            "conc_estimated_cost": "Geschätzte Betonkosten:",
+            "wall_title": "Trockenbauwände & Ziegelmauerwerk",
+            "wall_desc": "Ständerwerke, Gipskartonplatten und Mauerziegel-Berechnung",
+            "wall_type_drywall": "Trockenbau / Gipsplatten",
+            "wall_type_brick": "Ziegelmauerwerk",
+            "lbl_wall_len": "Gesamte Wandlänge",
+            "lbl_wall_hgt": "Wandhöhe",
+            "lbl_doors": "Anzahl Türen",
+            "lbl_windows": "Anzahl Fenster",
+            "wall_summary_title": "Zusammenfassung Wandmassen",
+            "studs_count": "Ständerprofile Gesamt:",
+            "plates_len": "Boden- & Deckenprofile (UW):",
+            "drywall_sheets": "Gipskartonplatten (beidseitig):",
+            "drywall_screws": "Schnellbauschrauben:",
+            "drywall_mud": "Fugenspachtel:",
+            "drywall_tape": "Fugendeckstreifen:",
+            "brick_total": "Benötigte Mauerziegel Gesamt",
+            "brick_cement": "Mörtelzement (50kg Säcke):",
+            "brick_sand": "Mörtelsand:",
+            "wall_estimated_cost": "Geschätzte Wandmaterial-Kosten:",
+            "btn_add_wall_bid": "+ Wandmaterial in Hauptkalkulation übernehmen",
+            "paint_title": "Massenermittlung Maler- & Beschichtungsarbeiten",
+            "paint_desc": "Wand- und Deckenflächen, Grundierung und Gebindegrößen",
+            "paint_summary_title": "Zusammenfassung Malerarbeiten",
+            "paint_total_vol": "Gesamte Farbmenge",
+            "paint_packaging": "Gebindeverteilung (Eimer):",
+            "paint_primer": "Tiefgrund / Grundierung:",
+            "paint_estimated_cost": "Geschätzte Beschichtungskosten:",
+            "btn_add_paint_bid": "+ Anstrich in Hauptkalkulation übernehmen",
+            "bid_title": "Haupt-Projektkalkulation & Bauangebot",
+            "bid_desc": "Konsolidieren Sie Rohbau, Lohnkosten, Nachunternehmer und erstellen Sie ein offizielles 1-seitiges PDF-Angebot",
+            "lbl_proj_name": "Projektname / Bauvorhaben",
+            "lbl_client_name": "Auftraggeber / Bauherr",
+            "lbl_material_subtotal": "Direkte Materialkosten",
+            "lbl_labor_costs": "Eigene Lohnkosten",
+            "lbl_subcontractors": "Nachunternehmer & Spezialgewerke",
+            "lbl_equipment": "Gerätemiete, Entsorgung & Genehmigungen",
+            "lbl_contingency": "Wagnis- & Regiepuffer",
+            "lbl_profit_margin": "Generalunternehmer-Gewinnmarge",
+            "btn_save_history": "Im Verlauf speichern",
+            "btn_print_pdf": "Offizielles 1-seitiges PDF drucken",
+            "bid_summary_title": "Finanzielle Angebotsübersicht",
+            "bid_final_callout": "Gesamter Angebotspreis",
+            "bid_direct_materials": "Materialkosten:",
+            "bid_direct_labor": "Lohnkosten:",
+            "bid_subcontractor": "Nachunternehmer:",
+            "bid_equipment": "Geräte & Baustellenlogistik:",
+            "bid_total_direct": "Gesamte direkte Kosten:",
+            "bid_contingency": "Wagnispuffer:",
+            "bid_gross_profit": "Bruttogewinn GU:",
+            "history_title": "Gespeicherte Angebote",
+            "history_desc": "Lokaler Verlauf Ihrer erstellten Bauangebote und Kalkulationen.",
+            "tagline": "Globales Bau-Aufmaß und Angebotserstellung für Generalunternehmer",
+            "lbl_length_ft": "Länge (Fuß)",
+            "lbl_length_m": "Länge (Meter)",
+            "lbl_width_ft": "Breite (Fuß)",
+            "lbl_width_m": "Breite (Meter)",
+            "lbl_thickness_in": "Dicke (Zoll)",
+            "lbl_thickness_cm": "Dicke (cm)",
+            "unit_ft": "ft",
+            "unit_in": "in",
+            "unit_m": "m",
+            "unit_cm": "cm",
+            "badge_live": "Live Berechnet",
+            "badge_batched": "Baustellenmischung",
+            "btn_pdf": "Angebot als PDF exportieren",
+            "unit_paint_litres": "Liter",
+            "unit_paint_gallons": "Gallonen",
+            "pdf_header_title": "BAUPROJEKT-ANGEBOT UND KOSTENVORANSCHLAG",
+            "pdf_item_desc": "Leistungsbeschreibung",
+            "pdf_cost_amount": "Kostenbetrag",
+            "pdf_terms_title": "ANGEBOTSBEDINGUNGEN & AUFTRAGSERTEILUNG:",
+            "pdf_terms_body": "Dieses Angebot basiert auf vorläufigem Materialaufmaß und regionalen Lohnsätzen. Preise sind 30 Kalendertage ab Ausstellungsdatum gültig.",
+            "pdf_contractor_sig": "Unterschrift Bauleiter / Kalkulator",
+            "pdf_client_sig": "Auftragserteilung Bauherr / Kunde",
+            "pdf_auth_rep": "Bevollmächtigter Vertreter",
+            "pdf_auth_date": "Datum und rechtsverbindliche Unterschrift",
+            "conc_rebar_length": "Gesamtlänge Bewehrungsstäbe:",
+            "conc_total_cost": "Geschätzte Betonkosten:",
+            "framing_title": "Trockenbauwände & Ziegelmauerwerk",
+            "framing_desc": "Ständerwerke, Gipskartonplatten und Mauerziegel-Berechnung",
+            "lbl_wall_length": "Gesamte Wandlänge",
+            "lbl_wall_height": "Wandhöhe",
+            "lbl_num_doors": "Anzahl Türen",
+            "lbl_num_windows": "Anzahl Fenster",
+            "framing_summary_title": "Zusammenfassung Wandmassen",
+            "framing_total_bricks": "Benötigte Mauerziegel Gesamt",
+            "framing_mortar_cement": "Mörtelzement (50kg Säcke):",
+            "framing_mortar_sand": "Mörtelsand:",
+            "framing_total_cost": "Geschätzte Wandmaterial-Kosten:",
+            "paint_total_gallons": "Gesamte Farbmenge",
+            "paint_primer_required": "Tiefgrund / Grundierung:",
+            "paint_total_cost": "Geschätzte Beschichtungskosten:",
+            "lbl_project_name": "Projektname / Bauvorhaben",
+            "lbl_labor_rate": "Eigene Lohnkosten",
+            "lbl_subcontractor": "Nachunternehmer & Spezialgewerke",
+            "masonry_title": "Ziegelmauerwerk"
+      }
+};
+
+    let currentCountry = 'US';
+    let currentLang = 'en';
+
+    function setLanguage(langCode) {
+      currentLang = langCode || 'en';
+      const dict = TRANSLATIONS[currentLang] || TRANSLATIONS['en'];
+      
+      // Direction: RTL for Arabic & Urdu, LTR for others
+      const isRtl = (currentLang === 'ar' || currentLang === 'ur');
+      document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
+      document.documentElement.lang = currentLang;
+
+      // Update all [data-i18n] text elements
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          el.innerText = dict[key];
+        }
+      });
+
+      // Update [data-i18n-ph] placeholders
+      document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        const key = el.getAttribute('data-i18n-ph');
+        if (dict[key]) {
+          el.setAttribute('placeholder', dict[key]);
+        }
+      });
+
+      // Sync Language Select Dropdown
+      const langSel = document.getElementById('globalLanguage');
+      if (langSel) langSel.value = currentLang;
+
+      // Update dynamic unit labels in current language
+      if (typeof setConcreteUnit === 'function') {
+        setConcreteUnit(currentConcreteUnit, true);
+      }
+
+      localStorage.setItem('buildestimate_lang', currentLang);
+    }
+
+    function onGlobalCountryChange(countryCode) {
+      const country = COUNTRIES.find(c => c.code === countryCode) || COUNTRIES[0];
+      currentCountry = country.code;
+      
+      const countrySel = document.getElementById('globalCountry');
+      if (countrySel) countrySel.value = country.code;
+
+      // 1. Automatic Currency Pick
+      const curSelect = document.getElementById('globalCurrency');
+      if (curSelect) curSelect.value = country.currency;
+      onGlobalCurrencyChange(country.currency);
+
+      // 2. Set Regional Standard
+      setGlobalRegion(country.region);
+
+      // 3. Set Unit System (metric / imperial)
+      if (country.unit) {
+        setConcreteUnit(country.unit);
+      }
+
+      // 4. Update Language if matching country language
+      if (country.lang && country.lang !== currentLang) {
+        setLanguage(country.lang);
+      }
+
+      localStorage.setItem('buildestimate_country', country.code);
+    }
 
     let currentCurrency = 'USD';
 
@@ -1382,8 +2906,9 @@
     // 1. CONCRETE CALCULATIONS & REGIONAL ADAPTATION
     let currentConcreteUnit = 'imperial';
 
-    function setConcreteUnit(unit) {
+    function setConcreteUnit(unit, skipValueReset = false) {
       currentConcreteUnit = unit;
+      const dict = TRANSLATIONS[currentLang] || TRANSLATIONS['en'];
       const btnImp = document.getElementById('btnUnitImperial');
       const btnMet = document.getElementById('btnUnitMetric');
       const lblL = document.getElementById('lblConcLength');
@@ -1399,27 +2924,31 @@
       if (unit === 'imperial') {
         btnImp.className = 'px-3 py-1 text-xs font-bold rounded-md bg-white text-slate-900 shadow-sm transition';
         btnMet.className = 'px-3 py-1 text-xs font-semibold rounded-md text-slate-500 hover:text-slate-900 transition';
-        lblL.innerText = 'Length (Feet)';
-        lblW.innerText = 'Width (Feet)';
-        lblD.innerText = 'Thickness (Inches)';
-        uL.innerText = 'ft';
-        uW.innerText = 'ft';
-        uD.innerText = 'in';
-        if (lenInput.value == 12) lenInput.value = 40;
-        if (widInput.value == 7.5) widInput.value = 24;
-        if (depInput.value == 10) depInput.value = 4;
+        if (lblL) lblL.innerText = dict['lbl_length_ft'] || 'Length (Feet)';
+        if (lblW) lblW.innerText = dict['lbl_width_ft'] || 'Width (Feet)';
+        if (lblD) lblD.innerText = dict['lbl_thickness_in'] || 'Thickness (Inches)';
+        if (uL) uL.innerText = dict['unit_ft'] || 'ft';
+        if (uW) uW.innerText = dict['unit_ft'] || 'ft';
+        if (uD) uD.innerText = dict['unit_in'] || 'in';
+        if (!skipValueReset) {
+          if (lenInput && lenInput.value == 12) lenInput.value = 40;
+          if (widInput && widInput.value == 7.5) widInput.value = 24;
+          if (depInput && depInput.value == 10) depInput.value = 4;
+        }
       } else {
         btnMet.className = 'px-3 py-1 text-xs font-bold rounded-md bg-white text-slate-900 shadow-sm transition';
         btnImp.className = 'px-3 py-1 text-xs font-semibold rounded-md text-slate-500 hover:text-slate-900 transition';
-        lblL.innerText = 'Length (Meters)';
-        lblW.innerText = 'Width (Meters)';
-        lblD.innerText = 'Thickness (cm)';
-        uL.innerText = 'm';
-        uW.innerText = 'm';
-        uD.innerText = 'cm';
-        if (lenInput.value == 40) lenInput.value = 12;
-        if (widInput.value == 24) widInput.value = 7.5;
-        if (depInput.value == 4) depInput.value = 10;
+        if (lblL) lblL.innerText = dict['lbl_length_m'] || 'Length (Meters)';
+        if (lblW) lblW.innerText = dict['lbl_width_m'] || 'Width (Meters)';
+        if (lblD) lblD.innerText = dict['lbl_thickness_cm'] || 'Thickness (cm)';
+        if (uL) uL.innerText = dict['unit_m'] || 'm';
+        if (uW) uW.innerText = dict['unit_m'] || 'm';
+        if (uD) uD.innerText = dict['unit_cm'] || 'cm';
+        if (!skipValueReset) {
+          if (lenInput && lenInput.value == 40) lenInput.value = 12;
+          if (widInput && widInput.value == 24) widInput.value = 7.5;
+          if (depInput && depInput.value == 4) depInput.value = 10;
+        }
       }
       calcConcrete();
     }
@@ -1895,7 +3424,7 @@
       const listEl = document.getElementById('historyList');
       const history = JSON.parse(localStorage.getItem('buildestimate_history') || '[]');
       if (history.length === 0) {
-        listEl.innerHTML = `<div class="text-center py-12 text-slate-400 text-sm">No saved estimates found. Go to the "Project Bid" tab and click "Save to History" to store one here!</div>`;
+        listEl.innerHTML = `<div class="text-center py-12 text-slate-400 text-sm">No saved estimates found. Go to the "Project Bid" tab and click "<span data-i18n="btn_save_history">Save to History</span>" to store one here!</div>`;
         return;
       }
 
@@ -1969,7 +3498,10 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      setGlobalRegion('us');
+      const savedCountry = localStorage.getItem('buildestimate_country') || 'US';
+      const savedLang = localStorage.getItem('buildestimate_lang') || 'en';
+      setLanguage(savedLang);
+      onGlobalCountryChange(savedCountry);
     });
   </script>
 </body>
