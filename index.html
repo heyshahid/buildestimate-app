@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>BuildEstimate Pro · Contractor Takeoff Suite</title>
+  <title>BuildEstimate Pro</title>
   
   <!-- Meta & SEO Tags -->
   <meta name="description" content="Professional Global Construction Material Takeoff & Contractor Bid Proposal Suite. Accurate regional standards for North America (Imperial), GCC & Middle East (Metric), Asia & Subcontinent (Nominal Mix Ratios 1:2:4, 50kg bags, CFT), and UK/Europe (Eurocode).">
@@ -11,9 +11,10 @@
   <meta name="author" content="Shahid Akram">
   <meta name="theme-color" content="#f59e0b">
   
-  <!-- PWA Manifest & Favicon -->
+  <!-- PWA Manifest & Favicon (Original App Logo) -->
   <link rel="manifest" href="./manifest.json">
-  <link rel="icon" type="image/svg+xml" href="./icons/icon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="./icons/favicon.png">
   <link rel="apple-touch-icon" href="./icons/icon-192.png">
   
   <!-- Google Fonts: Poppins (Calm & Expressive Typography) -->
@@ -209,7 +210,7 @@
     <div class="max-w-6xl mx-auto flex items-center justify-between">
       <div class="flex items-center space-x-3">
         <div class="relative group shrink-0">
-          <img src="icons/icon.svg" alt="BuildEstimate Pro Logo" class="w-11 h-11 object-contain rounded-xl bg-slate-900 p-1 border border-slate-700/80 shadow-md hover:scale-105 transition transform">
+          <img src="icons/logo.png" alt="BuildEstimate Pro Logo" class="w-11 h-11 object-contain rounded-xl bg-amber-500/10 p-0.5 border border-amber-500/20 shadow-md hover:scale-105 transition transform">
         </div>
         <div>
           <div class="flex items-center space-x-2">
@@ -371,10 +372,7 @@
         <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/65 to-transparent flex items-center px-5 sm:px-8">
           <div class="w-full max-w-2xl lg:max-w-3xl text-white">
             <div class="flex items-center space-x-2.5 mb-1.5 flex-nowrap overflow-hidden">
-              <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-500 text-slate-950 shrink-0 whitespace-nowrap shadow-xs">
-                <img src="icons/icon.svg" class="w-3.5 h-3.5 rounded-sm inline shrink-0" alt="App Icon">
-                <span>Global Standard Suite</span>
-              </span>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-500 text-slate-950 shrink-0 whitespace-nowrap shadow-xs">Global Standard Suite</span>
               <span id="bannerRegionLabel" class="text-xs text-amber-300 font-semibold whitespace-nowrap truncate">North America Standards (US / Canada)</span>
             </div>
             <h1 class="text-lg sm:text-2xl font-black tracking-tight text-white drop-shadow">Universal Structure Takeoff & Cost Intelligence</h1>
@@ -3505,7 +3503,7 @@
     // PWA Service Worker Registration
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=10').then(reg => {
+        navigator.serviceWorker.register('./sw.js?v=11').then(reg => {
           console.log('BuildEstimate Service Worker registered with scope:', reg.scope);
         }).catch(err => {
           console.log('SW registration failed:', err);
@@ -3561,7 +3559,7 @@
   <div id="installModal" class="no-print fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 transform transition-all text-slate-800">
       <div class="flex items-center space-x-3 mb-4">
-        <img src="icons/icon.svg" class="w-12 h-12 rounded-xl bg-slate-900 p-1 shadow-md" alt="BuildEstimate Pro">
+        <img src="icons/logo.png" class="w-12 h-12 rounded-xl bg-amber-500/10 p-0.5 border border-amber-500/20 shadow-md" alt="BuildEstimate Pro">
         <div>
           <h3 class="font-extrabold text-base text-slate-900">Install BuildEstimate Pro</h3>
           <p class="text-xs text-slate-500">Universal Construction Suite · Offline Capable</p>
