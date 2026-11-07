@@ -57,20 +57,26 @@ BuildEstimate Pro is built for global civil engineering practices, adapting meas
 
 ---
 
-## Worldwide Currency Engine
-BuildEstimate Pro features dynamic global currency switching across all cards, summaries, and print exports:
-- **USD ($)**: United States Dollar
-- **EUR (€)**: Euro
-- **GBP (£)**: British Pound
-- **AED (AED)**: UAE Dirham
-- **SAR (SAR)**: Saudi Riyal
-- **QAR (QAR)**: Qatari Riyal
-- **KWD (KD)**: Kuwaiti Dinar
-- **PKR (Rs)**: Pakistani Rupee
-- **INR (₹)**: Indian Rupee
-- **BDT (৳)**: Bangladeshi Taka
-- **CAD (C$)**: Canadian Dollar
-- **AUD (A$)**: Australian Dollar
+## Worldwide Currency & Country Engine
+BuildEstimate Pro features dynamic global currency switching across 25 major construction markets:
+- **North America**: United States (USD), Canada (CAD), Mexico (MXN)
+- **Asia & Subcontinent**: Pakistan (PKR), India (INR), Bangladesh (BDT), Singapore (SGD), Malaysia (MYR)
+- **GCC & Middle East**: UAE (AED), Saudi Arabia (SAR), Qatar (QAR), Kuwait (KWD), Oman (OMR), Bahrain (BHD), Turkey (TRY), Egypt (EGP)
+- **UK & Europe**: United Kingdom (GBP), Germany (EUR), France (EUR), Spain (EUR), Italy (EUR)
+- **Oceania & Others**: Australia (AUD), New Zealand (NZD), South Africa (ZAR), Brazil (BRL)
+
+---
+
+## Multilingual Translation Engine (8 Languages)
+Full end-to-end internationalization with accurate civil engineering terminology and bidirectional text orientation:
+- **English** (Default)
+- **Arabic (العربية)** - Full RTL Layout
+- **Urdu (اردو)** - Full RTL Layout
+- **Hindi (हिन्दी)**
+- **Bengali (বাংলা)**
+- **Spanish (Español)**
+- **French (Français)**
+- **German (Deutsch)**
 
 ---
 
@@ -89,7 +95,7 @@ BuildEstimate/
 │   └── images/         # Architectural modern luxury jobsite backdrops
 ├── icons/              # Responsive PWA maskable icons
 ├── index.html          # Progressive Web App (Single-file offline suite)
-├── sw.js               # Service Worker v7 (Offline caching)
+├── sw.js               # Service Worker v8 (Offline caching & network-first navigation)
 └── pyproject.toml      # Python package configuration
 ```
 
