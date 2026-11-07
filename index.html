@@ -84,24 +84,26 @@
       letter-spacing: -0.01em;
     }
 
-    /* Print Stylesheet for 1-Page Official Bid PDF */
+    /* Print Stylesheet for 1-Page Official Bid PDF - High Contrast & Crisp */
     @page {
-      margin: 0;
+      margin: 8mm 10mm;
       size: letter portrait;
     }
     @media print {
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
       html, body {
         background: #ffffff !important;
-        color: #000000 !important;
+        color: #0f172a !important;
         padding: 0 !important;
         margin: 0 !important;
         height: auto !important;
         min-height: auto !important;
         overflow: visible !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
       }
-      .no-print, header, nav, #global-region-bar, main, #tab-concrete, #tab-framing, #tab-paint, #tab-bid, #tab-history {
+      .no-print, header, nav, #global-region-bar, main, #tab-concrete, #tab-framing, #tab-paint, #tab-bid, #tab-history, [aria-hidden="true"], picture, img {
         display: none !important;
         height: 0 !important;
         overflow: hidden !important;
@@ -109,15 +111,46 @@
       }
       .print-only {
         display: block !important;
+        background: #ffffff !important;
+        color: #0f172a !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
-        page-break-before: avoid !important;
-        page-break-after: avoid !important;
         width: 100% !important;
         max-width: 100% !important;
         box-sizing: border-box !important;
-        padding: 12mm 14mm !important;
+        padding: 6mm 8mm !important;
         margin: 0 !important;
+        position: relative !important;
+        z-index: 9999 !important;
+      }
+      .print-only * {
+        color: #0f172a !important;
+        text-shadow: none !important;
+        filter: none !important;
+        opacity: 1 !important;
+      }
+      .print-only table {
+        width: 100% !important;
+        border: 1.5px solid #0f172a !important;
+        border-collapse: collapse !important;
+      }
+      .print-only th {
+        background-color: #f1f5f9 !important;
+        color: #0f172a !important;
+        font-weight: 800 !important;
+        border-bottom: 2px solid #0f172a !important;
+        padding: 8px 12px !important;
+      }
+      .print-only td {
+        border-bottom: 1px solid #cbd5e1 !important;
+        padding: 7px 12px !important;
+      }
+      .print-only tr:nth-child(even) {
+        background-color: #f8fafc !important;
+      }
+      .print-only .info-card {
+        background-color: #f8fafc !important;
+        border: 1px solid #cbd5e1 !important;
       }
     }
     .print-only {
@@ -128,7 +161,7 @@
 <body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col pb-24 md:pb-8 selection:bg-brand-500 selection:text-white transition-colors duration-200 relative">
 
   <!-- Architectural House & Materials Ambient Backdrop -->
-  <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden select-none" aria-hidden="true">
+  <div class="no-print fixed inset-0 z-0 pointer-events-none overflow-hidden select-none" aria-hidden="true">
     <picture>
       <source srcset="assets/images/construction_hero.webp" type="image/webp">
       <img src="assets/images/construction_hero.jpg" alt="Modern House Construction & Materials Background" class="w-full h-full object-cover object-center filter saturate-[0.88] opacity-35">
@@ -203,7 +236,7 @@
         <div class="inline-flex rounded-xl p-0.5 bg-slate-100 border border-slate-200 shrink-0">
           <button type="button" onclick="setGlobalRegion('us')" id="btnRegionUS" class="region-btn px-2.5 py-1 text-xs font-bold rounded-lg transition bg-white text-slate-900 shadow-sm border border-slate-200/60">North America [US/CA]</button>
           <button type="button" onclick="setGlobalRegion('gcc')" id="btnRegionGCC" class="region-btn px-2.5 py-1 text-xs font-semibold rounded-lg transition text-slate-600 hover:text-slate-900">GCC & Middle East</button>
-          <button type="button" onclick="setGlobalRegion('asia')" id="btnRegionAsia" class="region-btn px-2.5 py-1 text-xs font-semibold rounded-lg transition text-slate-600 hover:text-slate-900">Asia & Subcontinent</button>
+          <button type="button" onclick="setGlobalRegion('asia')" id="btnRegionASIA" class="region-btn px-2.5 py-1 text-xs font-semibold rounded-lg transition text-slate-600 hover:text-slate-900">Asia & Subcontinent</button>
           <button type="button" onclick="setGlobalRegion('uk')" id="btnRegionUK" class="region-btn px-2.5 py-1 text-xs font-semibold rounded-lg transition text-slate-600 hover:text-slate-900">UK & Europe</button>
         </div>
       </div>
@@ -465,7 +498,7 @@
                   <svg class="w-4 h-4 text-brand-400" fill="currentColor" viewBox="0 0 20 20"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>
                   <span id="lblTransitMixers">Ready-Mix Transit Trucks:</span>
                 </span>
-                <span id="resConcTrucks" class="font-extrabold text-white">2 Trucks</span>
+                <span id="resConcTrucks" class="font-extrabold text-white whitespace-nowrap text-right">2 Trucks</span>
               </div>
 
               <!-- Raw Ingredients Breakdown Box (Site Mix Ratio) -->
@@ -492,14 +525,14 @@
                 </div>
               </div>
 
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300">Steel Reinforcement (Sariya):</span>
-                <span id="resConcRebarWeight" class="font-bold text-slate-200">871 lbs (0.44 Tons)</span>
+              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40 gap-3">
+                <span class="text-slate-300 text-xs sm:text-sm whitespace-nowrap shrink-0">Steel Reinforcement (Sariya):</span>
+                <span id="resConcRebarWeight" class="font-bold text-slate-200 text-xs sm:text-sm whitespace-nowrap text-right">871 lbs (0.44 Tons)</span>
               </div>
 
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300">Rebar Linear Length:</span>
-                <span id="resConcRebarFt" class="font-bold text-slate-200">1,304 LF</span>
+              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40 gap-3">
+                <span class="text-slate-300 text-xs sm:text-sm whitespace-nowrap shrink-0">Rebar Linear Length:</span>
+                <span id="resConcRebarFt" class="font-bold text-slate-200 text-xs sm:text-sm whitespace-nowrap text-right">1,304 LF</span>
               </div>
             </div>
           </div>
@@ -682,28 +715,28 @@
             <!-- Deliverables -->
             <div id="resDrywallList" class="space-y-2.5 text-xs sm:text-sm">
               <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300">Total Framing Studs:</span>
-                <span id="resFrameStuds" class="font-extrabold text-white">48 Studs</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0">Total Framing Studs:</span>
+                <span id="resFrameStuds" class="font-extrabold text-white whitespace-nowrap text-right">48 Studs</span>
               </div>
               <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300">Top & Bottom Plates:</span>
-                <span id="resFramePlates" class="font-bold text-slate-200">150 LF (10 x 16' Boards)</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0">Top & Bottom Plates:</span>
+                <span id="resFramePlates" class="font-bold text-slate-200 whitespace-nowrap text-right">150 LF (10 x 16' Boards)</span>
               </div>
               <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300">Drywall Sheets (Both Sides):</span>
-                <span id="resDrywallSheets" class="font-bold text-slate-200">25 Sheets (4'x8')</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0">Drywall Sheets (Both Sides):</span>
+                <span id="resDrywallSheets" class="font-bold text-slate-200 whitespace-nowrap text-right">25 Sheets (4'x8')</span>
               </div>
               <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300">Drywall Screws:</span>
-                <span id="resDrywallScrews" class="font-bold text-slate-200">~800 Screws (1 x 5lb Box)</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0">Drywall Screws:</span>
+                <span id="resDrywallScrews" class="font-bold text-slate-200 whitespace-nowrap text-right">~800 Screws (1 x 5lb Box)</span>
               </div>
               <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300">Joint Compound / Mud:</span>
-                <span id="resDrywallMud" class="font-bold text-slate-200">2 Buckets (4.5 Gal)</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0">Joint Compound / Mud:</span>
+                <span id="resDrywallMud" class="font-bold text-slate-200 whitespace-nowrap text-right">2 Buckets (4.5 Gal)</span>
               </div>
               <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300">Joint Tape Rolls:</span>
-                <span id="resDrywallTape" class="font-bold text-slate-200">2 Rolls (250 ft)</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0">Joint Tape Rolls:</span>
+                <span id="resDrywallTape" class="font-bold text-slate-200 whitespace-nowrap text-right">2 Rolls (250 ft)</span>
               </div>
             </div>
 
@@ -714,13 +747,13 @@
                 <div class="text-3xl font-black text-white mt-1" id="resBrickTotalCount">3,675 Bricks</div>
                 <p class="text-[11px] text-slate-400 mt-0.5">Based on 13.5 bricks per CFT of 9" masonry</p>
               </div>
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300">Mortar Cement Bags (50kg):</span>
-                <span id="resBrickCementBags" class="font-extrabold text-white">10 Bags</span>
+              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40 gap-3">
+                <span class="text-slate-300 text-xs sm:text-sm whitespace-nowrap shrink-0">Mortar Cement Bags (50kg):</span>
+                <span id="resBrickCementBags" class="font-extrabold text-white text-xs sm:text-sm whitespace-nowrap text-right">10 Bags (50kg)</span>
               </div>
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300">Mortar Sand (Rait):</span>
-                <span id="resBrickSandCft" class="font-bold text-slate-200">72 CFT</span>
+              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40 gap-3">
+                <span class="text-slate-300 text-xs sm:text-sm whitespace-nowrap shrink-0">Mortar Sand (Rait):</span>
+                <span id="resBrickSandCft" class="font-bold text-slate-200 text-xs sm:text-sm whitespace-nowrap text-right">72 CFT</span>
               </div>
             </div>
 
@@ -823,12 +856,12 @@
 
             <div class="space-y-2.5 text-xs sm:text-sm">
               <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300">Container Packaging:</span>
-                <span id="resPaintCanBreakdown" class="font-extrabold text-white">1 x 5-Gal + 2 x 1-Gal</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0">Container Packaging:</span>
+                <span id="resPaintCanBreakdown" class="font-extrabold text-white whitespace-nowrap text-right">1 x 5-Gal + 2 x 1-Gal</span>
               </div>
               <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300">PVA Primer Undercoat:</span>
-                <span id="resPrimerGal" class="font-bold text-slate-200">4 Gallons (15.1 L)</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0">PVA Primer Undercoat:</span>
+                <span id="resPrimerGal" class="font-bold text-slate-200 whitespace-nowrap text-right">4 Gallons (15.1 L)</span>
               </div>
             </div>
           </div>
@@ -959,32 +992,32 @@
 
             <div class="space-y-2 text-xs sm:text-sm">
               <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/40">
-                <span class="text-slate-300">Direct Materials:</span>
-                <span id="resBidMatTotal" class="font-bold text-white">$3,046.00</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0">Direct Materials:</span>
+                <span id="resBidMatTotal" class="font-bold text-white whitespace-nowrap text-right">$3,046.00</span>
               </div>
               <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/40">
-                <span class="text-slate-300">Direct Labor Costs:</span>
-                <span id="resBidLaborTotal" class="font-bold text-white">$2,640.00</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0">Direct Labor Costs:</span>
+                <span id="resBidLaborTotal" class="font-bold text-white whitespace-nowrap text-right">$2,640.00</span>
               </div>
               <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/40">
-                <span class="text-slate-300">Subcontractor Total:</span>
-                <span id="resBidSubTotal" class="font-bold text-white">$850.00</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0">Subcontractor Total:</span>
+                <span id="resBidSubTotal" class="font-bold text-white whitespace-nowrap text-right">$850.00</span>
               </div>
               <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/40">
-                <span class="text-slate-300">Equipment & Freight:</span>
-                <span id="resBidEquipTotal" class="font-bold text-white">$450.00</span>
+                <span class="text-slate-300 whitespace-nowrap shrink-0">Equipment & Freight:</span>
+                <span id="resBidEquipTotal" class="font-bold text-white whitespace-nowrap text-right">$450.00</span>
               </div>
               <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/70 border border-slate-700/60 font-semibold">
-                <span class="text-slate-200">Total Direct Job Costs:</span>
-                <span id="resBidDirectCost" class="font-bold text-white">$6,986.00</span>
+                <span class="text-slate-200 whitespace-nowrap shrink-0">Total Direct Job Costs:</span>
+                <span id="resBidDirectCost" class="font-bold text-white whitespace-nowrap text-right">$6,986.00</span>
               </div>
               <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/40 text-amber-300">
-                <span>Contingency Buffer Reserve:</span>
-                <span id="resBidContingencyTotal" class="font-bold">+$698.60</span>
+                <span class="whitespace-nowrap shrink-0">Contingency Buffer Reserve:</span>
+                <span id="resBidContingencyTotal" class="font-bold whitespace-nowrap text-right">+$698.60</span>
               </div>
               <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/40 text-emerald-400">
-                <span>Contractor Gross Profit:</span>
-                <span id="resBidGrossProfit" class="font-bold">+$1,536.92</span>
+                <span class="whitespace-nowrap shrink-0">Contractor Gross Profit:</span>
+                <span id="resBidGrossProfit" class="font-bold whitespace-nowrap text-right">+$1,536.92</span>
               </div>
             </div>
           </div>
@@ -1267,11 +1300,11 @@
 
       // Highlight active region button
       document.querySelectorAll('.region-btn').forEach(b => {
-        b.className = 'region-btn px-2.5 py-1 text-xs font-semibold rounded-lg transition text-slate-600 hover:text-slate-900';
+        b.className = 'region-btn px-2.5 py-1 text-xs font-semibold rounded-lg transition text-slate-600 hover:text-slate-900 whitespace-nowrap';
       });
-      const activeBtn = document.getElementById(`btnRegion${regionId.toUpperCase()}`);
+      const activeBtn = document.getElementById(`btnRegion${regionId.toUpperCase()}`) || document.getElementById(`btnRegion${regionId}`);
       if (activeBtn) {
-        activeBtn.className = 'region-btn px-2.5 py-1 text-xs font-bold rounded-lg transition bg-white text-slate-900 shadow-sm border border-slate-200/60';
+        activeBtn.className = 'region-btn px-2.5 py-1 text-xs font-bold rounded-lg transition bg-white text-slate-950 shadow-sm border border-slate-200 whitespace-nowrap';
       }
 
       // Update badges
@@ -1559,7 +1592,10 @@
       document.getElementById('resConcSand').innerText = `${sandCFT.toFixed(0)} CFT (${sandM3.toFixed(1)} m³)`;
       document.getElementById('resConcBajri').innerText = `${bajriCFT.toFixed(0)} CFT (${bajriM3.toFixed(1)} m³)`;
       document.getElementById('resConcWater').innerText = `~${waterLitres.toLocaleString()} Litres`;
-      document.getElementById('resConcRebarWeight').innerText = `${steelKg.toFixed(0)} kg (${steelTons.toFixed(2)} Metric Tons / ${steelLbs.toFixed(0)} lbs)`;
+      const isMetricRegion = (reg.id === 'gcc' || reg.id === 'asia' || reg.id === 'uk' || reg.unitSystem === 'metric');
+      document.getElementById('resConcRebarWeight').innerText = isMetricRegion 
+        ? `${steelKg.toFixed(0)} kg (${steelTons.toFixed(2)} Tons)` 
+        : `${steelLbs.toFixed(0)} lbs (${steelTons.toFixed(2)} Tons)`;
       document.getElementById('resConcRebarFt').innerText = `${totalRebarFt.toLocaleString()} LF`;
 
       document.getElementById('resConcCost').innerText = formatMoney(calculatedConcreteCost);
