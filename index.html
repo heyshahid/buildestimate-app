@@ -207,92 +207,89 @@
       </div>
 
       <!-- Country, Currency, Language Selectors & Action Buttons -->
-      <div class="flex items-center flex-wrap gap-2">
+      <div class="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
         
-        <!-- Global Country Selector -->
-        <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm hover:border-slate-300 transition">
-          <label for="globalCountry" class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mr-1.5 hidden sm:inline" data-i18n="lbl_country">Country</label>
-          <select id="globalCountry" onchange="onGlobalCountryChange(this.value)" class="bg-transparent text-xs font-bold text-slate-900 focus:outline-none cursor-pointer max-w-[130px] sm:max-w-none">
-            <option value="US">United States (USD)</option>
-            <option value="CA">Canada (CAD)</option>
-            <option value="PK">Pakistan (PKR)</option>
-            <option value="IN">India (INR)</option>
-            <option value="BD">Bangladesh (BDT)</option>
-            <option value="AE">UAE (AED)</option>
-            <option value="SA">Saudi Arabia (SAR)</option>
-            <option value="QA">Qatar (QAR)</option>
-            <option value="KW">Kuwait (KWD)</option>
-            <option value="OM">Oman (OMR)</option>
-            <option value="BH">Bahrain (BHD)</option>
-            <option value="GB">United Kingdom (GBP)</option>
-            <option value="DE">Germany (EUR)</option>
-            <option value="FR">France (EUR)</option>
-            <option value="ES">Spain (EUR)</option>
-            <option value="IT">Italy (EUR)</option>
-            <option value="AU">Australia (AUD)</option>
-            <option value="NZ">New Zealand (NZD)</option>
-            <option value="SG">Singapore (SGD)</option>
-            <option value="MY">Malaysia (MYR)</option>
-            <option value="TR">Turkey (TRY)</option>
-            <option value="EG">Egypt (EGP)</option>
-            <option value="ZA">South Africa (ZAR)</option>
-            <option value="BR">Brazil (BRL)</option>
-            <option value="MX">Mexico (MXN)</option>
+        <!-- Global Country Selector (Compact, No redundant label) -->
+        <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-2 py-1.5 shadow-xs hover:border-slate-300 transition">
+          <select id="globalCountry" onchange="onGlobalCountryChange(this.value)" class="bg-transparent text-xs font-bold text-slate-800 focus:outline-none cursor-pointer">
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+            <option value="PK">Pakistan</option>
+            <option value="IN">India</option>
+            <option value="BD">Bangladesh</option>
+            <option value="AE">UAE</option>
+            <option value="SA">Saudi Arabia</option>
+            <option value="QA">Qatar</option>
+            <option value="KW">Kuwait</option>
+            <option value="OM">Oman</option>
+            <option value="BH">Bahrain</option>
+            <option value="GB">United Kingdom</option>
+            <option value="DE">Germany</option>
+            <option value="FR">France</option>
+            <option value="ES">Spain</option>
+            <option value="IT">Italy</option>
+            <option value="AU">Australia</option>
+            <option value="NZ">New Zealand</option>
+            <option value="SG">Singapore</option>
+            <option value="MY">Malaysia</option>
+            <option value="TR">Turkey</option>
+            <option value="EG">Egypt</option>
+            <option value="ZA">South Africa</option>
+            <option value="BR">Brazil</option>
+            <option value="MX">Mexico</option>
           </select>
         </div>
 
-        <!-- Worldwide Currency Selector -->
-        <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm hover:border-slate-300 transition">
-          <label for="globalCurrency" class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mr-1.5 hidden sm:inline" data-i18n="lbl_currency">Currency</label>
-          <select id="globalCurrency" onchange="onGlobalCurrencyChange(this.value)" class="bg-transparent text-xs font-extrabold text-slate-900 focus:outline-none cursor-pointer">
+        <!-- Worldwide Currency Selector (Compact, No redundant label) -->
+        <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-2 py-1.5 shadow-xs hover:border-slate-300 transition">
+          <select id="globalCurrency" onchange="onGlobalCurrencyChange(this.value)" class="bg-transparent text-xs font-extrabold text-slate-800 focus:outline-none cursor-pointer">
             <option value="USD">USD ($)</option>
             <option value="EUR">EUR (€)</option>
             <option value="GBP">GBP (£)</option>
-            <option value="AED">AED (AED)</option>
-            <option value="SAR">SAR (SAR)</option>
-            <option value="QAR">QAR (QAR)</option>
-            <option value="KWD">KWD (KD)</option>
-            <option value="OMR">OMR (OMR)</option>
-            <option value="BHD">BHD (BD)</option>
+            <option value="AED">AED</option>
+            <option value="SAR">SAR</option>
+            <option value="QAR">QAR</option>
+            <option value="KWD">KWD</option>
+            <option value="OMR">OMR</option>
+            <option value="BHD">BHD</option>
             <option value="PKR">PKR (Rs)</option>
             <option value="INR">INR (₹)</option>
             <option value="BDT">BDT (৳)</option>
             <option value="CAD">CAD (C$)</option>
             <option value="AUD">AUD (A$)</option>
-            <option value="NZD">NZD (NZ$)</option>
-            <option value="SGD">SGD (S$)</option>
-            <option value="MYR">MYR (RM)</option>
+            <option value="NZD">NZD</option>
+            <option value="SGD">SGD</option>
+            <option value="MYR">MYR</option>
             <option value="TRY">TRY (₺)</option>
-            <option value="EGP">EGP (E£)</option>
-            <option value="ZAR">ZAR (R)</option>
-            <option value="BRL">BRL (R$)</option>
-            <option value="MXN">MXN (Mex$)</option>
+            <option value="EGP">EGP</option>
+            <option value="ZAR">ZAR</option>
+            <option value="BRL">BRL</option>
+            <option value="MXN">MXN</option>
           </select>
         </div>
 
-        <!-- Language Selector Tab / Dropdown -->
-        <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm hover:border-slate-300 transition">
-          <label for="globalLanguage" class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mr-1.5 hidden sm:inline" data-i18n="lbl_language">Language</label>
-          <select id="globalLanguage" onchange="setLanguage(this.value)" class="bg-transparent text-xs font-bold text-slate-900 focus:outline-none cursor-pointer">
-            <option value="en">English (Default)</option>
-            <option value="ar">العربية (Arabic)</option>
-            <option value="ur">اردو (Urdu)</option>
-            <option value="hi">हिन्दी (Hindi)</option>
-            <option value="bn">বাংলা (Bengali)</option>
-            <option value="es">Español (Spanish)</option>
-            <option value="fr">Français (French)</option>
-            <option value="de">Deutsch (German)</option>
+        <!-- Language Selector Tab / Dropdown (Compact, No redundant label) -->
+        <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-2 py-1.5 shadow-xs hover:border-slate-300 transition">
+          <select id="globalLanguage" onchange="setLanguage(this.value)" class="bg-transparent text-xs font-bold text-slate-800 focus:outline-none cursor-pointer">
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+            <option value="ur">اردو</option>
+            <option value="hi">हिन्दी</option>
+            <option value="bn">বাংলা</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
           </select>
         </div>
 
-        <button id="pwaInstallBtn" class="hidden text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg items-center space-x-1.5 transition font-semibold">
+        <button id="pwaInstallBtn" class="hidden text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 px-2.5 py-1.5 rounded-xl items-center space-x-1 transition font-semibold shrink-0">
           <svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
           </svg>
           <span class="hidden md:inline" data-i18n="btn_install_app">Install App</span>
         </button>
         
-        <button onclick="exportPdf()" class="text-xs bg-brand-500 hover:bg-brand-600 text-slate-900 font-extrabold px-3 py-1.5 rounded-xl flex items-center space-x-1.5 transition shadow-sm shrink-0">
+        <button onclick="exportPdf()" class="text-xs bg-brand-500 hover:bg-brand-600 text-slate-900 font-extrabold px-3 py-1.5 rounded-xl flex items-center space-x-1.5 transition shadow-sm shrink-0 whitespace-nowrap">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
           </svg>
