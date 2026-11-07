@@ -3118,7 +3118,7 @@
       document.getElementById('resConcSand').innerText = `${sandCFT.toFixed(0)} CFT (${sandM3.toFixed(1)} m³)`;
       document.getElementById('resConcBajri').innerText = `${bajriCFT.toFixed(0)} CFT (${bajriM3.toFixed(1)} m³)`;
       document.getElementById('resConcWater').innerText = `~${waterLitres.toLocaleString()} Litres`;
-      const isMetricRegion = (reg.id === 'gcc' || reg.id === 'asia' || reg.id === 'uk' || reg.unitSystem === 'metric');
+      const isMetricRegion = (currentRegion === 'gcc' || currentRegion === 'asia' || currentRegion === 'uk' || currentConcreteUnit === 'metric');
       document.getElementById('resConcRebarWeight').innerText = isMetricRegion 
         ? `${steelKg.toFixed(0)} kg (${steelTons.toFixed(2)} Tons)` 
         : `${steelLbs.toFixed(0)} lbs (${steelTons.toFixed(2)} Tons)`;
