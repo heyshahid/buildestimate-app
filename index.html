@@ -156,7 +156,21 @@
     .print-only {
       display: none;
     }
-      /* RTL Direction Support for Arabic & Urdu */
+          /* Complete Scrollbar Elimination */
+    .scrollbar-none::-webkit-scrollbar,
+    .no-scrollbar::-webkit-scrollbar,
+    *::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+    .scrollbar-none,
+    .no-scrollbar {
+      -ms-overflow-style: none !important;
+      scrollbar-width: none !important;
+    }
+
+    /* RTL Direction Support for Arabic & Urdu */
     html[dir="rtl"] {
       direction: rtl;
       text-align: right;
@@ -303,7 +317,7 @@
   <!-- Global Construction Standard & Region Switcher Bar -->
   <div id="global-region-bar" class="no-print bg-white/95 border-b border-slate-200/90 px-4 py-2 relative z-30 shadow-xs">
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-2">
-      <div class="flex items-center space-x-2 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+      <div class="flex items-center space-x-2 overflow-x-auto md:overflow-x-visible scrollbar-none no-scrollbar">
         <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 shrink-0 flex items-center space-x-1">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           <span data-i18n="lbl_regional_std">Regional Standard:</span>
