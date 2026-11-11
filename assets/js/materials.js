@@ -411,3 +411,4 @@
   global.BuildEstimateMaterials = MaterialsManager;
 
 })(typeof window !== 'undefined' ? window : this);
+

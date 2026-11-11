@@ -639,6 +639,14 @@
         <!-- VIEW 3: TAKEOFF TOOLS WORKSPACE -->
         <div id="view-takeoffs" class="app-view hidden space-y-4">
           
+          <!-- Engineering Disclaimer Banner -->
+          <div class="p-3.5 bg-slate-100 border border-slate-200 rounded-xl text-xs text-slate-700 flex items-start space-x-2.5">
+            <svg class="w-4 h-4 text-slate-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <div>
+              <span class="font-bold text-slate-900">Standard Civil Engineering Notice:</span> Material takeoffs are mathematical calculations intended for estimating and contractor bidding. Structural dimensions, concrete mix designs, and reinforcement sizing must always be cross-checked against certified structural engineering drawings and local building codes prior to procurement and casting.
+            </div>
+          </div>
+          
 
   <!-- Global Construction Standard & Region Switcher Bar -->
   <div id="global-region-bar" class="no-print bg-white/95 border-b border-slate-200/90 px-4 py-2 relative z-30 shadow-xs">
@@ -1679,6 +1687,14 @@
             </div>
           </div>
 
+          <!-- Industry Benchmark Pricing Disclosure -->
+          <div class="p-3.5 bg-amber-50/90 border border-amber-200/90 rounded-xl text-xs text-amber-900 flex items-start space-x-2.5">
+            <svg class="w-4 h-4 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <div>
+              <span class="font-extrabold">Engineering Pricing Disclosure:</span> Benchmark rates shown are standard industry reference averages (2026). Actual jobsite pricing fluctuates based on batch volumes, supplier contracts, regional transport, and fuel surcharges. Click any unit price to input your actual supplier quotes before finalizing tender bids.
+            </div>
+          </div>
+
           <!-- Materials Table -->
           <div class="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
             <div class="px-5 py-3 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
@@ -2143,6 +2159,41 @@
             </div>
             <div class="pt-3 flex justify-end">
               <button type="button" onclick="alert('Settings saved successfully!');" class="px-5 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition shadow-sm">Save Workspace Settings</button>
+            </div>
+          </div>
+
+          <!-- Data Ownership & Workspace Backup/Restore Section -->
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs max-w-2xl space-y-4">
+            <div class="flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+              <h3 class="text-sm font-bold text-slate-900">Data Ownership, Privacy & Disaster Recovery</h3>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Your estimates, projects, and custom materials are stored 100% locally on your device for absolute client privacy. Download a complete JSON workspace backup to protect your records or transfer them across machines.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              <button type="button" onclick="BuildEstimateStorage.downloadBackupFile()" class="p-4 rounded-xl border border-blue-200 bg-blue-50/70 hover:bg-blue-100/70 transition text-left group">
+                <span class="block text-xs font-extrabold text-blue-900 flex items-center space-x-1.5">
+                  <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                  <span>Export Full Backup (.json)</span>
+                </span>
+                <span class="block text-[11px] text-blue-700/80 mt-1">Downloads complete archive of all projects, takeoffs, BOQ items, and rates.</span>
+              </button>
+
+              <label class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 transition text-left cursor-pointer group block">
+                <span class="block text-xs font-extrabold text-slate-900 flex items-center space-x-1.5">
+                  <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  <span>Restore from Backup File</span>
+                </span>
+                <span class="block text-[11px] text-slate-500 mt-1">Select a previously saved BuildEstimate JSON backup file to restore.</span>
+                <input type="file" accept=".json,application/json" onchange="const f = this.files[0]; if(f){ const r = new FileReader(); r.onload = (e) => BuildEstimateStorage.restoreFromBackup(e.target.result); r.readAsText(f); }" class="hidden">
+              </label>
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
+              <span class="text-slate-400">Accidental Deletion Protection: Active</span>
+              <button type="button" onclick="BuildEstimateStorage.clearAllData()" class="text-rose-600 hover:text-rose-800 font-bold hover:underline">Erase Local Workspace Data</button>
             </div>
           </div>
         </div>

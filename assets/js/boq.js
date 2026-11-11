@@ -464,3 +464,4 @@
   global.BuildEstimateBOQ = BOQ;
 
 })(typeof window !== 'undefined' ? window : this);
+

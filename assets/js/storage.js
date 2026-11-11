@@ -36,11 +36,12 @@
     defaultTax: 8.5
   };
 
-  // High-value realistic Demo Project for 1-click exploration
+  // High-value realistic Demo Project for 1-click exploration (Clearly labeled sample)
   const DEMO_PROJECT = {
     id: 'demo-hillside-villa',
     ref: 'BE-2026-0842',
-    name: 'Hillside Modern Residence - 2 Story RCC Villa',
+    name: '[Sample Demo] Hillside Modern Residence - 2 Story RCC Villa',
+    isDemo: true,
     clientName: 'Alexander & Elena Vance',
     clientContact: '+1 (555) 482-9102 / vance.residence@gmail.com',
     address: 'Lot 14, Crestview Estates, Highland Valley',
@@ -53,7 +54,7 @@
     startDate: '2026-11-20',
     completionDate: '2027-05-30',
     status: 'active',
-    notes: '2-story luxury residential structure featuring monolithic grade-beam foundation slab, 2x4 SPF framing, 1/2" Type X drywall, and premium elastomeric exterior coating.',
+    notes: '[SAMPLE DEMO DATA] 2-story luxury residential structure featuring monolithic grade-beam foundation slab, 2x4 SPF framing, 1/2" Type X drywall, and premium elastomeric exterior coating. For demonstration only; actual quantities require structural engineer sign-off.',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     estimates: [
@@ -308,12 +309,99 @@
     },
 
     clearAllData: function () {
-      localStorage.removeItem(STORAGE_KEYS.PROJECTS);
-      localStorage.removeItem(STORAGE_KEYS.ACTIVE_PROJECT_ID);
-      window.dispatchEvent(new CustomEvent('buildestimate-storage-cleared'));
+      if (confirm('WARNING: Are you sure you want to completely erase all local project data, estimates, and custom materials? This action CANNOT be undone. Please ensure you have downloaded a Backup first.')) {
+        localStorage.removeItem(STORAGE_KEYS.PROJECTS);
+        localStorage.removeItem(STORAGE_KEYS.ACTIVE_PROJECT_ID);
+        localStorage.removeItem(STORAGE_KEYS.MATERIALS);
+        localStorage.removeItem(STORAGE_KEYS.SETTINGS);
+        window.dispatchEvent(new CustomEvent('buildestimate-storage-cleared'));
+        window.location.reload();
+      }
     },
 
-    // 5. BACKWARD-COMPATIBLE MIGRATION FROM LEGACY ESTIMATE HISTORY
+    // 5. DATA OWNERSHIP: FULL WORKSPACE BACKUP & RESTORE
+    createBackupPayload: function () {
+      return {
+        app: 'BuildEstimate Pro',
+        version: '2.0.0',
+        exportedAt: new Date().toISOString(),
+        settings: this.getSettings(),
+        projects: this.getProjects(),
+        activeProjectId: this.getActiveProjectId(),
+        materials: JSON.parse(localStorage.getItem(STORAGE_KEYS.MATERIALS) || '[]')
+      };
+    },
+
+    downloadBackupFile: function () {
+      try {
+        const payload = this.createBackupPayload();
+        const jsonStr = JSON.stringify(payload, null, 2);
+        const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8;' });
+        const link = document.createElement('a');
+        const filename = `BuildEstimate_Workspace_Backup_${new Date().toISOString().slice(0, 10)}.json`;
+        link.href = URL.createObjectURL(blob);
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        return true;
+      } catch (err) {
+        console.error('Failed to create backup:', err);
+        alert('Error creating backup file: ' + err.message);
+        return false;
+      }
+    },
+
+    restoreFromBackup: function (jsonString) {
+      try {
+        const data = JSON.parse(jsonString);
+        if (!data || !Array.isArray(data.projects)) {
+          throw new Error('Invalid backup file format. Must contain a valid projects array.');
+        }
+
+        const projectCount = data.projects.length;
+        if (!confirm(`Restore confirmation: This backup contains ${projectCount} project(s) and workspace settings from ${data.exportedAt || 'previous backup'}. Do you want to proceed and merge/restore this workspace?`)) {
+          return false;
+        }
+
+        localStorage.setItem(STORAGE_KEYS.PROJECTS, JSON.stringify(data.projects));
+        if (data.settings) {
+          localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(data.settings));
+        }
+        if (Array.isArray(data.materials) && data.materials.length > 0) {
+          localStorage.setItem(STORAGE_KEYS.MATERIALS, JSON.stringify(data.materials));
+        }
+        if (data.activeProjectId) {
+          localStorage.setItem(STORAGE_KEYS.ACTIVE_PROJECT_ID, data.activeProjectId);
+        } else if (data.projects.length > 0) {
+          localStorage.setItem(STORAGE_KEYS.ACTIVE_PROJECT_ID, data.projects[0].id);
+        }
+
+        alert(`Workspace successfully restored with ${projectCount} project(s)!`);
+        window.location.reload();
+        return true;
+      } catch (err) {
+        console.error('Failed to restore backup:', err);
+        alert('Failed to restore workspace backup: ' + err.message);
+        return false;
+      }
+    },
+
+    exportSingleProject: function (id) {
+      const project = this.getProject(id);
+      if (!project) return;
+      const jsonStr = JSON.stringify(project, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8;' });
+      const link = document.createElement('a');
+      const filename = `Project_${(project.ref || 'PROJ')}_${project.name.replace(/[^a-zA-Z0-9]/g, '_')}.json`;
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute('download', filename);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    },
+
+    // 6. BACKWARD-COMPATIBLE MIGRATION FROM LEGACY ESTIMATE HISTORY
     migrateLegacyHistory: function () {
       try {
         const legacyRaw = localStorage.getItem(STORAGE_KEYS.LEGACY_HISTORY);

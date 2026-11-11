@@ -330,3 +330,4 @@
   global.BuildEstimateQuotations = Quotations;
 
 })(typeof window !== 'undefined' ? window : this);
+

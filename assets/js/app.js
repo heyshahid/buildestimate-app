@@ -385,7 +385,10 @@
           <div class="bg-white rounded-2xl border ${isActive ? 'border-blue-500 ring-2 ring-blue-500/10' : 'border-slate-200'} p-5 shadow-xs hover:border-blue-300 hover:shadow-sm transition flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-semibold border border-slate-200">${p.ref || 'PROJ'}</span>
+                <div class="flex items-center space-x-1.5">
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-semibold border border-slate-200">${p.ref || 'PROJ'}</span>
+                  ${p.isDemo ? '<span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">Sample Demo</span>' : ''}
+                </div>
                 <span class="text-[11px] font-bold uppercase px-2 py-0.5 rounded-full border ${statusColors[p.status] || 'bg-slate-100 text-slate-700 border-slate-200'}">${p.status}</span>
               </div>
               <h3 class="text-base font-bold text-slate-900 leading-snug line-clamp-1" title="${p.name}">${p.name}</h3>
@@ -418,6 +421,9 @@
               </button>
               
               <div class="flex items-center space-x-1">
+                <button onclick="BuildEstimateStorage.exportSingleProject('${p.id}')" title="Export Project JSON" class="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-slate-100 transition">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                </button>
                 <button onclick="BuildEstimateApp.openEditProjectModal('${p.id}')" title="Edit Project Details" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                 </button>

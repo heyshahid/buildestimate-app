@@ -653,3 +653,4 @@
   global.BuildEstimateDrawing = DrawingTakeoff;
 
 })(typeof window !== 'undefined' ? window : this);
+
