@@ -1,8 +1,9 @@
-const CACHE_NAME = 'buildestimate-v12';
+const CACHE_NAME = 'buildestimate-v21';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
+  './favicon.ico',
   './icons/icon-192.png',
   './icons/logo.png',
   './icons/favicon.png',
@@ -10,7 +11,14 @@ const ASSETS_TO_CACHE = [
   './icons/icon-512.png',
   './icons/icon.svg',
   './assets/images/construction_hero.webp',
-  './assets/images/construction_hero.jpg'
+  './assets/images/construction_hero.jpg',
+  './assets/js/engine.js',
+  './assets/js/storage.js',
+  './assets/js/boq.js',
+  './assets/js/materials.js',
+  './assets/js/takeoff-canvas.js',
+  './assets/js/quotations.js',
+  './assets/js/app.js'
 ];
 
 self.addEventListener('install', (event) => {

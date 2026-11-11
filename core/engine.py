@@ -320,10 +320,13 @@ def generate_contractor_bid(
     profit_margin_percent: float = 20.0,
     currency_code: str = "USD",
     currency_symbol: str = "$",
+    profit_mode: str = "markup",
+    tax_percent: float = 0.0,
 ) -> MasterBidProposal:
     """
     Synthesizes direct costs, labor, overhead, contingency buffer,
     and contractor gross profit margin into an executive bid in any world currency.
+    Supports both 'markup' (on cost) and 'margin' (on selling price).
     """
     direct_labor = labor_hours * labor_rate_hourly
     direct_cost = materials_cost + direct_labor + subcontractor_cost + equipment_cost
@@ -331,8 +334,18 @@ def generate_contractor_bid(
     contingency = direct_cost * (contingency_percent / 100.0)
     subtotal_with_buffer = direct_cost + contingency
 
-    profit_amount = subtotal_with_buffer * (profit_margin_percent / 100.0)
-    grand_total = subtotal_with_buffer + profit_amount
+    if profit_mode == "margin":
+        safe_margin = min(99.0, max(0.0, profit_margin_percent)) / 100.0
+        pre_tax = subtotal_with_buffer / (1.0 - safe_margin) if safe_margin < 1.0 else subtotal_with_buffer
+        profit_amount = pre_tax - subtotal_with_buffer
+        effective_margin = (profit_amount / pre_tax * 100.0) if pre_tax > 0 else 0.0
+    else:
+        profit_amount = subtotal_with_buffer * (profit_margin_percent / 100.0)
+        pre_tax = subtotal_with_buffer + profit_amount
+        effective_margin = (profit_amount / pre_tax * 100.0) if pre_tax > 0 else 0.0
+
+    tax_amount = pre_tax * (tax_percent / 100.0)
+    grand_total = pre_tax + tax_amount
 
     return MasterBidProposal(
         project_name=project_name,
@@ -346,6 +359,10 @@ def generate_contractor_bid(
         equipment_cost=round(equipment_cost, 2),
         contingency_percent=round(contingency_percent, 1),
         profit_margin_percent=round(profit_margin_percent, 1),
+        profit_mode=profit_mode,
+        effective_margin_percent=round(effective_margin, 2),
+        tax_percent=round(tax_percent, 1),
+        tax_amount=round(tax_amount, 2),
         subtotal=round(direct_cost, 2),
         contingency_amount=round(contingency, 2),
         profit_margin_amount=round(profit_amount, 2),

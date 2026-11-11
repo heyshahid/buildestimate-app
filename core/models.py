@@ -112,6 +112,10 @@ class MasterBidProposal(BaseModel):
     equipment_cost: float = 0.0
     contingency_percent: float = 5.0
     profit_margin_percent: float = 20.0
+    profit_mode: str = "markup"
+    effective_margin_percent: float = 0.0
+    tax_percent: float = 0.0
+    tax_amount: float = 0.0
     subtotal: float
     contingency_amount: float
     profit_margin_amount: float

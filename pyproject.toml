@@ -37,6 +37,9 @@ buildestimate = "core.cli:main"
 "Bug Tracker" = "https://github.com/heyshahid/buildestimate-app/issues"
 "Author Portfolio" = "https://byshahid.vercel.app/"
 
+[tool.setuptools]
+packages = ["core"]
+
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
