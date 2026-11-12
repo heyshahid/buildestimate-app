@@ -209,18 +209,25 @@
         if (!el) return;
         if (!activeProj) {
           el.innerHTML = `
-            <div class="flex items-center space-x-2 text-xs text-slate-500 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
-              <span class="w-2 h-2 rounded-full bg-slate-400"></span>
-              <span>No Active Project</span>
-              <button onclick="BuildEstimateApp.openCreateProjectModal()" class="text-blue-600 font-bold hover:underline ml-1">+ New</button>
+            <div class="flex items-center justify-between text-xs text-slate-600 bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-200">
+              <div class="flex items-center space-x-1.5 min-w-0">
+                <span class="w-2 h-2 rounded-full bg-slate-400 shrink-0"></span>
+                <span class="font-bold truncate text-slate-700">Quick Takeoff Mode</span>
+              </div>
+              <button onclick="BuildEstimateApp.openCreateProjectModal()" class="text-blue-600 text-xs font-black hover:underline shrink-0 ml-1">+ New</button>
             </div>
           `;
         } else {
           el.innerHTML = `
-            <div class="flex items-center space-x-2 text-xs font-semibold text-slate-800 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200/80 shadow-2xs">
-              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
-              <span class="truncate max-w-[180px] sm:max-w-[240px]" title="${activeProj.name}">${activeProj.name}</span>
-              <span class="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded bg-blue-100 text-blue-700">${activeProj.currency || 'USD'}</span>
+            <div class="flex items-center justify-between text-xs font-semibold text-slate-800 bg-blue-50 px-2.5 py-1.5 rounded-lg border border-blue-200/80 shadow-2xs">
+              <div class="flex items-center space-x-1.5 min-w-0">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+                <span class="truncate max-w-[150px] font-bold text-slate-900" title="${activeProj.name}">${activeProj.name}</span>
+              </div>
+              <div class="flex items-center space-x-1 shrink-0 ml-1">
+                <span class="text-[9px] uppercase font-bold px-1 rounded bg-blue-100 text-blue-700">${activeProj.currency || 'USD'}</span>
+                <button onclick="BuildEstimateStorage.setActiveProjectId(null); BuildEstimateApp.renderActiveProjectBadge();" title="Exit project to Quick Mode" class="text-slate-400 hover:text-slate-600 text-xs font-bold px-1">✕</button>
+              </div>
             </div>
           `;
         }
@@ -282,6 +289,9 @@
               <button onclick="BuildEstimateApp.switchView('quotations')" class="px-3.5 py-2 rounded-xl bg-purple-600 text-white text-xs font-bold hover:bg-purple-700 transition flex items-center space-x-1.5 shadow-sm">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 <span>Contractor Bid</span>
+              </button>
+              <button onclick="BuildEstimateStorage.clearAllProjects()" class="px-3 py-2 rounded-xl border border-slate-200 text-slate-600 hover:text-red-600 hover:bg-red-50 text-xs font-bold transition" title="Clear sample demo projects and start blank">
+                Clear Sample Data
               </button>
             </div>
           `;

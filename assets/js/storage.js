@@ -327,11 +327,6 @@
         const found = this.getProject(activeId);
         if (found) return found;
       }
-      const projects = this.getProjects();
-      if (projects.length > 0) {
-        this.setActiveProjectId(projects[0].id);
-        return projects[0];
-      }
       return null;
     },
 
@@ -344,12 +339,26 @@
       window.dispatchEvent(new CustomEvent('buildestimate-active-project-changed', { detail: id }));
     },
 
-    // 4. DEMO PROJECT LOADER / CLEAR
+    // 4. DEMO PROJECT LOADER & CLEAN SLATE RESET
     loadDemoProject: function () {
       this.saveProject({ ...DEMO_PROJECT });
       this.setActiveProjectId(DEMO_PROJECT.id);
       window.dispatchEvent(new CustomEvent('buildestimate-demo-loaded'));
       return DEMO_PROJECT;
+    },
+
+    clearAllProjects: function () {
+      if (confirm('Do you want to clear sample project data and reset your workspace to a clean, blank slate?')) {
+        localStorage.removeItem(STORAGE_KEYS.PROJECTS);
+        localStorage.removeItem(STORAGE_KEYS.ACTIVE_PROJECT_ID);
+        window.dispatchEvent(new CustomEvent('buildestimate-active-project-changed', { detail: null }));
+        if (window.BuildEstimateApp) {
+          BuildEstimateApp.renderActiveProjectBadge();
+          BuildEstimateApp.renderDashboard();
+          BuildEstimateApp.renderProjectsList();
+        }
+        alert('Workspace reset! All sample data has been removed. You are now in clean Direct Takeoff mode.');
+      }
     },
 
     clearAllData: function () {

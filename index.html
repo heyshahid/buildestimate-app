@@ -446,85 +446,11 @@
         <!-- Global Selectors & PWA Install Button -->
         <div class="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
           
-          <!-- Active Project Quick Switcher -->
-          <div class="hidden lg:flex items-center bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1 text-xs">
-            <span class="text-[10px] font-bold text-slate-400 uppercase mr-1.5">Project:</span>
-            <select id="headerActiveProjectSelect" onchange="BuildEstimateApp.selectAndOpenProject(this.value)" class="bg-transparent text-xs font-bold text-slate-800 focus:outline-none cursor-pointer max-w-[140px] truncate">
-            </select>
-          </div>
-
-          <!-- Global Country Selector -->
-          <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-2 py-1.5 shadow-2xs">
-            <select id="globalCountry" onchange="onGlobalCountryChange(this.value)" class="bg-transparent text-xs font-bold text-slate-800 focus:outline-none cursor-pointer">
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="PK">Pakistan</option>
-              <option value="IN">India</option>
-              <option value="BD">Bangladesh</option>
-              <option value="AE">UAE</option>
-              <option value="SA">Saudi Arabia</option>
-              <option value="QA">Qatar</option>
-              <option value="KW">Kuwait</option>
-              <option value="OM">Oman</option>
-              <option value="BH">Bahrain</option>
-              <option value="GB">United Kingdom</option>
-              <option value="DE">Germany</option>
-              <option value="FR">France</option>
-              <option value="ES">Spain</option>
-              <option value="IT">Italy</option>
-              <option value="AU">Australia</option>
-              <option value="NZ">New Zealand</option>
-              <option value="SG">Singapore</option>
-              <option value="MY">Malaysia</option>
-              <option value="TR">Turkey</option>
-              <option value="EG">Egypt</option>
-              <option value="ZA">South Africa</option>
-              <option value="BR">Brazil</option>
-              <option value="MX">Mexico</option>
-            </select>
-          </div>
-
-          <!-- Worldwide Currency Selector -->
-          <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-2 py-1.5 shadow-2xs">
-            <select id="globalCurrency" onchange="onGlobalCurrencyChange(this.value)" class="bg-transparent text-xs font-extrabold text-slate-800 focus:outline-none cursor-pointer">
-              <option value="USD">USD ($)</option>
-              <option value="EUR">EUR (€)</option>
-              <option value="GBP">GBP (£)</option>
-              <option value="AED">AED</option>
-              <option value="SAR">SAR</option>
-              <option value="QAR">QAR</option>
-              <option value="KWD">KWD</option>
-              <option value="OMR">OMR</option>
-              <option value="BHD">BHD</option>
-              <option value="PKR">PKR (Rs)</option>
-              <option value="INR">INR (₹)</option>
-              <option value="BDT">BDT (৳)</option>
-              <option value="CAD">CAD (C$)</option>
-              <option value="AUD">AUD (A$)</option>
-              <option value="NZD">NZD</option>
-              <option value="SGD">SGD</option>
-              <option value="MYR">MYR</option>
-              <option value="TRY">TRY (₺)</option>
-              <option value="EGP">EGP</option>
-              <option value="ZAR">ZAR</option>
-              <option value="BRL">BRL</option>
-              <option value="MXN">MXN</option>
-            </select>
-          </div>
-
-          <!-- Language Selector -->
-          <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-2 py-1.5 shadow-2xs">
-            <select id="globalLanguage" onchange="setLanguage(this.value)" class="bg-transparent text-xs font-bold text-slate-800 focus:outline-none cursor-pointer">
-              <option value="en">English</option>
-              <option value="ar">العربية</option>
-              <option value="ur">اردو</option>
-              <option value="hi">हिन्दी</option>
-              <option value="bn">বাংলা</option>
-              <option value="es">Español</option>
-              <option value="fr">Français</option>
-              <option value="de">Deutsch</option>
-            </select>
-          </div>
+          <!-- Quick Settings Action -->
+          <button type="button" onclick="BuildEstimateApp.switchView('settings')" class="inline-flex items-center space-x-1.5 px-2.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition border border-slate-200 shadow-2xs text-xs font-bold" title="Workspace, Regional & Currency Settings">
+            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span class="hidden xl:inline">Settings & Region</span>
+          </button>
 
           <!-- Shahid Growth Lab Branding & GitHub Buttons -->
           <div class="hidden lg:flex items-center space-x-2 pl-2 border-l border-slate-200">
@@ -763,80 +689,47 @@
         <!-- VIEW 3: TAKEOFF TOOLS WORKSPACE -->
         <div id="view-takeoffs" class="app-view hidden space-y-4">
           
-          <!-- Engineering Disclaimer Banner -->
-          <div class="p-3.5 bg-slate-100 border border-slate-200 rounded-xl text-xs text-slate-700 flex items-start space-x-2.5">
-            <svg class="w-4 h-4 text-slate-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-            <div>
-              <span class="font-bold text-slate-900">Standard Civil Engineering Notice:</span> Material takeoffs are mathematical calculations intended for estimating and contractor bidding. Structural dimensions, concrete mix designs, and reinforcement sizing must always be cross-checked against certified structural engineering drawings and local building codes prior to procurement and casting.
+          <!-- Unified Clean Regional & Category Navigation Toolbar -->
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden no-print">
+            
+            <!-- Regional Standards Switcher Bar -->
+            <div id="global-region-bar" class="bg-slate-50/80 border-b border-slate-200/90 px-4 py-2.5 flex flex-col md:flex-row md:items-center justify-between gap-2 text-xs">
+              <div class="flex items-center space-x-2 overflow-x-auto scrollbar-none no-scrollbar">
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 shrink-0 flex items-center space-x-1">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span data-i18n="lbl_regional_std">Standard:</span>
+                </span>
+                <div class="inline-flex rounded-xl p-0.5 bg-slate-200/60 border border-slate-300/60 shrink-0">
+                  <button type="button" onclick="setGlobalRegion('us')" id="btnRegionUS" class="region-btn px-2.5 py-1 text-xs font-bold rounded-lg transition bg-white text-slate-900 shadow-sm border border-slate-200/60">North America [US/CA]</button>
+                  <button type="button" onclick="setGlobalRegion('gcc')" id="btnRegionGCC" class="region-btn px-2.5 py-1 text-xs font-semibold rounded-lg transition text-slate-600 hover:text-slate-900">GCC & Middle East</button>
+                  <button type="button" onclick="setGlobalRegion('asia')" id="btnRegionASIA" class="region-btn px-2.5 py-1 text-xs font-semibold rounded-lg transition text-slate-600 hover:text-slate-900">Asia & Subcontinent (1.54 Factor)</button>
+                  <button type="button" onclick="setGlobalRegion('uk')" id="btnRegionUK" class="region-btn px-2.5 py-1 text-xs font-semibold rounded-lg transition text-slate-600 hover:text-slate-900">UK & Europe</button>
+                </div>
+              </div>
+              <div class="text-[11px] text-slate-500 font-medium flex items-center shrink-0">
+                <span id="regionSpecBadge" class="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200 font-semibold text-[10px] whitespace-normal sm:whitespace-nowrap">US Customary: ft · in · yd³ · #4 Rebar · 80lb Bags · USD Benchmark</span>
+              </div>
             </div>
+
+            <!-- Takeoff Calculators Tab Selector -->
+            <nav class="px-4 flex overflow-x-auto space-x-2 border-b border-slate-100 scrollbar-none no-scrollbar">
+              <button onclick="switchTab('concrete')" class="tab-btn px-4 py-3 text-xs sm:text-sm font-bold border-b-2 border-brand-500 text-brand-600 flex items-center space-x-2 transition shrink-0" data-target="concrete">
+                <span data-i18n="nav_concrete">Concrete & Slabs</span>
+              </button>
+              <button onclick="switchTab('framing')" class="tab-btn px-4 py-3 text-xs sm:text-sm font-bold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center space-x-2 transition shrink-0" data-target="framing">
+                <span data-i18n="nav_framing">Wall Framing & Masonry</span>
+              </button>
+              <button onclick="switchTab('paint')" class="tab-btn px-4 py-3 text-xs sm:text-sm font-bold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center space-x-2 transition shrink-0" data-target="paint">
+                <span data-i18n="nav_paint">Paint & Coatings</span>
+              </button>
+              <button onclick="switchTab('bid')" class="tab-btn px-4 py-3 text-xs sm:text-sm font-bold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center space-x-2 transition shrink-0" data-target="bid">
+                <span data-i18n="nav_bid">Project Bid & Markup</span>
+              </button>
+              <button onclick="switchTab('history')" class="tab-btn px-4 py-3 text-xs sm:text-sm font-bold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center space-x-2 transition shrink-0" data-target="history">
+                <span data-i18n="nav_history">Saved Estimates</span>
+              </button>
+            </nav>
           </div>
-          
-
-  <!-- Global Construction Standard & Region Switcher Bar -->
-  <div id="global-region-bar" class="no-print bg-white/95 border-b border-slate-200/90 px-4 py-2 relative z-30 shadow-xs">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-2">
-      <div class="flex items-center space-x-2 overflow-x-auto md:overflow-x-visible scrollbar-none no-scrollbar">
-        <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 shrink-0 flex items-center space-x-1">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span data-i18n="lbl_regional_std">Regional Standard:</span>
-        </span>
-        <div class="inline-flex rounded-xl p-0.5 bg-slate-100 border border-slate-200 shrink-0">
-          <button type="button" onclick="setGlobalRegion('us')" id="btnRegionUS" class="region-btn px-2.5 py-1 text-xs font-bold rounded-lg transition bg-white text-slate-900 shadow-sm border border-slate-200/60">North America [US/CA]</button>
-          <button type="button" onclick="setGlobalRegion('gcc')" id="btnRegionGCC" class="region-btn px-2.5 py-1 text-xs font-semibold rounded-lg transition text-slate-600 hover:text-slate-900">GCC & Middle East</button>
-          <button type="button" onclick="setGlobalRegion('asia')" id="btnRegionASIA" class="region-btn px-2.5 py-1 text-xs font-semibold rounded-lg transition text-slate-600 hover:text-slate-900">Asia & Subcontinent</button>
-          <button type="button" onclick="setGlobalRegion('uk')" id="btnRegionUK" class="region-btn px-2.5 py-1 text-xs font-semibold rounded-lg transition text-slate-600 hover:text-slate-900">UK & Europe</button>
-        </div>
-      </div>
-      <div class="text-[11px] text-slate-500 font-medium flex items-center shrink-0 sm:shrink">
-        <span id="regionSpecBadge" class="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200 font-semibold text-[10px] whitespace-normal sm:whitespace-nowrap">US Customary: ft · in · yd³ · #4 Rebar · 80lb Bags · USD Benchmark</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Desktop Tab Selector (Hidden on Mobile) -->
-  <nav class="no-print hidden md:block bg-white/90 backdrop-blur-md border-b border-slate-200/90 px-4 relative z-20">
-    <div class="max-w-6xl mx-auto flex space-x-2">
-      <button onclick="switchTab('concrete')" class="tab-btn px-4 py-3 text-sm font-bold border-b-2 border-brand-500 text-brand-600 flex items-center space-x-2 transition" data-target="concrete">
-        <span data-i18n="nav_concrete">Concrete & Slabs</span>
-      </button>
-      <button onclick="switchTab('framing')" class="tab-btn px-4 py-3 text-sm font-bold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center space-x-2 transition" data-target="framing">
-        <span data-i18n="nav_framing">Wall Framing & Masonry</span>
-      </button>
-      <button onclick="switchTab('paint')" class="tab-btn px-4 py-3 text-sm font-bold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center space-x-2 transition" data-target="paint">
-        <span data-i18n="nav_paint">Paint & Coatings</span>
-      </button>
-      <button onclick="switchTab('bid')" class="tab-btn px-4 py-3 text-sm font-bold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center space-x-2 transition" data-target="bid">
-        <span data-i18n="nav_bid">Project Bid & Markup</span>
-      </button>
-      <button onclick="switchTab('history')" class="tab-btn px-4 py-3 text-sm font-bold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center space-x-2 transition" data-target="history">
-        <span data-i18n="nav_history">Saved Estimates</span>
-      </button>
-    </div>
-  </nav>
-
-  <!-- Main Content Container -->
-  
-          
-
-    <!-- Clean Unified Technical Header for Takeoff Tools -->
-    <div class="mb-5 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs">
-      <div>
-        <div class="flex items-center space-x-2">
-          <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
-          <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Civil Engineering Calculation Suite</span>
-          <span id="bannerRegionLabel" class="text-xs text-blue-700 font-semibold bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">North America Standards (US / Canada)</span>
-        </div>
-        <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-0.5">Structural Takeoff & Quantity Surveying</h1>
-        <p class="text-xs sm:text-sm text-slate-500">Calculate concrete volumes, ready-mix transit mixers, steel rebar grid, wall framing studs, and drywall sheets.</p>
-      </div>
-      <div class="flex items-center space-x-3 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 shrink-0">
-        <div class="text-right">
-          <span class="block text-[10px] uppercase font-bold text-slate-500 tracking-wider">Civil Engineering Code</span>
-          <span id="bannerCodeStandards" class="text-xs font-black text-slate-900 block">ACI 318 / IBC (Imperial)</span>
-        </div>
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
-      </div>
-    </div>
 
 
     <!-- TAB 1: CONCRETE & SLABS TAKEOFF -->
@@ -2376,8 +2269,90 @@
         <div id="view-settings" class="app-view hidden space-y-6">
           <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs">
             <h2 class="text-xl font-bold text-slate-900">Workspace & Company Profile Settings</h2>
-            <p class="text-xs text-slate-500 mt-1">Configure your contractor company profile, license credentials, and financial defaults for client proposals.</p>
+            <p class="text-xs text-slate-500 mt-1">Configure your contractor company profile, regional standards, currency preferences, and financial defaults for client proposals.</p>
           </div>
+
+          <!-- Regional & Localization Preferences Card -->
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs max-w-2xl space-y-4">
+            <div class="flex items-center space-x-2 border-b border-slate-100 pb-3">
+              <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+              <h3 class="text-sm font-bold text-slate-900">Regional & Localization Preferences</h3>
+            </div>
+            <p class="text-xs text-slate-500">Configure your default construction region, measurement units, and currency standards.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Country / Region</label>
+                <select id="globalCountry" onchange="onGlobalCountryChange(this.value)" class="w-full text-xs font-bold border border-slate-300 rounded-xl p-2.5 bg-slate-50 focus:bg-white focus:outline-none focus:border-blue-500">
+                  <option value="US">United States</option>
+                  <option value="CA">Canada</option>
+                  <option value="PK">Pakistan</option>
+                  <option value="IN">India</option>
+                  <option value="BD">Bangladesh</option>
+                  <option value="AE">UAE</option>
+                  <option value="SA">Saudi Arabia</option>
+                  <option value="QA">Qatar</option>
+                  <option value="KW">Kuwait</option>
+                  <option value="OM">Oman</option>
+                  <option value="BH">Bahrain</option>
+                  <option value="GB">United Kingdom</option>
+                  <option value="DE">Germany</option>
+                  <option value="FR">France</option>
+                  <option value="ES">Spain</option>
+                  <option value="IT">Italy</option>
+                  <option value="AU">Australia</option>
+                  <option value="NZ">New Zealand</option>
+                  <option value="SG">Singapore</option>
+                  <option value="MY">Malaysia</option>
+                  <option value="TR">Turkey</option>
+                  <option value="EG">Egypt</option>
+                  <option value="ZA">South Africa</option>
+                  <option value="BR">Brazil</option>
+                  <option value="MX">Mexico</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Currency Standard</label>
+                <select id="globalCurrency" onchange="onGlobalCurrencyChange(this.value)" class="w-full text-xs font-black border border-slate-300 rounded-xl p-2.5 bg-slate-50 focus:bg-white focus:outline-none focus:border-blue-500">
+                  <option value="USD">USD ($)</option>
+                  <option value="EUR">EUR (€)</option>
+                  <option value="GBP">GBP (£)</option>
+                  <option value="AED">AED</option>
+                  <option value="SAR">SAR</option>
+                  <option value="QAR">QAR</option>
+                  <option value="KWD">KWD</option>
+                  <option value="OMR">OMR</option>
+                  <option value="BHD">BHD</option>
+                  <option value="PKR">PKR (Rs)</option>
+                  <option value="INR">INR (₹)</option>
+                  <option value="BDT">BDT (৳)</option>
+                  <option value="CAD">CAD (C$)</option>
+                  <option value="AUD">AUD (A$)</option>
+                  <option value="NZD">NZD</option>
+                  <option value="SGD">SGD</option>
+                  <option value="MYR">MYR</option>
+                  <option value="TRY">TRY (₺)</option>
+                  <option value="EGP">EGP</option>
+                  <option value="ZAR">ZAR</option>
+                  <option value="BRL">BRL</option>
+                  <option value="MXN">MXN</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Display Language</label>
+                <select id="globalLanguage" onchange="setLanguage(this.value)" class="w-full text-xs font-bold border border-slate-300 rounded-xl p-2.5 bg-slate-50 focus:bg-white focus:outline-none focus:border-blue-500">
+                  <option value="en">English</option>
+                  <option value="ar">العربية</option>
+                  <option value="ur">اردو</option>
+                  <option value="hi">हिन्दी</option>
+                  <option value="bn">বাংলা</option>
+                  <option value="es">Español</option>
+                  <option value="fr">Français</option>
+                  <option value="de">Deutsch</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
           <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs max-w-2xl space-y-4">
             <div class="grid grid-cols-2 gap-4">
               <div>
@@ -2457,9 +2432,13 @@
               </label>
             </div>
 
-            <div class="pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
+            <div class="pt-3 border-t border-slate-100 flex flex-wrap justify-between items-center gap-2 text-xs">
               <span class="text-slate-400">Accidental Deletion Protection: Active</span>
-              <button type="button" onclick="BuildEstimateStorage.clearAllData()" class="text-rose-600 hover:text-rose-800 font-bold hover:underline">Erase Local Workspace Data</button>
+              <div class="flex items-center space-x-3">
+                <button type="button" onclick="BuildEstimateStorage.clearAllProjects()" class="text-amber-700 hover:text-amber-900 font-bold hover:underline">Reset Demo Data (Start Blank)</button>
+                <span class="text-slate-300">|</span>
+                <button type="button" onclick="BuildEstimateStorage.clearAllData()" class="text-rose-600 hover:text-rose-800 font-bold hover:underline">Erase All Local Data</button>
+              </div>
             </div>
           </div>
         </div>
