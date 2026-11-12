@@ -607,7 +607,13 @@
           };
         }
       } else {
-        // Create new
+        // Create new (inherit global settings)
+        const currentSettings = BuildEstimateStorage.getSettings();
+        const savedCountry = localStorage.getItem('buildestimate_country') || currentSettings.defaultCountry || 'US';
+        const savedCurrency = localStorage.getItem('buildestimate_currency') || currentSettings.defaultCurrency || 'USD';
+        const savedRegion = currentSettings.defaultRegion || (typeof currentRegion !== 'undefined' ? currentRegion : 'us');
+        const savedUnit = (typeof currentConcreteUnit !== 'undefined') ? currentConcreteUnit : (currentSettings.defaultUnit || 'imperial');
+
         projectToSave = {
           id: 'proj-' + Date.now(),
           ref: 'BE-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000),
@@ -615,11 +621,11 @@
           clientName: client,
           clientContact: contact,
           address: address,
-          country: 'US',
-          region: 'us',
+          country: savedCountry,
+          region: savedRegion,
           projectType: type,
-          currency: 'USD',
-          measurementSystem: 'imperial',
+          currency: savedCurrency,
+          measurementSystem: savedUnit,
           status: status,
           notes: notes,
           estimates: [],

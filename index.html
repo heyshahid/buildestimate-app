@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -689,29 +689,8 @@
         <!-- VIEW 3: TAKEOFF TOOLS WORKSPACE -->
         <div id="view-takeoffs" class="app-view hidden space-y-4">
           
-          <!-- Unified Clean Regional & Category Navigation Toolbar -->
+          <!-- Takeoff Calculators Tab Selector -->
           <div class="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden no-print">
-            
-            <!-- Regional Standards Switcher Bar -->
-            <div id="global-region-bar" class="bg-slate-50/80 border-b border-slate-200/90 px-4 py-2.5 flex flex-col md:flex-row md:items-center justify-between gap-2 text-xs">
-              <div class="flex items-center space-x-2 overflow-x-auto scrollbar-none no-scrollbar">
-                <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 shrink-0 flex items-center space-x-1">
-                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                  <span data-i18n="lbl_regional_std">Standard:</span>
-                </span>
-                <div class="inline-flex rounded-xl p-0.5 bg-slate-200/60 border border-slate-300/60 shrink-0">
-                  <button type="button" onclick="setGlobalRegion('us')" id="btnRegionUS" class="region-btn px-2.5 py-1 text-xs font-bold rounded-lg transition bg-white text-slate-900 shadow-sm border border-slate-200/60">North America [US/CA]</button>
-                  <button type="button" onclick="setGlobalRegion('gcc')" id="btnRegionGCC" class="region-btn px-2.5 py-1 text-xs font-semibold rounded-lg transition text-slate-600 hover:text-slate-900">GCC & Middle East</button>
-                  <button type="button" onclick="setGlobalRegion('asia')" id="btnRegionASIA" class="region-btn px-2.5 py-1 text-xs font-semibold rounded-lg transition text-slate-600 hover:text-slate-900">Asia & Subcontinent (1.54 Factor)</button>
-                  <button type="button" onclick="setGlobalRegion('uk')" id="btnRegionUK" class="region-btn px-2.5 py-1 text-xs font-semibold rounded-lg transition text-slate-600 hover:text-slate-900">UK & Europe</button>
-                </div>
-              </div>
-              <div class="text-[11px] text-slate-500 font-medium flex items-center shrink-0">
-                <span id="regionSpecBadge" class="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200 font-semibold text-[10px] whitespace-normal sm:whitespace-nowrap">US Customary: ft · in · yd³ · #4 Rebar · 80lb Bags · USD Benchmark</span>
-              </div>
-            </div>
-
-            <!-- Takeoff Calculators Tab Selector -->
             <nav class="px-4 flex overflow-x-auto space-x-2 border-b border-slate-100 scrollbar-none no-scrollbar">
               <button onclick="switchTab('concrete')" class="tab-btn px-4 py-3 text-xs sm:text-sm font-bold border-b-2 border-blue-600 text-blue-600 flex items-center space-x-2 transition shrink-0" data-target="concrete">
                 <span data-i18n="nav_concrete">Concrete & Slabs</span>
@@ -4308,7 +4287,7 @@
       // 1. Automatic Currency Pick
       const curSelect = document.getElementById('globalCurrency');
       if (curSelect) curSelect.value = country.currency;
-      onGlobalCurrencyChange(country.currency);
+      onGlobalCurrencyChange(country.currency, false);
 
       // 2. Set Regional Standard
       setGlobalRegion(country.region);
@@ -4324,6 +4303,28 @@
       }
 
       localStorage.setItem('buildestimate_country', country.code);
+      localStorage.setItem('buildestimate_currency', country.currency);
+
+      if (typeof BuildEstimateStorage !== 'undefined') {
+        BuildEstimateStorage.saveSettings({
+          defaultCountry: country.code,
+          defaultCurrency: country.currency,
+          defaultRegion: country.region,
+          defaultUnit: country.unit
+        });
+        const activeProj = BuildEstimateStorage.getActiveProject();
+        if (activeProj) {
+          activeProj.country = country.code;
+          activeProj.region = country.region;
+          activeProj.currency = country.currency;
+          activeProj.measurementSystem = country.unit;
+          BuildEstimateStorage.saveProject(activeProj);
+        }
+      }
+
+      if (typeof BuildEstimateApp !== 'undefined' && BuildEstimateApp.refreshActiveView) {
+        BuildEstimateApp.refreshActiveView();
+      }
     }
 
     let currentCurrency = 'USD';
@@ -4337,13 +4338,28 @@
       return `${c.symbol}${num}`;
     }
 
-    function onGlobalCurrencyChange(newCur) {
+    function onGlobalCurrencyChange(newCur, saveStorage = true) {
       currentCurrency = newCur;
-      document.getElementById('symbolConcPrice').innerText = (CURRENCIES[newCur] || CURRENCIES['USD']).symbol;
+      localStorage.setItem('buildestimate_currency', newCur);
+      const curSelect = document.getElementById('globalCurrency');
+      if (curSelect) curSelect.value = newCur;
+      const symEl = document.getElementById('symbolConcPrice');
+      if (symEl) symEl.innerText = (CURRENCIES[newCur] || CURRENCIES['USD']).symbol;
       calcConcrete();
       calcFraming();
       calcPaint();
       calcBid();
+      if (saveStorage && typeof BuildEstimateStorage !== 'undefined') {
+        BuildEstimateStorage.saveSettings({ defaultCurrency: newCur });
+        const activeProj = BuildEstimateStorage.getActiveProject();
+        if (activeProj) {
+          activeProj.currency = newCur;
+          BuildEstimateStorage.saveProject(activeProj);
+        }
+      }
+      if (typeof BuildEstimateApp !== 'undefined' && BuildEstimateApp.refreshActiveView) {
+        BuildEstimateApp.refreshActiveView();
+      }
     }
 
     // GLOBAL REGION & SPECIFICATIONS REGISTRY
@@ -4448,7 +4464,7 @@
       currentRegion = regionId;
       const reg = REGIONS[regionId] || REGIONS['us'];
 
-      // Highlight active region button
+      // Highlight active region button if present
       document.querySelectorAll('.region-btn').forEach(b => {
         b.className = 'region-btn px-2.5 py-1 text-xs font-semibold rounded-lg transition text-slate-600 hover:text-slate-900 whitespace-nowrap';
       });
@@ -4457,37 +4473,51 @@
         activeBtn.className = 'region-btn px-2.5 py-1 text-xs font-bold rounded-lg transition bg-white text-slate-950 shadow-sm border border-slate-200 whitespace-nowrap';
       }
 
-      // Update badges
-      document.getElementById('regionSpecBadge').innerText = reg.badge;
-      document.getElementById('bannerRegionLabel').innerText = reg.bannerLabel;
-      document.getElementById('bannerCodeStandards').innerText = reg.standardCode;
-      document.getElementById('printStandardLine').innerText = `Standard: ${reg.name} · ${reg.standardCode}`;
+      // Update badges safely with null-checks
+      const specEl = document.getElementById('regionSpecBadge');
+      if (specEl) specEl.innerText = reg.badge;
+      const bReg = document.getElementById('bannerRegionLabel');
+      if (bReg) bReg.innerText = reg.bannerLabel;
+      const bCode = document.getElementById('bannerCodeStandards');
+      if (bCode) bCode.innerText = reg.standardCode;
+      const pStd = document.getElementById('printStandardLine');
+      if (pStd) pStd.innerText = `Standard: ${reg.name} · ${reg.standardCode}`;
 
-      // Update currency dropdown
-      document.getElementById('globalCurrency').value = reg.defaultCurrency;
-      currentCurrency = reg.defaultCurrency;
-      document.getElementById('symbolConcPrice').innerText = (CURRENCIES[currentCurrency] || CURRENCIES['USD']).symbol;
+      // Update currency if not explicitly chosen
+      const savedCur = localStorage.getItem('buildestimate_currency');
+      if (!savedCur) {
+        const curSelect = document.getElementById('globalCurrency');
+        if (curSelect) curSelect.value = reg.defaultCurrency;
+        currentCurrency = reg.defaultCurrency;
+      }
+      const symPrice = document.getElementById('symbolConcPrice');
+      if (symPrice) symPrice.innerText = (CURRENCIES[currentCurrency] || CURRENCIES['USD']).symbol;
 
-      // Populate Benchmark rates
-      document.getElementById('concPricePerYard').value = reg.readyMixRate;
-      document.getElementById('rateCementBag').value = reg.cementBagRate;
-      document.getElementById('rateSandCft').value = reg.sandRate;
-      document.getElementById('rateBajriCft').value = reg.bajriRate;
-      document.getElementById('rateSteelKg').value = reg.steelRate;
-      document.getElementById('frameStudCost').value = reg.studUnitCost;
-      document.getElementById('drywallSheetCost').value = reg.sheetUnitCost;
-      document.getElementById('rateBrickSingle').value = reg.brickSingleRate;
-      document.getElementById('rateMortarCement').value = reg.mortarCementRate;
-      document.getElementById('rateMortarSand').value = reg.mortarSandRate;
-      document.getElementById('paintPricePerGal').value = reg.paintRate;
-      document.getElementById('bidLaborRate').value = reg.laborRate;
+      // Populate Benchmark rates safely
+      const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.value = val;
+      };
+      setVal('concPricePerYard', reg.readyMixRate);
+      setVal('rateCementBag', reg.cementBagRate);
+      setVal('rateSandCft', reg.sandRate);
+      setVal('rateBajriCft', reg.bajriRate);
+      setVal('rateSteelKg', reg.steelRate);
+      setVal('frameStudCost', reg.studUnitCost);
+      setVal('drywallSheetCost', reg.sheetUnitCost);
+      setVal('rateBrickSingle', reg.brickSingleRate);
+      setVal('rateMortarCement', reg.mortarCementRate);
+      setVal('rateMortarSand', reg.mortarSandRate);
+      setVal('paintPricePerGal', reg.paintRate);
+      setVal('bidLaborRate', reg.laborRate);
 
       // Adapt Units & Inputs
       setConcreteUnit(reg.unitSystem);
 
       // Auto-toggle brick view if in Asia, drywall in others
       if (regionId === 'asia') {
-        document.getElementById('concMixRatio').value = '1:2:4';
+        const concMix = document.getElementById('concMixRatio');
+        if (concMix) concMix.value = '1:2:4';
       }
 
       calcConcrete();
@@ -5199,9 +5229,13 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       const savedCountry = localStorage.getItem('buildestimate_country') || 'US';
+      const savedCurrency = localStorage.getItem('buildestimate_currency');
       const savedLang = localStorage.getItem('buildestimate_lang') || 'en';
       setLanguage(savedLang);
       onGlobalCountryChange(savedCountry);
+      if (savedCurrency) {
+        onGlobalCurrencyChange(savedCurrency, false);
+      }
     });
   </script>
   <!-- Modal: Install App Guide -->

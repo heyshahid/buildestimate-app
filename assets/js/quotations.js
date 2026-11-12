@@ -49,10 +49,8 @@
         return;
       }
 
-      const currSym = (activeProj.currency === 'PKR') ? 'Rs ' :
-                      (activeProj.currency === 'EUR') ? '€' :
-                      (activeProj.currency === 'GBP') ? '£' :
-                      (activeProj.currency === 'AED') ? 'AED ' : '$';
+      const projCur = (activeProj && activeProj.currency) ? activeProj.currency : (localStorage.getItem('buildestimate_currency') || 'USD');
+      const currSym = (typeof CURRENCIES !== 'undefined' && CURRENCIES[projCur]) ? CURRENCIES[projCur].symbol : '$';
 
       // Aggregate direct costs from BOQ or Takeoffs
       let matTotal = 0;
@@ -332,7 +330,8 @@
         if (document.getElementById('printCurrencyCode')) document.getElementById('printCurrencyCode').innerText = activeProj.currency || 'USD';
         if (activeProj.quotation) {
           const q = activeProj.quotation;
-          const currSym = (activeProj.currency === 'PKR') ? 'Rs ' : (activeProj.currency === 'EUR') ? '€' : (activeProj.currency === 'GBP') ? '£' : (activeProj.currency === 'AED') ? 'AED ' : '$';
+          const projCur = (activeProj && activeProj.currency) ? activeProj.currency : (localStorage.getItem('buildestimate_currency') || 'USD');
+          const currSym = (typeof CURRENCIES !== 'undefined' && CURRENCIES[projCur]) ? CURRENCIES[projCur].symbol : '$';
           if (document.getElementById('printMatTotal')) document.getElementById('printMatTotal').innerText = currSym + (q.materialsSubtotal || 0).toLocaleString('en-US', { minimumFractionDigits: 2 });
           if (document.getElementById('printLaborTotal')) document.getElementById('printLaborTotal').innerText = currSym + (q.laborSubtotal || 0).toLocaleString('en-US', { minimumFractionDigits: 2 });
           if (document.getElementById('printSubTotal')) document.getElementById('printSubTotal').innerText = currSym + (q.subcontractorsSubtotal || 0).toLocaleString('en-US', { minimumFractionDigits: 2 });

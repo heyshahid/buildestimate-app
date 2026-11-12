@@ -63,10 +63,8 @@
       if (!container) return;
 
       const items = (activeProj && Array.isArray(activeProj.boqItems)) ? activeProj.boqItems : [];
-      const currSym = (activeProj && activeProj.currency === 'PKR') ? 'Rs ' :
-                      (activeProj && activeProj.currency === 'EUR') ? '€' :
-                      (activeProj && activeProj.currency === 'GBP') ? '£' :
-                      (activeProj && activeProj.currency === 'AED') ? 'AED ' : '$';
+      const projCur = (activeProj && activeProj.currency) ? activeProj.currency : (localStorage.getItem('buildestimate_currency') || 'USD');
+      const currSym = (typeof CURRENCIES !== 'undefined' && CURRENCIES[projCur]) ? CURRENCIES[projCur].symbol : '$';
 
       // Apply filtering and search
       let filtered = items;
