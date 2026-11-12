@@ -323,6 +323,25 @@
     },
 
     printProposal: function () {
+      const activeProj = BuildEstimateStorage.getActiveProject();
+      if (activeProj) {
+        if (document.getElementById('printProjectName')) document.getElementById('printProjectName').innerText = activeProj.name;
+        if (document.getElementById('printClientName')) document.getElementById('printClientName').innerText = activeProj.clientName || 'Direct Client';
+        if (document.getElementById('printDate')) document.getElementById('printDate').innerText = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        if (document.getElementById('printRef')) document.getElementById('printRef').innerText = (activeProj.ref || 'BE-2026-0842').replace('BE-', '');
+        if (document.getElementById('printCurrencyCode')) document.getElementById('printCurrencyCode').innerText = activeProj.currency || 'USD';
+        if (activeProj.quotation) {
+          const q = activeProj.quotation;
+          const currSym = (activeProj.currency === 'PKR') ? 'Rs ' : (activeProj.currency === 'EUR') ? '€' : (activeProj.currency === 'GBP') ? '£' : (activeProj.currency === 'AED') ? 'AED ' : '$';
+          if (document.getElementById('printMatTotal')) document.getElementById('printMatTotal').innerText = currSym + (q.materialsSubtotal || 0).toLocaleString('en-US', { minimumFractionDigits: 2 });
+          if (document.getElementById('printLaborTotal')) document.getElementById('printLaborTotal').innerText = currSym + (q.laborSubtotal || 0).toLocaleString('en-US', { minimumFractionDigits: 2 });
+          if (document.getElementById('printSubTotal')) document.getElementById('printSubTotal').innerText = currSym + (q.subcontractorsSubtotal || 0).toLocaleString('en-US', { minimumFractionDigits: 2 });
+          if (document.getElementById('printEquipTotal')) document.getElementById('printEquipTotal').innerText = currSym + (q.equipmentSubtotal || 0).toLocaleString('en-US', { minimumFractionDigits: 2 });
+          if (document.getElementById('printDirectSubtotal')) document.getElementById('printDirectSubtotal').innerText = currSym + (q.directJobCost || 0).toLocaleString('en-US', { minimumFractionDigits: 2 });
+          if (document.getElementById('printContingencyTotal')) document.getElementById('printContingencyTotal').innerText = currSym + (q.contingencyAmount || 0).toLocaleString('en-US', { minimumFractionDigits: 2 }) + ` (${q.contingencyRate || 5}%)`;
+          if (document.getElementById('printFinalPrice')) document.getElementById('printFinalPrice').innerText = currSym + (q.grandTotal || 0).toLocaleString('en-US', { minimumFractionDigits: 2 });
+        }
+      }
       window.print();
     }
   };

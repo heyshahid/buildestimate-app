@@ -18,11 +18,8 @@
       // 1. Ensure storage is initialized and legacy data migrated
       BuildEstimateStorage.migrateLegacyHistory();
 
-      // 2. Ensure an active project exists (or initialize with demo if empty)
-      let activeProj = BuildEstimateStorage.getActiveProject();
-      if (!activeProj && BuildEstimateStorage.getProjects().length === 0) {
-        activeProj = BuildEstimateStorage.loadDemoProject();
-      }
+      // 2. Active project state: check if an active project exists (never force demo on empty storage)
+      const activeProj = BuildEstimateStorage.getActiveProject();
 
       // 3. Render Navigation and Views
       this.bindNavigation();
@@ -34,6 +31,7 @@
       // Initialize sub-modules
       if (window.BuildEstimateBOQ) BuildEstimateBOQ.init();
       if (window.BuildEstimateMaterials) BuildEstimateMaterials.init();
+      if (window.BuildEstimateSuppliers) BuildEstimateSuppliers.init();
       if (window.BuildEstimateDrawing) BuildEstimateDrawing.init();
       if (window.BuildEstimateQuotations) BuildEstimateQuotations.init();
 
@@ -54,17 +52,33 @@
         if (window.BuildEstimateQuotations) BuildEstimateQuotations.render();
       });
 
-      // 5. Check URL hash for initial routing
+      window.addEventListener('buildestimate-demo-loaded', () => {
+        this.renderActiveProjectBadge();
+        this.renderDashboard();
+        this.renderProjectsList();
+        if (window.BuildEstimateBOQ) BuildEstimateBOQ.render();
+        if (window.BuildEstimateQuotations) BuildEstimateQuotations.render();
+      });
+
+      // 5. Listen for browser Back / Forward history navigation
+      window.addEventListener('hashchange', () => {
+        const hash = window.location.hash.replace('#', '') || 'dashboard';
+        if (this.currentView !== hash && document.getElementById('view-' + hash)) {
+          this.switchView(hash, false);
+        }
+      });
+
+      // 6. Check URL hash for initial routing
       const hash = window.location.hash.replace('#', '');
       if (hash && document.getElementById('view-' + hash)) {
-        this.switchView(hash);
+        this.switchView(hash, false);
       } else {
-        this.switchView('dashboard');
+        this.switchView('dashboard', false);
       }
     },
 
     // NAVIGATION SYSTEM (14 Modules)
-    switchView: function (viewName) {
+    switchView: function (viewName, updateHash = true) {
       const targetView = document.getElementById('view-' + viewName);
       if (!targetView) {
         console.warn('View not found:', viewName);
@@ -78,7 +92,11 @@
       // Show target view
       targetView.classList.remove('hidden');
       this.currentView = viewName;
-      window.location.hash = viewName;
+
+      // Update URL hash safely for browser Back/Forward navigation
+      if (updateHash !== false && window.location.hash !== '#' + viewName) {
+        window.location.hash = viewName;
+      }
 
       // Update sidebar nav link active states
       const navLinks = document.querySelectorAll('.sidebar-nav-link');
@@ -108,7 +126,7 @@
           'quotations': 'Contractor Quotations & Bids',
           'history': 'Saved Estimates & Revisions',
           'reports': 'Executive Reports & Purchasing',
-          'suppliers': 'Suppliers & Vendor Comparison',
+          'suppliers': 'Verified Local Suppliers Directory',
           'regional': 'Regional Construction Standards',
           'help': 'Help, Field Manual & Formulas',
           'settings': 'Workspace & Company Settings'
@@ -122,6 +140,7 @@
       if (viewName === 'boq' && window.BuildEstimateBOQ) BuildEstimateBOQ.render();
       if (viewName === 'materials' && window.BuildEstimateMaterials) BuildEstimateMaterials.render();
       if (viewName === 'labour' && window.BuildEstimateMaterials) BuildEstimateMaterials.renderLabourAndEquipment();
+      if (viewName === 'suppliers' && window.BuildEstimateSuppliers) BuildEstimateSuppliers.render();
       if (viewName === 'quotations' && window.BuildEstimateQuotations) BuildEstimateQuotations.render();
       if (viewName === 'drawing-takeoff' && window.BuildEstimateDrawing) {
         setTimeout(() => {
@@ -207,6 +226,58 @@
     renderDashboard: function () {
       const projects = BuildEstimateStorage.getProjects();
       const activeProj = BuildEstimateStorage.getActiveProject();
+
+      // Top Welcome / Action Banner
+      const welcomeBanner = document.getElementById('dashWelcomeBanner');
+      if (welcomeBanner) {
+        if (projects.length === 0) {
+          welcomeBanner.innerHTML = `
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse"></span>
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Universal Estimating Studio</span>
+              </div>
+              <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-0.5">Welcome to BuildEstimate Pro</h1>
+              <p class="text-xs sm:text-sm text-slate-500">Create your own construction project to start estimating, or load the sample villa to explore.</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <button onclick="BuildEstimateApp.openCreateProjectModal()" class="px-4 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition flex items-center space-x-1.5 shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                <span>+ Create Your Project</span>
+              </button>
+              <button onclick="BuildEstimateStorage.loadDemoProject()" class="px-3.5 py-2.5 rounded-xl bg-amber-500 text-slate-950 text-xs font-bold hover:bg-amber-600 transition flex items-center space-x-1.5 shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <span>Load Sample Villa (Demo)</span>
+              </button>
+            </div>
+          `;
+        } else {
+          welcomeBanner.innerHTML = `
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Active Workspace</span>
+              </div>
+              <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-0.5">Construction Intelligence Dashboard</h1>
+              <p class="text-xs sm:text-sm text-slate-500">Current Project: <strong class="text-slate-800">${activeProj ? activeProj.name : 'All Projects'}</strong></p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <button onclick="BuildEstimateApp.openCreateProjectModal()" class="px-3.5 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition flex items-center space-x-1.5 shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                <span>+ New Project</span>
+              </button>
+              <button onclick="BuildEstimateApp.switchView('takeoffs'); switchTab('concrete');" class="px-3.5 py-2 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition flex items-center space-x-1.5 shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                <span>Concrete Takeoff</span>
+              </button>
+              <button onclick="BuildEstimateApp.switchView('quotations')" class="px-3.5 py-2 rounded-xl bg-purple-600 text-white text-xs font-bold hover:bg-purple-700 transition flex items-center space-x-1.5 shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <span>Contractor Bid</span>
+              </button>
+            </div>
+          `;
+        }
+      }
 
       // Compute aggregate stats across all projects
       let totalProjects = projects.length;
@@ -541,7 +612,14 @@
         BuildEstimateStorage.saveProject(projectToSave);
         BuildEstimateStorage.setActiveProjectId(projectToSave.id);
         this.closeProjectModal();
+        this.renderActiveProjectBadge();
         this.renderProjectsList();
+        this.renderDashboard();
+        if (!id) {
+          // If this was a newly created project, immediately switch to takeoffs view so user can start calculating!
+          this.switchView('takeoffs');
+          if (typeof switchTab === 'function') switchTab('concrete');
+        }
       }
     },
 

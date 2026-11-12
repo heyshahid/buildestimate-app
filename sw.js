@@ -1,4 +1,4 @@
-const CACHE_NAME = 'buildestimate-v21';
+const CACHE_NAME = 'buildestimate-v2.2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -16,6 +16,7 @@ const ASSETS_TO_CACHE = [
   './assets/js/storage.js',
   './assets/js/boq.js',
   './assets/js/materials.js',
+  './assets/js/suppliers.js',
   './assets/js/takeoff-canvas.js',
   './assets/js/quotations.js',
   './assets/js/app.js'

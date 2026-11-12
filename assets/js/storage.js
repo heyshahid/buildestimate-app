@@ -14,6 +14,7 @@
     MATERIALS: 'buildestimate_v2_materials',
     CREWS: 'buildestimate_v2_crews',
     EQUIPMENT: 'buildestimate_v2_equipment',
+    SUPPLIERS: 'buildestimate_v2_suppliers',
     SETTINGS: 'buildestimate_v2_settings',
     LEGACY_HISTORY: 'buildestimate_history'
   };
@@ -35,6 +36,49 @@
     defaultContingency: 5.0,
     defaultTax: 8.5
   };
+
+  // Verified Local Suppliers Sample Templates (Clearly labeled demo data for initial exploration)
+  const SAMPLE_SUPPLIERS = [
+    {
+      id: 'sup-1',
+      name: 'Metro Ready-Mix Concrete Co.',
+      category: 'Ready-Mix Batch Plant',
+      contactPerson: 'Dave Miller (Dispatch)',
+      phone: '+1 (555) 234-8901',
+      email: 'dispatch@metroreadymix.example.com',
+      location: 'Industrial Sector 4, Metro Area',
+      deliveryRadius: '25 miles (40 km)',
+      paymentTerms: 'Net 30',
+      notes: 'Standard 3000-4000 PSI ready-mix concrete. Transit mixer fleet available on 24-hour advance booking.',
+      isSample: true
+    },
+    {
+      id: 'sup-2',
+      name: 'Builders First Lumber Yard',
+      category: 'Lumber & Framing',
+      contactPerson: 'Sarah Jenkins',
+      phone: '+1 (555) 872-1094',
+      email: 'orders@buildersfirst.example.com',
+      location: 'West Highway Commercial Park',
+      deliveryRadius: '35 miles (55 km)',
+      paymentTerms: 'COD / Net 15',
+      notes: 'KD SPF 2x4 & 2x6 studs, LVL engineered beams, 1/2" CDX plywood sheathing. 5% contractor trade discount on bundled framing orders.',
+      isSample: true
+    },
+    {
+      id: 'sup-3',
+      name: 'Apex Rebar & Fabricators',
+      category: 'Steel Reinforcement',
+      contactPerson: 'Tariq Mahmood',
+      phone: '+1 (555) 438-9201',
+      email: 'sales@apexrebar.example.com',
+      location: 'Heavy Industrial Zone, Dock Road',
+      deliveryRadius: '50 miles (80 km)',
+      paymentTerms: 'Net 30',
+      notes: 'ASTM A615 Grade 60 (#3 to #8 rebar). In-house automated shear line for pre-bent stirrups, ties, and custom column cages.',
+      isSample: true
+    }
+  ];
 
   // High-value realistic Demo Project for 1-click exploration (Clearly labeled sample)
   const DEMO_PROJECT = {
@@ -313,10 +357,64 @@
         localStorage.removeItem(STORAGE_KEYS.PROJECTS);
         localStorage.removeItem(STORAGE_KEYS.ACTIVE_PROJECT_ID);
         localStorage.removeItem(STORAGE_KEYS.MATERIALS);
+        localStorage.removeItem(STORAGE_KEYS.SUPPLIERS);
         localStorage.removeItem(STORAGE_KEYS.SETTINGS);
         window.dispatchEvent(new CustomEvent('buildestimate-storage-cleared'));
         window.location.reload();
       }
+    },
+
+    // SUPPLIERS MANAGEMENT
+    getSuppliers: function () {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEYS.SUPPLIERS);
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        console.error('Failed to parse suppliers:', e);
+        return [];
+      }
+    },
+
+    saveSupplier: function (supplier) {
+      try {
+        const suppliers = this.getSuppliers();
+        const idx = suppliers.findIndex(s => s.id === supplier.id);
+        const updated = {
+          ...supplier,
+          updatedAt: new Date().toISOString()
+        };
+        if (idx !== -1) {
+          suppliers[idx] = updated;
+        } else {
+          updated.createdAt = updated.createdAt || new Date().toISOString();
+          suppliers.unshift(updated);
+        }
+        localStorage.setItem(STORAGE_KEYS.SUPPLIERS, JSON.stringify(suppliers));
+        window.dispatchEvent(new CustomEvent('buildestimate-suppliers-updated', { detail: updated }));
+        return updated;
+      } catch (e) {
+        console.error('Failed to save supplier:', e);
+        return null;
+      }
+    },
+
+    deleteSupplier: function (id) {
+      try {
+        let suppliers = this.getSuppliers();
+        suppliers = suppliers.filter(s => s.id !== id);
+        localStorage.setItem(STORAGE_KEYS.SUPPLIERS, JSON.stringify(suppliers));
+        window.dispatchEvent(new CustomEvent('buildestimate-suppliers-updated', { detail: id }));
+        return true;
+      } catch (e) {
+        console.error('Failed to delete supplier:', e);
+        return false;
+      }
+    },
+
+    loadSampleSuppliers: function () {
+      localStorage.setItem(STORAGE_KEYS.SUPPLIERS, JSON.stringify(SAMPLE_SUPPLIERS));
+      window.dispatchEvent(new CustomEvent('buildestimate-suppliers-updated'));
+      return SAMPLE_SUPPLIERS;
     },
 
     // 5. DATA OWNERSHIP: FULL WORKSPACE BACKUP & RESTORE
@@ -328,6 +426,7 @@
         settings: this.getSettings(),
         projects: this.getProjects(),
         activeProjectId: this.getActiveProjectId(),
+        suppliers: this.getSuppliers(),
         materials: JSON.parse(localStorage.getItem(STORAGE_KEYS.MATERIALS) || '[]')
       };
     },
@@ -370,6 +469,9 @@
         }
         if (Array.isArray(data.materials) && data.materials.length > 0) {
           localStorage.setItem(STORAGE_KEYS.MATERIALS, JSON.stringify(data.materials));
+        }
+        if (Array.isArray(data.suppliers) && data.suppliers.length > 0) {
+          localStorage.setItem(STORAGE_KEYS.SUPPLIERS, JSON.stringify(data.suppliers));
         }
         if (data.activeProjectId) {
           localStorage.setItem(STORAGE_KEYS.ACTIVE_PROJECT_ID, data.activeProjectId);

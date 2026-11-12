@@ -103,12 +103,17 @@
         padding: 0 !important;
         margin: 0 !important;
         height: auto !important;
-        min-height: auto !important;
+        min-height: 0 !important;
         overflow: visible !important;
       }
-      .no-print, header, nav, #global-region-bar, main, #tab-concrete, #tab-framing, #tab-paint, #tab-bid, #tab-history, [aria-hidden="true"], picture, img {
+      body > :not(.print-only),
+      .no-print, header, nav, aside, #appSidebar, #global-region-bar, main, #tab-concrete, #tab-framing, #tab-paint, #tab-bid, #tab-history, [aria-hidden="true"], picture, img {
         display: none !important;
         height: 0 !important;
+        max-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
         overflow: hidden !important;
         visibility: hidden !important;
       }
@@ -116,13 +121,17 @@
         display: block !important;
         background: #ffffff !important;
         color: #0f172a !important;
+        page-break-before: avoid !important;
+        break-before: avoid !important;
+        page-break-after: avoid !important;
+        break-after: avoid !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
         width: 100% !important;
         max-width: 100% !important;
         box-sizing: border-box !important;
-        padding: 6mm 8mm !important;
-        margin: 0 !important;
+        padding: 0 !important;
+        margin: 0 auto !important;
         position: relative !important;
         z-index: 9999 !important;
       }
@@ -199,7 +208,7 @@
 <body class="bg-[#F7F9FC] text-[#172033] min-h-screen antialiased selection:bg-[#2563EB] selection:text-white">
 
   <!-- Master App Container with Desktop Sidebar & Content Column -->
-  <div class="flex min-h-screen w-full">
+  <div class="no-print flex min-h-screen w-full">
     
     <!-- LEFT SIDEBAR NAVIGATION (Desktop) -->
     <aside id="appSidebar" class="no-print hidden md:flex flex-col w-64 bg-white border-r border-[#E2E8F0] shrink-0 sticky top-0 h-screen select-none z-30 justify-between">
@@ -438,7 +447,7 @@
         <div id="view-dashboard" class="app-view space-y-6">
           
           <!-- Top Welcome & Quick Actions Bar -->
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs">
+          <div id="dashWelcomeBanner" class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs">
             <div>
               <div class="flex items-center space-x-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -452,7 +461,7 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                 <span>+ New Project</span>
               </button>
-              <button onclick="BuildEstimateApp.switchView('takeoffs')" class="px-3.5 py-2 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition flex items-center space-x-1.5 shadow-sm">
+              <button onclick="BuildEstimateApp.switchView('takeoffs'); switchTab('concrete');" class="px-3.5 py-2 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition flex items-center space-x-1.5 shadow-sm">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                 <span>Concrete Takeoff</span>
               </button>
@@ -530,13 +539,13 @@
                 <span class="text-[10px] text-slate-500">CSI trade sections</span>
               </div>
             </button>
-            <button onclick="BuildEstimateApp.switchView('takeoffs'); switchTab('bid');" class="flex items-center space-x-3 p-3.5 bg-white rounded-xl border border-slate-200 hover:border-blue-400 hover:shadow-xs transition text-left group">
+            <button onclick="BuildEstimateApp.switchView('quotations')" class="flex items-center space-x-3 p-3.5 bg-white rounded-xl border border-slate-200 hover:border-blue-400 hover:shadow-xs transition text-left group">
               <div class="w-9 h-9 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-sm shrink-0 group-hover:bg-purple-600 group-hover:text-white transition">
                 📄
               </div>
               <div>
                 <span class="block text-xs font-bold text-slate-900 leading-tight">Contractor Bid</span>
-                <span class="text-[10px] text-slate-500">1-page official PDF</span>
+                <span class="text-[10px] text-slate-500">1-page official proposal</span>
               </div>
             </button>
           </div>
@@ -694,30 +703,23 @@
   
           
 
-    <!-- Architectural Jobsite & Materials Banner -->
-    <div class="mb-6 rounded-2xl overflow-hidden border border-slate-200/90 bg-white/90 backdrop-blur-md shadow-md relative group">
-      <div class="relative h-32 sm:h-40 overflow-hidden">
-        <picture>
-          <source srcset="assets/images/construction_hero.webp" type="image/webp">
-          <img src="assets/images/construction_hero.jpg" alt="Modern Luxury Home Structural Construction" class="w-full h-full object-cover object-[center_35%] transform group-hover:scale-105 transition duration-700">
-        </picture>
-        <div class="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-900/80 to-slate-900/40 flex items-center justify-between px-5 sm:px-8 gap-4">
-          <div class="flex-1 min-w-0 max-w-2xl text-white">
-            <div class="flex items-center space-x-2.5 mb-1.5 flex-nowrap overflow-hidden">
-              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-500 text-slate-950 shrink-0 whitespace-nowrap shadow-xs">Global Standard Suite</span>
-              <span id="bannerRegionLabel" class="text-xs text-amber-300 font-semibold whitespace-nowrap truncate">North America Standards (US / Canada)</span>
-            </div>
-            <h1 class="text-lg sm:text-2xl font-black tracking-tight text-white drop-shadow truncate sm:whitespace-normal">Universal Structure Takeoff & Cost Intelligence</h1>
-            <p class="text-xs sm:text-sm text-slate-200 font-medium mt-1 drop-shadow line-clamp-1 sm:line-clamp-none"><span data-i18n="banner_desc">Accurate ready-mix, 1:2:4 nominal mix ratios, steel reinforcement, drywall, brick masonry & 1-page PDF bids.</span></p>
-          </div>
-          <div class="hidden lg:flex shrink-0 items-center space-x-3 bg-slate-900/85 backdrop-blur-md border border-white/20 rounded-xl px-4 py-2.5 text-white shadow-xl max-w-xs">
-            <div class="text-right">
-              <span class="block text-[10px] uppercase font-bold text-amber-400 tracking-wider whitespace-nowrap">Civil Engineering Standards</span>
-              <span id="bannerCodeStandards" class="text-xs font-extrabold block whitespace-nowrap">ACI 318 / IBC (Imperial)</span>
-            </div>
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
-          </div>
+    <!-- Clean Unified Technical Header for Takeoff Tools -->
+    <div class="mb-5 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs">
+      <div>
+        <div class="flex items-center space-x-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Civil Engineering Calculation Suite</span>
+          <span id="bannerRegionLabel" class="text-xs text-blue-700 font-semibold bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">North America Standards (US / Canada)</span>
         </div>
+        <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-0.5">Structural Takeoff & Quantity Surveying</h1>
+        <p class="text-xs sm:text-sm text-slate-500">Calculate concrete volumes, ready-mix transit mixers, steel rebar grid, wall framing studs, and drywall sheets.</p>
+      </div>
+      <div class="flex items-center space-x-3 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 shrink-0">
+        <div class="text-right">
+          <span class="block text-[10px] uppercase font-bold text-slate-500 tracking-wider">Civil Engineering Code</span>
+          <span id="bannerCodeStandards" class="text-xs font-black text-slate-900 block">ACI 318 / IBC (Imperial)</span>
+        </div>
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
       </div>
     </div>
 
@@ -2022,32 +2024,66 @@
           </div>
         </div>
 
-        <!-- VIEW 11: SUPPLIERS DIRECTORY -->
+        <!-- VIEW 11: VERIFIED LOCAL SUPPLIERS DIRECTORY -->
         <div id="view-suppliers" class="app-view hidden space-y-6">
-          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs">
-            <h2 class="text-xl font-bold text-slate-900">Verified Construction Suppliers & Vendors</h2>
-            <p class="text-xs text-slate-500 mt-1">Directory of regional ready-mix batch plants, lumber yards, steel fabricators, and quarry suppliers.</p>
+          
+          <!-- Header Card & Actions -->
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Procurement & Trade Directory</span>
+                <span id="supplierTotalCountBadge" class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">0 Local Vendors</span>
+              </div>
+              <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-0.5">Verified Local Suppliers & Trade Vendors</h2>
+              <p class="text-xs sm:text-sm text-slate-500">Store and manage your verified regional suppliers, ready-mix batch plants, steel mills, quarries, and trade contacts.</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <button onclick="BuildEstimateSuppliers.openAddModal()" class="px-4 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition flex items-center space-x-1.5 shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                <span>+ Add Local Supplier</span>
+              </button>
+              <button onclick="BuildEstimateStorage.loadSampleSuppliers()" class="px-3.5 py-2.5 rounded-xl bg-amber-50 text-amber-900 border border-amber-300 text-xs font-bold hover:bg-amber-100 transition flex items-center space-x-1.5 shadow-sm" title="Populate example supplier templates">
+                <span>Load Sample Templates (Demo)</span>
+              </button>
+              <button onclick="BuildEstimateSuppliers.exportCSV()" class="px-3.5 py-2.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold hover:bg-slate-200 transition flex items-center space-x-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                <span>Export CSV</span>
+              </button>
+            </div>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs">
-              <span class="text-[10px] font-bold text-blue-600 uppercase">Ready-Mix Plant</span>
-              <h3 class="text-sm font-bold text-slate-900 mt-1">Metro Ready-Mix Concrete Co.</h3>
-              <p class="text-xs text-slate-500 mt-0.5">Fleet: 18 Transit Mixers · Dispatch: +1 (555) 234-8901</p>
-              <p class="text-[11px] text-slate-400 mt-2">Delivery Radius: 25 miles · Lead Time: 24 hrs</p>
-            </div>
-            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs">
-              <span class="text-[10px] font-bold text-emerald-600 uppercase">Lumber & Sheathing</span>
-              <h3 class="text-sm font-bold text-slate-900 mt-1">Builders First Lumber Yard</h3>
-              <p class="text-xs text-slate-500 mt-0.5">KD SPF Studs, LVL Beams, OSB · +1 (555) 872-1094</p>
-              <p class="text-[11px] text-slate-400 mt-2">Bulk contractor discounts on bundled framing packs</p>
-            </div>
-            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs">
-              <span class="text-[10px] font-bold text-slate-700 uppercase">Steel & Rebar</span>
-              <h3 class="text-sm font-bold text-slate-900 mt-1">Apex Rebar & Fabricators</h3>
-              <p class="text-xs text-slate-500 mt-0.5">ASTM A615 Grade 60 (#3 to #8) · +1 (555) 438-9201</p>
-              <p class="text-[11px] text-slate-400 mt-2">Pre-bent stirrups, ties, and custom column cages</p>
+
+          <!-- Transparency & Authenticity Notice -->
+          <div class="p-3.5 bg-blue-50/70 border border-blue-200/80 rounded-xl text-xs text-blue-900 flex items-start space-x-2.5">
+            <span class="text-base leading-none">🛡️</span>
+            <div>
+              <span class="font-bold">Verified Local Contractor Directory:</span>
+              BuildEstimate Pro does not invent or connect to unverified third-party websites. All supplier records, telephone contacts, delivery zones, and credit terms are stored securely and privately on your device. Sample cards are explicitly marked as templates.
             </div>
           </div>
+
+          <!-- Filter Pills & Search Bar -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs">
+            <div class="flex items-center space-x-1 overflow-x-auto scrollbar-none no-scrollbar pb-1 sm:pb-0">
+              <button onclick="BuildEstimateSuppliers.filterCategory('ALL')" data-cat="ALL" class="supplier-cat-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-600 text-white transition shrink-0 shadow-2xs">All Trades</button>
+              <button onclick="BuildEstimateSuppliers.filterCategory('Ready-Mix Batch Plant')" data-cat="Ready-Mix Batch Plant" class="supplier-cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-100 transition shrink-0">Ready-Mix Concrete</button>
+              <button onclick="BuildEstimateSuppliers.filterCategory('Steel Reinforcement')" data-cat="Steel Reinforcement" class="supplier-cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-100 transition shrink-0">Steel & Rebar</button>
+              <button onclick="BuildEstimateSuppliers.filterCategory('Lumber & Framing')" data-cat="Lumber & Framing" class="supplier-cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-100 transition shrink-0">Lumber & Sheathing</button>
+              <button onclick="BuildEstimateSuppliers.filterCategory('Brick & Masonry')" data-cat="Brick & Masonry" class="supplier-cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-100 transition shrink-0">Brick & Masonry</button>
+              <button onclick="BuildEstimateSuppliers.filterCategory('Aggregates & Sand')" data-cat="Aggregates & Sand" class="supplier-cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-100 transition shrink-0">Quarry & Sand</button>
+              <button onclick="BuildEstimateSuppliers.filterCategory('Finishing & Paint')" data-cat="Finishing & Paint" class="supplier-cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-100 transition shrink-0">Paint & Finishes</button>
+            </div>
+            <div class="relative shrink-0 sm:w-64">
+              <input type="text" id="supplierSearchInput" placeholder="Search suppliers..." class="w-full text-xs font-semibold pl-8 pr-3 py-2 border border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:border-blue-500 transition">
+              <svg class="w-4 h-4 text-slate-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+          </div>
+
+          <!-- Dynamic Suppliers Grid -->
+          <div id="suppliersListContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Rendered dynamically by BuildEstimateSuppliers.render() -->
+          </div>
+
         </div>
 
         <!-- VIEW 12: REGIONAL CONSTRUCTION STANDARDS -->
@@ -2419,6 +2455,96 @@
     </div>
   </div>
 
+  <!-- SUPPLIER FORM MODAL (Add & Edit Local Suppliers) -->
+  <div id="supplierFormModal" class="no-print fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-150">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50">
+        <h3 id="supModalTitle" class="text-base font-bold text-slate-900">Add Verified Local Supplier</h3>
+        <button type="button" onclick="BuildEstimateSuppliers.closeModal()" class="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="supplierForm" class="p-6 space-y-4">
+        <input type="hidden" id="supFormId" value="">
+        
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Company / Supplier Name *</label>
+          <input type="text" id="supFormName" placeholder="e.g. Metro Ready-Mix Concrete Co." required class="w-full text-xs font-semibold border border-slate-300 rounded-xl p-2.5 bg-slate-50 focus:outline-none focus:border-blue-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Trade Category *</label>
+            <select id="supFormCategory" required class="w-full text-xs font-semibold border border-slate-300 rounded-xl p-2.5 bg-slate-50 focus:outline-none focus:border-blue-500">
+              <option value="Ready-Mix Batch Plant">Ready-Mix Batch Plant</option>
+              <option value="Steel Reinforcement">Steel Reinforcement</option>
+              <option value="Lumber & Framing">Lumber & Framing</option>
+              <option value="Brick & Masonry">Brick & Masonry</option>
+              <option value="Aggregates & Sand">Aggregates & Sand</option>
+              <option value="Finishing & Paint">Finishing & Paint</option>
+              <option value="Equipment Rental">Equipment Rental</option>
+              <option value="General Building Supplies">General Building Supplies</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Contact Person</label>
+            <input type="text" id="supFormContact" placeholder="e.g. Dave Miller (Dispatch)" class="w-full text-xs font-semibold border border-slate-300 rounded-xl p-2.5 bg-slate-50 focus:outline-none focus:border-blue-500">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Phone Number</label>
+            <input type="tel" id="supFormPhone" placeholder="e.g. +1 (555) 234-8901" class="w-full text-xs font-semibold border border-slate-300 rounded-xl p-2.5 bg-slate-50 focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Email Address</label>
+            <input type="email" id="supFormEmail" placeholder="dispatch@example.com" class="w-full text-xs font-semibold border border-slate-300 rounded-xl p-2.5 bg-slate-50 focus:outline-none focus:border-blue-500">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Yard / Depot Location</label>
+            <input type="text" id="supFormLocation" placeholder="Sector 4, Industrial Area" class="w-full text-xs font-semibold border border-slate-300 rounded-xl p-2.5 bg-slate-50 focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Delivery Radius</label>
+            <input type="text" id="supFormRadius" placeholder="e.g. 25 miles (40 km)" class="w-full text-xs font-semibold border border-slate-300 rounded-xl p-2.5 bg-slate-50 focus:outline-none focus:border-blue-500">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Payment Terms</label>
+            <select id="supFormTerms" class="w-full text-xs font-semibold border border-slate-300 rounded-xl p-2.5 bg-slate-50 focus:outline-none focus:border-blue-500">
+              <option value="Net 30">Net 30 Days</option>
+              <option value="Net 15">Net 15 Days</option>
+              <option value="Cash on Delivery (COD)">Cash on Delivery (COD)</option>
+              <option value="100% Advance">100% Advance</option>
+              <option value="50% Advance / 50% Delivery">50% Advance / 50% Delivery</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Payment / Trade Terms</label>
+            <input type="text" id="supFormTermsNote" placeholder="e.g. 5% trade discount on bulk" class="w-full text-xs font-semibold border border-slate-300 rounded-xl p-2.5 bg-slate-50 focus:outline-none focus:border-blue-500">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Pricing Notes & Quotation Details</label>
+          <textarea id="supFormNotes" rows="2" placeholder="Lead times, minimum order quantities, mix specifications..." class="w-full text-xs border border-slate-300 rounded-xl p-2.5 bg-slate-50 focus:outline-none focus:border-blue-500"></textarea>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 flex items-center justify-end space-x-2">
+          <button type="button" onclick="BuildEstimateSuppliers.closeModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition shadow-sm">Save Supplier Record</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
 
 
 
@@ -2449,10 +2575,10 @@
 
   <!-- 1-PAGE OFFICIAL CONTRACTOR BID PROPOSAL PDF TEMPLATE (Strictly Print Only) -->
   <div class="print-only max-w-3xl mx-auto text-black font-sans">
-    <div class="flex justify-between items-start border-b-2 border-black pb-3 mb-4">
+    <div class="flex justify-between items-start border-b-2 border-black pb-2 mb-3">
       <div>
-        <h1 class="text-xl font-black uppercase tracking-tight text-black" data-i18n="pdf_header_title">Project Estimate & Bid Proposal</h1>
-        <p class="text-[11px] text-gray-700">BuildEstimate Pro · Global Construction Management Suite</p>
+        <h1 class="text-lg font-black uppercase tracking-tight text-black" data-i18n="pdf_header_title">Project Estimate & Bid Proposal</h1>
+        <p class="text-[11px] text-gray-700">BuildEstimate Pro · Universal Civil Engineering & Quantity Surveying</p>
         <p id="printStandardLine" class="text-[10px] text-gray-500 font-medium">Standard: North America (ACI 318) · Imperial Units</p>
       </div>
       <div class="text-right text-[11px] text-gray-800">
@@ -2462,69 +2588,69 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-3 mb-4 text-xs">
-      <div class="p-2.5 border border-gray-300 rounded bg-gray-50">
+    <div class="grid grid-cols-2 gap-3 mb-3 text-xs">
+      <div class="p-2 border border-gray-300 rounded bg-gray-50">
         <p class="font-bold text-gray-500 uppercase text-[9px]">Project Name / Location</p>
         <p class="text-xs font-bold text-black mt-0.5" id="printProjectName"></p>
       </div>
-      <div class="p-2.5 border border-gray-300 rounded bg-gray-50">
+      <div class="p-2 border border-gray-300 rounded bg-gray-50">
         <p class="font-bold text-gray-500 uppercase text-[9px]">Client / General Contractor</p>
         <p class="text-xs font-bold text-black mt-0.5" id="printClientName"></p>
       </div>
     </div>
 
-    <table class="w-full text-xs text-left border-collapse mb-5">
+    <table class="w-full text-xs text-left border-collapse mb-3">
       <thead>
         <tr class="border-b-2 border-black bg-gray-100">
-          <th class="py-1.5 px-3" data-i18n="pdf_item_desc">Item Description</th>
-          <th class="py-1.5 px-3 text-right" id="printThCost" data-i18n="pdf_cost_amount">Cost Amount</th>
+          <th class="py-1 px-3 font-extrabold" data-i18n="pdf_item_desc">Item Description</th>
+          <th class="py-1 px-3 text-right font-extrabold" id="printThCost" data-i18n="pdf_cost_amount">Cost Amount</th>
         </tr>
       </thead>
       <tbody class="divide-y divide-gray-200">
         <tr>
-          <td class="py-1.5 px-3">Direct Materials Total (Concrete, Framing, Finishes)</td>
-          <td class="py-1.5 px-3 text-right font-medium" id="printMatTotal"></td>
+          <td class="py-1 px-3">Direct Materials Total (Concrete, Framing, Finishes)</td>
+          <td class="py-1 px-3 text-right font-medium" id="printMatTotal"></td>
         </tr>
         <tr>
-          <td class="py-1.5 px-3">Direct In-House Labor Total</td>
-          <td class="py-1.5 px-3 text-right font-medium" id="printLaborTotal"></td>
+          <td class="py-1 px-3">Direct In-House Labor Total</td>
+          <td class="py-1 px-3 text-right font-medium" id="printLaborTotal"></td>
         </tr>
         <tr>
-          <td class="py-1.5 px-3">Subcontractor Specialty Trades</td>
-          <td class="py-1.5 px-3 text-right font-medium" id="printSubTotal"></td>
+          <td class="py-1 px-3">Subcontractor Specialty Trades</td>
+          <td class="py-1 px-3 text-right font-medium" id="printSubTotal"></td>
         </tr>
         <tr>
-          <td class="py-1.5 px-3">Equipment Rentals, Freight & Municipal Permits</td>
-          <td class="py-1.5 px-3 text-right font-medium" id="printEquipTotal"></td>
+          <td class="py-1 px-3">Equipment Rentals, Freight & Municipal Permits</td>
+          <td class="py-1 px-3 text-right font-medium" id="printEquipTotal"></td>
         </tr>
         <tr class="bg-gray-50 font-bold">
-          <td class="py-1.5 px-3">Direct Job Costs Subtotal</td>
-          <td class="py-1.5 px-3 text-right font-bold" id="printDirectSubtotal"></td>
+          <td class="py-1 px-3">Direct Job Costs Subtotal</td>
+          <td class="py-1 px-3 text-right font-bold" id="printDirectSubtotal"></td>
         </tr>
         <tr>
-          <td class="py-1.5 px-3">Contingency Buffer Reserve</td>
-          <td class="py-1.5 px-3 text-right text-gray-700" id="printContingencyTotal"></td>
+          <td class="py-1 px-3">Contingency Buffer Reserve</td>
+          <td class="py-1 px-3 text-right text-gray-700" id="printContingencyTotal"></td>
         </tr>
         <tr class="border-t-2 border-black bg-gray-100">
-          <td class="py-2 px-3 font-black text-sm">TOTAL CONTRACT PROPOSAL PRICE</td>
-          <td class="py-2 px-3 text-right font-black text-base text-black" id="printFinalPrice"></td>
+          <td class="py-1.5 px-3 font-black text-sm">TOTAL CONTRACT PROPOSAL PRICE</td>
+          <td class="py-1.5 px-3 text-right font-black text-base text-black" id="printFinalPrice"></td>
         </tr>
       </tbody>
     </table>
 
-    <div class="border border-gray-300 rounded p-3 text-[10px] text-gray-600 mb-6 bg-gray-50">
-      <p class="font-bold text-gray-700 mb-1" data-i18n="pdf_terms_title">PROPOSAL CONDITIONS & ACCEPTANCE:</p>
+    <div class="border border-gray-300 rounded p-2.5 text-[10px] text-gray-600 mb-3 bg-gray-50">
+      <p class="font-bold text-gray-700 mb-0.5" data-i18n="pdf_terms_title">PROPOSAL CONDITIONS & ACCEPTANCE:</p>
       <p data-i18n="pdf_terms_body">This estimate is based on preliminary material takeoffs and standard regional labor rates. Prices are valid for 30 calendar days from the proposal date. Material price escalations beyond standard margins shall be billed via formal change orders upon owner approval.</p>
     </div>
 
-    <div class="grid grid-cols-2 gap-8 text-xs pt-3 border-t border-gray-400">
+    <div class="grid grid-cols-2 gap-8 text-xs pt-2 border-t border-gray-400">
       <div>
-        <p class="text-[9px] uppercase font-bold text-gray-500 mb-6" data-i18n="pdf_contractor_sig">Contractor / Estimator Signature</p>
+        <p class="text-[9px] uppercase font-bold text-gray-500 mb-4" data-i18n="pdf_contractor_sig">Contractor / Estimator Signature</p>
         <div class="border-b border-black w-48 mb-1"></div>
         <p class="text-[10px] text-gray-600" data-i18n="pdf_auth_rep">Authorized Representative</p>
       </div>
       <div>
-        <p class="text-[9px] uppercase font-bold text-gray-500 mb-6" data-i18n="pdf_client_sig">Client Acceptance Signature</p>
+        <p class="text-[9px] uppercase font-bold text-gray-500 mb-4" data-i18n="pdf_client_sig">Client Acceptance Signature</p>
         <div class="border-b border-black w-48 mb-1"></div>
         <p class="text-[10px] text-gray-600" data-i18n="pdf_auth_date">Authorized Signature & Date</p>
       </div>
@@ -4900,6 +5026,7 @@
   <script src="assets/js/storage.js"></script>
   <script src="assets/js/boq.js"></script>
   <script src="assets/js/materials.js"></script>
+  <script src="assets/js/suppliers.js"></script>
   <script src="assets/js/takeoff-canvas.js"></script>
   <script src="assets/js/quotations.js"></script>
   <script src="assets/js/app.js"></script>
