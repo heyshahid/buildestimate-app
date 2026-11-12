@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -713,7 +713,7 @@
 
             <!-- Takeoff Calculators Tab Selector -->
             <nav class="px-4 flex overflow-x-auto space-x-2 border-b border-slate-100 scrollbar-none no-scrollbar">
-              <button onclick="switchTab('concrete')" class="tab-btn px-4 py-3 text-xs sm:text-sm font-bold border-b-2 border-brand-500 text-brand-600 flex items-center space-x-2 transition shrink-0" data-target="concrete">
+              <button onclick="switchTab('concrete')" class="tab-btn px-4 py-3 text-xs sm:text-sm font-bold border-b-2 border-blue-600 text-blue-600 flex items-center space-x-2 transition shrink-0" data-target="concrete">
                 <span data-i18n="nav_concrete">Concrete & Slabs</span>
               </button>
               <button onclick="switchTab('framing')" class="tab-btn px-4 py-3 text-xs sm:text-sm font-bold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center space-x-2 transition shrink-0" data-target="framing">
@@ -737,11 +737,11 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         <!-- Input Form (Clean Light Card) -->
-        <div class="lg:col-span-7 bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-sm">
+        <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-2xs">
           <div class="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
             <div>
               <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
-                <span class="w-3 h-3 rounded-full bg-brand-500"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
                 <span data-i18n="conc_title">Concrete & Foundation Slab Takeoff</span>
               </h2>
               <p id="lblConcSubtitle" class="text-xs text-slate-500" data-i18n="conc_desc">Calculate volume, ready-mix transit mixers & rebar grid</p>
@@ -759,21 +759,21 @@
               <div>
                 <label id="lblConcLength" class="block text-xs font-bold text-slate-700 mb-1">Length (Feet)</label>
                 <div class="relative">
-                  <input type="number" id="concLength" value="40" step="0.5" min="0" oninput="calcConcrete()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-10 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 focus:outline-none transition">
+                  <input type="number" id="concLength" value="40" step="0.5" min="0" oninput="calcConcrete()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-10 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition">
                   <span id="unitConcLength" class="absolute right-3 top-2 sm:top-2.5 text-xs text-slate-400 font-bold pointer-events-none select-none">ft</span>
                 </div>
               </div>
               <div>
                 <label id="lblConcWidth" class="block text-xs font-bold text-slate-700 mb-1">Width (Feet)</label>
                 <div class="relative">
-                  <input type="number" id="concWidth" value="24" step="0.5" min="0" oninput="calcConcrete()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-10 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 focus:outline-none transition">
+                  <input type="number" id="concWidth" value="24" step="0.5" min="0" oninput="calcConcrete()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-10 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition">
                   <span id="unitConcWidth" class="absolute right-3 top-2 sm:top-2.5 text-xs text-slate-400 font-bold pointer-events-none select-none">ft</span>
                 </div>
               </div>
               <div>
                 <label id="lblConcDepth" class="block text-xs font-bold text-slate-700 mb-1">Thickness (Inches)</label>
                 <div class="relative">
-                  <input type="number" id="concDepth" value="4" step="0.25" min="0" oninput="onThicknessInputChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-10 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 focus:outline-none transition">
+                  <input type="number" id="concDepth" value="4" step="0.25" min="0" oninput="onThicknessInputChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-10 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition">
                   <span id="unitConcDepth" class="absolute right-3 top-2 sm:top-2.5 text-xs text-slate-400 font-bold pointer-events-none select-none">in</span>
                 </div>
               </div>
@@ -783,7 +783,7 @@
             <div class="pt-1">
               <label class="block text-xs font-bold text-slate-700 mb-1.5"><span data-i18n="lbl_quick_thickness">Standard Thickness Quick Selector:</span></label>
               <div class="flex flex-wrap gap-2 text-xs">
-                <button type="button" id="btnDepth4" onclick="setDepth(4, this)" class="thickness-btn px-3 py-1.5 rounded-lg border font-bold transition shadow-sm bg-brand-500 text-white border-brand-500">4" (10cm Slab)</button>
+                <button type="button" id="btnDepth4" onclick="setDepth(4, this)" class="thickness-btn px-3 py-1.5 rounded-lg border font-bold transition shadow-2xs bg-blue-600 text-white border-blue-600">4" (10cm Slab)</button>
                 <button type="button" id="btnDepth5" onclick="setDepth(5, this)" class="thickness-btn px-3 py-1.5 rounded-lg border font-semibold transition bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300">5" (12.5cm Patio)</button>
                 <button type="button" id="btnDepth6" onclick="setDepth(6, this)" class="thickness-btn px-3 py-1.5 rounded-lg border font-semibold transition bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300">6" (15cm Roof / Driveway)</button>
                 <button type="button" id="btnDepth8" onclick="setDepth(8, this)" class="thickness-btn px-3 py-1.5 rounded-lg border font-semibold transition bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300">8" (20cm Heavy RCC)</button>
@@ -795,7 +795,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Waste Factor Margin</label>
-                <select id="concWaste" onchange="onWasteChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <select id="concWaste" onchange="onWasteChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                   <option value="5">5% (Tight Tolerance)</option>
                   <option value="10" selected>10% (Standard)</option>
                   <option value="15">15% (Uneven Ground)</option>
@@ -804,7 +804,7 @@
                 </select>
                 <div id="concWasteCustomBox" class="hidden mt-2">
                   <div class="relative">
-                    <input type="number" id="concWasteCustom" value="12" step="1" min="0" max="100" oninput="calcConcrete()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-8 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                    <input type="number" id="concWasteCustom" value="12" step="1" min="0" max="100" oninput="calcConcrete()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-8 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                     <span class="absolute right-3 top-2 text-xs text-slate-400 font-bold">%</span>
                   </div>
                 </div>
@@ -812,7 +812,7 @@
 
               <div>
                 <label id="lblRebarGrid" class="block text-xs font-bold text-slate-700 mb-1">Rebar Grid Spacing</label>
-                <select id="concRebarSpacing" onchange="onRebarSpacingChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <select id="concRebarSpacing" onchange="onRebarSpacingChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                   <option value="12">12" on-center (Heavy / Structural)</option>
                   <option value="18" selected>18" on-center (Standard)</option>
                   <option value="24">24" on-center (Light Duty)</option>
@@ -821,7 +821,7 @@
                 </select>
                 <div id="concRebarCustomBox" class="hidden mt-2">
                   <div class="relative">
-                    <input type="number" id="concRebarCustom" value="15" step="1" min="1" oninput="calcConcrete()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-10 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                    <input type="number" id="concRebarCustom" value="15" step="1" min="1" oninput="calcConcrete()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-10 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                     <span id="unitRebarCustom" class="absolute right-3 top-2 text-xs text-slate-400 font-bold">in</span>
                   </div>
                 </div>
@@ -832,7 +832,7 @@
             <div id="boxMixRatioSection" class="mt-4 p-4 rounded-xl border border-amber-200 bg-amber-50/60">
               <div class="flex items-center justify-between mb-2">
                 <span class="text-xs font-bold text-amber-900 uppercase tracking-wider flex items-center space-x-1.5">
-                  <svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                  <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                   <span>Nominal Mix Ratio & Raw Ingredients (1.54 Dry Factor)</span>
                 </span>
                 <span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded border border-amber-200">Site Batched</span>
@@ -842,7 +842,7 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
                 <div>
                   <label class="block text-[11px] font-bold text-slate-700 mb-1">Nominal Concrete Mix Ratio</label>
-                  <select id="concMixRatio" onchange="calcConcrete()" class="w-full bg-white border border-amber-300 rounded-xl px-2.5 py-1.5 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                  <select id="concMixRatio" onchange="calcConcrete()" class="w-full bg-white border border-amber-300 rounded-xl px-2.5 py-1.5 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                     <option value="1:2:4" selected>1:2:4 (M15 - Standard RCC Slabs & Beams)</option>
                     <option value="1:1.5:3">1:1.5:3 (M20 - Columns & Foundations)</option>
                     <option value="1:3:6">1:3:6 (M10 - Plain Cement Concrete / Lean Base)</option>
@@ -852,7 +852,7 @@
                 <div>
                   <label class="block text-[11px] font-bold text-slate-700 mb-1">Dry Volume Multiplier Factor</label>
                   <div class="relative">
-                    <input type="number" id="concDryFactor" value="1.54" step="0.01" min="1.0" max="2.0" oninput="calcConcrete()" class="w-full bg-white border border-amber-300 rounded-xl pl-3 pr-16 py-1.5 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                    <input type="number" id="concDryFactor" value="1.54" step="0.01" min="1.0" max="2.0" oninput="calcConcrete()" class="w-full bg-white border border-amber-300 rounded-xl pl-3 pr-16 py-1.5 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                     <span class="absolute right-2.5 top-1.5 text-[11px] text-amber-700 font-bold">1.54 Std</span>
                   </div>
                 </div>
@@ -863,25 +863,25 @@
                 <div>
                   <label id="lblRateCement" class="block text-[10px] font-bold text-slate-600 mb-0.5">Cement (50kg Bag)</label>
                   <div class="relative">
-                    <input type="number" id="rateCementBag" value="1450" step="10" min="0" oninput="calcConcrete()" class="w-full bg-white border border-slate-300 rounded-lg px-2 py-1 text-xs text-slate-900 font-bold focus:ring-1 focus:ring-brand-500 focus:outline-none">
+                    <input type="number" id="rateCementBag" value="1450" step="10" min="0" oninput="calcConcrete()" class="w-full bg-white border border-slate-300 rounded-lg px-2 py-1 text-xs text-slate-900 font-bold focus:ring-1 focus:ring-blue-500 focus:outline-none">
                   </div>
                 </div>
                 <div>
                   <label id="lblRateSand" class="block text-[10px] font-bold text-slate-600 mb-0.5">Sand (per CFT)</label>
                   <div class="relative">
-                    <input type="number" id="rateSandCft" value="55" step="1" min="0" oninput="calcConcrete()" class="w-full bg-white border border-slate-300 rounded-lg px-2 py-1 text-xs text-slate-900 font-bold focus:ring-1 focus:ring-brand-500 focus:outline-none">
+                    <input type="number" id="rateSandCft" value="55" step="1" min="0" oninput="calcConcrete()" class="w-full bg-white border border-slate-300 rounded-lg px-2 py-1 text-xs text-slate-900 font-bold focus:ring-1 focus:ring-blue-500 focus:outline-none">
                   </div>
                 </div>
                 <div>
                   <label id="lblRateBajri" class="block text-[10px] font-bold text-slate-600 mb-0.5">Bajri / Crush (CFT)</label>
                   <div class="relative">
-                    <input type="number" id="rateBajriCft" value="125" step="1" min="0" oninput="calcConcrete()" class="w-full bg-white border border-slate-300 rounded-lg px-2 py-1 text-xs text-slate-900 font-bold focus:ring-1 focus:ring-brand-500 focus:outline-none">
+                    <input type="number" id="rateBajriCft" value="125" step="1" min="0" oninput="calcConcrete()" class="w-full bg-white border border-slate-300 rounded-lg px-2 py-1 text-xs text-slate-900 font-bold focus:ring-1 focus:ring-blue-500 focus:outline-none">
                   </div>
                 </div>
                 <div>
                   <label id="lblRateSteel" class="block text-[10px] font-bold text-slate-600 mb-0.5">Steel Sariya (kg)</label>
                   <div class="relative">
-                    <input type="number" id="rateSteelKg" value="265" step="1" min="0" oninput="calcConcrete()" class="w-full bg-white border border-slate-300 rounded-lg px-2 py-1 text-xs text-slate-900 font-bold focus:ring-1 focus:ring-brand-500 focus:outline-none">
+                    <input type="number" id="rateSteelKg" value="265" step="1" min="0" oninput="calcConcrete()" class="w-full bg-white border border-slate-300 rounded-lg px-2 py-1 text-xs text-slate-900 font-bold focus:ring-1 focus:ring-blue-500 focus:outline-none">
                   </div>
                 </div>
               </div>
@@ -892,12 +892,12 @@
               <label id="lblConcUnitPrice" class="block text-xs font-bold text-slate-700 mb-1">Estimated Ready-Mix Concrete Cost (per Volume)</label>
               <div class="relative">
                 <span id="symbolConcPrice" class="absolute left-3 top-2.5 text-slate-400 font-bold">$</span>
-                <input type="number" id="concPricePerYard" value="150" step="5" min="0" oninput="calcConcrete()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-12 pr-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <input type="number" id="concPricePerYard" value="150" step="5" min="0" oninput="calcConcrete()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-12 pr-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
               </div>
             </div>
 
             <div class="pt-2 flex justify-end">
-              <button type="button" onclick="importConcreteToBid()" class="text-xs bg-amber-50 hover:bg-brand-500 hover:text-slate-900 text-brand-700 font-bold px-4 py-2.5 rounded-xl border border-brand-300 transition flex items-center space-x-1.5 shadow-sm">
+              <button type="button" onclick="importConcreteToBid()" class="text-xs bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-700 font-bold px-4 py-2.5 rounded-xl border border-blue-200 transition flex items-center space-x-1.5 shadow-2xs">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                 </svg>
@@ -907,74 +907,80 @@
           </div>
         </div>
 
-        <!-- Real-Time Calculation Output Card -->
-        <div class="lg:col-span-5 bg-slate-900 text-white rounded-2xl border border-slate-800 p-5 sm:p-6 shadow-xl flex flex-col justify-between">
+        <!-- Real-Time Calculation Output Card (Clean Technical Light Theme) -->
+        <div class="lg:col-span-5 bg-white text-slate-900 rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-2xs flex flex-col justify-between">
           <div>
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-              <span class="text-xs font-bold text-brand-400 uppercase tracking-wider" data-i18n="conc_summary_title">Concrete Takeoff Summary</span>
-              <span class="text-[11px] bg-brand-500/20 text-brand-400 px-2.5 py-0.5 rounded-full font-semibold" data-i18n="conc_summary_badge">Live Calculated</span>
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+                <span class="text-xs font-bold text-slate-900 uppercase tracking-wider" data-i18n="conc_summary_title">Concrete Takeoff Summary</span>
+              </div>
+              <span class="text-[11px] bg-blue-50 text-blue-700 border border-blue-200 px-2.5 py-0.5 rounded-full font-bold" data-i18n="conc_summary_badge">Live Calculated</span>
             </div>
 
             <!-- Primary Metric: Volume -->
-            <div class="bg-slate-800/90 rounded-xl p-4 border border-slate-700/60 mb-4 text-center">
-              <span class="text-xs text-slate-400 uppercase font-semibold" data-i18n="conc_total_vol">Total Wet Concrete Volume (With Waste)</span>
+            <div class="bg-blue-50/60 rounded-xl p-4 border border-blue-200/80 mb-4 text-center">
+              <span class="text-xs text-slate-500 uppercase font-bold tracking-wider" data-i18n="conc_total_vol">Total Wet Concrete Volume (With Waste)</span>
               <div class="flex items-baseline justify-center space-x-2 mt-1">
-                <span id="resConcCubicYards" class="text-3xl sm:text-4xl font-extrabold text-white">13.07</span>
-                <span id="resConcUnitLabel" class="text-brand-400 font-bold text-lg">yd³</span>
+                <span id="resConcCubicYards" class="text-3xl sm:text-4xl font-black text-slate-900">13.07</span>
+                <span id="resConcUnitLabel" class="text-blue-600 font-black text-lg">yd³</span>
               </div>
-              <p id="resConcCubicMeters" class="text-xs text-slate-400 mt-0.5">Equivalent to 10.0 m³ / 353 CFT</p>
+              <p id="resConcCubicMeters" class="text-xs text-slate-500 font-medium mt-0.5">Equivalent to 10.0 m³ / 353 CFT</p>
             </div>
 
             <!-- Deliverables List -->
             <div class="space-y-2.5 text-xs sm:text-sm">
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300 flex items-center space-x-2">
-                  <svg class="w-4 h-4 text-brand-400" fill="currentColor" viewBox="0 0 20 20"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/70">
+                <span class="text-slate-600 font-semibold flex items-center space-x-2">
+                  <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>
                   <span id="lblTransitMixers">Ready-Mix Transit Trucks:</span>
                 </span>
-                <span id="resConcTrucks" class="font-extrabold text-white whitespace-nowrap text-right">2 Trucks</span>
+                <span id="resConcTrucks" class="font-black text-slate-900 whitespace-nowrap text-right">2 Trucks</span>
               </div>
 
               <!-- Raw Ingredients Breakdown Box (Site Mix Ratio) -->
-              <div class="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 space-y-1.5">
-                <div class="flex items-center justify-between text-amber-300 font-bold pb-1 border-b border-amber-500/20">
-                  <span class="text-[11px] uppercase tracking-wider">Site Batched Takeoff (1.54 Factor)</span>
-                  <span id="resMixRatioLabel" class="text-[11px]">Ratio 1:2:4</span>
+              <div class="p-3.5 rounded-xl bg-amber-50/70 border border-amber-200 space-y-2">
+                <div class="flex items-center justify-between text-amber-900 font-bold pb-1.5 border-b border-amber-200/80">
+                  <span class="text-[11px] uppercase tracking-wider flex items-center space-x-1.5">
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                    <span>Site Batched Takeoff (1.54 Factor)</span>
+                  </span>
+                  <span id="resMixRatioLabel" class="text-[11px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-mono font-bold">Ratio 1:2:4</span>
                 </div>
-                <div class="flex items-center justify-between text-slate-300">
+                <div class="flex items-center justify-between text-xs font-semibold text-slate-700">
                   <span>50kg Cement Bags:</span>
-                  <span id="resConcCementBags" class="font-extrabold text-white">89 Bags</span>
+                  <span id="resConcCementBags" class="font-black text-slate-900">89 Bags</span>
                 </div>
-                <div class="flex items-center justify-between text-slate-300">
+                <div class="flex items-center justify-between text-xs font-semibold text-slate-700">
                   <span>Sand (Rait):</span>
-                  <span id="resConcSand" class="font-bold text-slate-200">222 CFT (6.3 m³)</span>
+                  <span id="resConcSand" class="font-black text-slate-900">222 CFT (6.3 m³)</span>
                 </div>
-                <div class="flex items-center justify-between text-slate-300">
+                <div class="flex items-center justify-between text-xs font-semibold text-slate-700">
                   <span>Bajri / Aggregate:</span>
-                  <span id="resConcBajri" class="font-bold text-slate-200">444 CFT (12.6 m³)</span>
+                  <span id="resConcBajri" class="font-black text-slate-900">444 CFT (12.6 m³)</span>
                 </div>
-                <div class="flex items-center justify-between text-slate-300">
+                <div class="flex items-center justify-between text-xs font-semibold text-slate-700">
                   <span>Mixing Water (0.50 W/C):</span>
-                  <span id="resConcWater" class="font-bold text-slate-200">~2,490 Litres</span>
+                  <span id="resConcWater" class="font-black text-slate-900">~2,490 Litres</span>
                 </div>
               </div>
 
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40 gap-3">
-                <span class="text-slate-300 text-xs sm:text-sm whitespace-nowrap shrink-0">Steel Reinforcement (Sariya):</span>
-                <span id="resConcRebarWeight" class="font-bold text-slate-200 text-xs sm:text-sm whitespace-nowrap text-right">871 lbs (0.44 Tons)</span>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 gap-3">
+                <span class="text-slate-600 font-semibold text-xs sm:text-sm whitespace-nowrap shrink-0">Steel Reinforcement (Sariya):</span>
+                <span id="resConcRebarWeight" class="font-black text-slate-900 text-xs sm:text-sm whitespace-nowrap text-right">871 lbs (0.44 Tons)</span>
               </div>
 
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40 gap-3">
-                <span class="text-slate-300 text-xs sm:text-sm whitespace-nowrap shrink-0">Rebar Linear Length:</span>
-                <span id="resConcRebarFt" class="font-bold text-slate-200 text-xs sm:text-sm whitespace-nowrap text-right">1,304 LF</span>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 gap-3">
+                <span class="text-slate-600 font-semibold text-xs sm:text-sm whitespace-nowrap shrink-0">Rebar Linear Length:</span>
+                <span id="resConcRebarFt" class="font-black text-slate-900 text-xs sm:text-sm whitespace-nowrap text-right">1,304 LF</span>
               </div>
             </div>
           </div>
 
           <!-- Bottom Total Cost Card -->
-          <div class="mt-5 pt-4 border-t border-slate-800 flex items-center justify-between">
-            <span class="text-xs uppercase font-bold text-slate-400">Estimated Concrete Cost:</span>
-            <span id="resConcCost" class="text-xl font-extrabold text-brand-400">$1,960.50</span>
+          <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-xs uppercase font-extrabold text-slate-500 tracking-wider">Estimated Concrete Cost:</span>
+            <span id="resConcCost" class="text-2xl font-black text-blue-600">$1,960.50</span>
           </div>
         </div>
 
@@ -987,11 +993,11 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         <!-- Input Form -->
-        <div class="lg:col-span-7 bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-sm">
+        <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-2xs">
           <div class="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
             <div>
               <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
-                <span class="w-3 h-3 rounded-full bg-brand-500"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
                 <span data-i18n="wall_title">Wall Framing, Drywall & Brick Masonry</span>
               </h2>
               <p class="text-xs text-slate-500" data-i18n="framing_desc">Stud partitions, gypsum plasterboards & red clay brick walls</p>
@@ -1010,14 +1016,14 @@
               <div>
                 <label id="lblFrameLen" class="block text-xs font-bold text-slate-700 mb-1" data-i18n="lbl_wall_len">Total Wall Length (Feet)</label>
                 <div class="relative">
-                  <input type="number" id="frameLength" value="50" step="1" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-10 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                  <input type="number" id="frameLength" value="50" step="1" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-10 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                   <span id="unitFrameLen" class="absolute right-3 top-2 sm:top-2.5 text-xs text-slate-400 font-bold">ft</span>
                 </div>
               </div>
               <div>
                 <label id="lblFrameHgt" class="block text-xs font-bold text-slate-700 mb-1" data-i18n="lbl_wall_hgt">Wall Height (Feet)</label>
                 <div class="relative">
-                  <input type="number" id="frameHeight" value="9" step="0.5" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-10 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                  <input type="number" id="frameHeight" value="9" step="0.5" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-10 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                   <span id="unitFrameHgt" class="absolute right-3 top-2 sm:top-2.5 text-xs text-slate-400 font-bold">ft</span>
                 </div>
               </div>
@@ -1027,11 +1033,11 @@
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="lbl_doors">Number of Doors</label>
-                <input type="number" id="frameDoors" value="2" step="1" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <input type="number" id="frameDoors" value="2" step="1" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
               </div>
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="lbl_windows">Number of Windows</label>
-                <input type="number" id="frameWindows" value="3" step="1" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <input type="number" id="frameWindows" value="3" step="1" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
               </div>
             </div>
 
@@ -1040,25 +1046,25 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label id="lblStudSpacing" class="block text-xs font-bold text-slate-700 mb-1">Stud Spacing (On-Center)</label>
-                  <select id="frameSpacing" onchange="onFrameSpacingChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                  <select id="frameSpacing" onchange="onFrameSpacingChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                     <option value="16" selected>16" OC (Standard 400mm)</option>
                     <option value="24">24" OC (Commercial 600mm)</option>
                     <option value="custom">Custom Spacing</option>
                   </select>
                   <div id="frameSpacingCustomBox" class="hidden mt-2">
-                    <input type="number" id="frameSpacingCustom" value="16" step="1" min="1" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                    <input type="number" id="frameSpacingCustom" value="16" step="1" min="1" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                   </div>
                 </div>
 
                 <div>
                   <label id="lblDrywallSheet" class="block text-xs font-bold text-slate-700 mb-1">Drywall Board Size</label>
-                  <select id="drywallSheetSize" onchange="onDrywallSheetChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                  <select id="drywallSheetSize" onchange="onDrywallSheetChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                     <option value="32" selected>4'x8' Sheet (32 SF / 1.2x2.4m)</option>
                     <option value="48">4'x12' Sheet (48 SF / 1.2x3.6m)</option>
                     <option value="custom">Custom Board Area</option>
                   </select>
                   <div id="drywallSheetCustomBox" class="hidden mt-2">
-                    <input type="number" id="drywallSheetCustom" value="32" step="1" min="1" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                    <input type="number" id="drywallSheetCustom" value="32" step="1" min="1" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                   </div>
                 </div>
               </div>
@@ -1066,7 +1072,7 @@
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                   <label class="block text-xs font-bold text-slate-700 mb-1">Drywall Sides</label>
-                  <select id="drywallSides" onchange="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                  <select id="drywallSides" onchange="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                     <option value="2" selected>Both Sides (Standard)</option>
                     <option value="1">One Side Only (Furring)</option>
                   </select>
@@ -1074,13 +1080,13 @@
                 <div>
                   <label id="lblStudCost" class="block text-xs font-bold text-slate-700 mb-1">Stud Unit Cost</label>
                   <div class="relative">
-                    <input type="number" id="frameStudCost" value="4.85" step="0.5" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                    <input type="number" id="frameStudCost" value="4.85" step="0.5" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                   </div>
                 </div>
                 <div>
                   <label id="lblSheetCost" class="block text-xs font-bold text-slate-700 mb-1">Sheet Unit Cost</label>
                   <div class="relative">
-                    <input type="number" id="drywallSheetCost" value="14.50" step="0.5" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                    <input type="number" id="drywallSheetCost" value="14.50" step="0.5" min="0" oninput="calcFraming()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                   </div>
                 </div>
               </div>
@@ -1096,7 +1102,7 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label class="block text-[11px] font-bold text-slate-700 mb-1">Wall Thickness</label>
-                  <select id="brickWallThickness" onchange="calcFraming()" class="w-full bg-white border border-rose-300 rounded-xl px-2.5 py-1.5 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                  <select id="brickWallThickness" onchange="calcFraming()" class="w-full bg-white border border-rose-300 rounded-xl px-2.5 py-1.5 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                     <option value="4.5">4.5" (Single Brick Leaf / Partition)</option>
                     <option value="9" selected>9" (Double Brick / Standard Loadbearing)</option>
                     <option value="13.5">13.5" (Heavy Foundation / Basement)</option>
@@ -1104,7 +1110,7 @@
                 </div>
                 <div>
                   <label class="block text-[11px] font-bold text-slate-700 mb-1">Mortar Mix Ratio</label>
-                  <select id="brickMortarRatio" onchange="calcFraming()" class="w-full bg-white border border-rose-300 rounded-xl px-2.5 py-1.5 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                  <select id="brickMortarRatio" onchange="calcFraming()" class="w-full bg-white border border-rose-300 rounded-xl px-2.5 py-1.5 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                     <option value="1:6" selected>1:6 (Standard Cement : Sand)</option>
                     <option value="1:4">1:4 (Rich Mortar / Water Resistant)</option>
                   </select>
@@ -1114,21 +1120,21 @@
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1 border-t border-rose-200">
                 <div>
                   <label class="block text-[10px] font-bold text-slate-600 mb-0.5">Price Per Brick</label>
-                  <input type="number" id="rateBrickSingle" value="15" step="0.5" min="0" oninput="calcFraming()" class="w-full bg-white border border-slate-300 rounded-lg px-2 py-1 text-xs text-slate-900 font-bold focus:ring-1 focus:ring-brand-500 focus:outline-none">
+                  <input type="number" id="rateBrickSingle" value="15" step="0.5" min="0" oninput="calcFraming()" class="w-full bg-white border border-slate-300 rounded-lg px-2 py-1 text-xs text-slate-900 font-bold focus:ring-1 focus:ring-blue-500 focus:outline-none">
                 </div>
                 <div>
                   <label class="block text-[10px] font-bold text-slate-600 mb-0.5">Mortar Cement (50kg Bag)</label>
-                  <input type="number" id="rateMortarCement" value="1450" step="10" min="0" oninput="calcFraming()" class="w-full bg-white border border-slate-300 rounded-lg px-2 py-1 text-xs text-slate-900 font-bold focus:ring-1 focus:ring-brand-500 focus:outline-none">
+                  <input type="number" id="rateMortarCement" value="1450" step="10" min="0" oninput="calcFraming()" class="w-full bg-white border border-slate-300 rounded-lg px-2 py-1 text-xs text-slate-900 font-bold focus:ring-1 focus:ring-blue-500 focus:outline-none">
                 </div>
                 <div>
                   <label class="block text-[10px] font-bold text-slate-600 mb-0.5">Mortar Sand (per CFT)</label>
-                  <input type="number" id="rateMortarSand" value="55" step="1" min="0" oninput="calcFraming()" class="w-full bg-white border border-slate-300 rounded-lg px-2 py-1 text-xs text-slate-900 font-bold focus:ring-1 focus:ring-brand-500 focus:outline-none">
+                  <input type="number" id="rateMortarSand" value="55" step="1" min="0" oninput="calcFraming()" class="w-full bg-white border border-slate-300 rounded-lg px-2 py-1 text-xs text-slate-900 font-bold focus:ring-1 focus:ring-blue-500 focus:outline-none">
                 </div>
               </div>
             </div>
 
             <div class="pt-2 flex justify-end">
-              <button type="button" onclick="importFramingToBid()" class="text-xs bg-amber-50 hover:bg-brand-500 hover:text-slate-900 text-brand-700 font-bold px-4 py-2.5 rounded-xl border border-brand-300 transition flex items-center space-x-1.5 shadow-sm">
+              <button type="button" onclick="importFramingToBid()" class="text-xs bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-700 font-bold px-4 py-2.5 rounded-xl border border-blue-200 transition flex items-center space-x-1.5 shadow-2xs">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                 </svg>
@@ -1138,65 +1144,68 @@
           </div>
         </div>
 
-        <!-- Real-Time Output Card -->
-        <div class="lg:col-span-5 bg-slate-900 text-white rounded-2xl border border-slate-800 p-5 sm:p-6 shadow-xl flex flex-col justify-between">
+        <!-- Real-Time Output Card (Clean Technical Light Theme) -->
+        <div class="lg:col-span-5 bg-white text-slate-900 rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-2xs flex flex-col justify-between">
           <div>
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-              <span id="resWallHeaderTitle" class="text-xs font-bold text-brand-400 uppercase tracking-wider" data-i18n="wall_summary_title">Wall Takeoff Summary</span>
-              <span id="resNetWallArea" class="text-xs font-bold text-slate-300">Net Wall: 363 SF</span>
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+                <span id="resWallHeaderTitle" class="text-xs font-bold text-slate-900 uppercase tracking-wider" data-i18n="wall_summary_title">Wall Takeoff Summary</span>
+              </div>
+              <span id="resNetWallArea" class="text-xs font-bold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200">Net Wall: 363 SF</span>
             </div>
 
             <!-- Deliverables -->
             <div id="resDrywallList" class="space-y-2.5 text-xs sm:text-sm">
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="studs_count">Total Framing Studs:</span>
-                <span id="resFrameStuds" class="font-extrabold text-white whitespace-nowrap text-right">48 Studs</span>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/70">
+                <span class="text-slate-600 font-semibold whitespace-nowrap shrink-0" data-i18n="studs_count">Total Framing Studs:</span>
+                <span id="resFrameStuds" class="font-black text-slate-900 whitespace-nowrap text-right">48 Studs</span>
               </div>
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="plates_len">Top & Bottom Plates:</span>
-                <span id="resFramePlates" class="font-bold text-slate-200 whitespace-nowrap text-right">150 LF (10 x 16' Boards)</span>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/70">
+                <span class="text-slate-600 font-semibold whitespace-nowrap shrink-0" data-i18n="plates_len">Top & Bottom Plates:</span>
+                <span id="resFramePlates" class="font-black text-slate-900 whitespace-nowrap text-right">150 LF (10 x 16' Boards)</span>
               </div>
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="drywall_sheets">Drywall Sheets (Both Sides):</span>
-                <span id="resDrywallSheets" class="font-bold text-slate-200 whitespace-nowrap text-right">25 Sheets (4'x8')</span>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/70">
+                <span class="text-slate-600 font-semibold whitespace-nowrap shrink-0" data-i18n="drywall_sheets">Drywall Sheets (Both Sides):</span>
+                <span id="resDrywallSheets" class="font-black text-slate-900 whitespace-nowrap text-right">25 Sheets (4'x8')</span>
               </div>
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="drywall_screws">Drywall Screws:</span>
-                <span id="resDrywallScrews" class="font-bold text-slate-200 whitespace-nowrap text-right">~800 Screws (1 x 5lb Box)</span>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/70">
+                <span class="text-slate-600 font-semibold whitespace-nowrap shrink-0" data-i18n="drywall_screws">Drywall Screws:</span>
+                <span id="resDrywallScrews" class="font-black text-slate-900 whitespace-nowrap text-right">~800 Screws (1 x 5lb Box)</span>
               </div>
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="drywall_mud">Joint Compound / Mud:</span>
-                <span id="resDrywallMud" class="font-bold text-slate-200 whitespace-nowrap text-right">2 Buckets (4.5 Gal)</span>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/70">
+                <span class="text-slate-600 font-semibold whitespace-nowrap shrink-0" data-i18n="drywall_mud">Joint Compound / Mud:</span>
+                <span id="resDrywallMud" class="font-black text-slate-900 whitespace-nowrap text-right">2 Buckets (4.5 Gal)</span>
               </div>
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="drywall_tape">Joint Tape Rolls:</span>
-                <span id="resDrywallTape" class="font-bold text-slate-200 whitespace-nowrap text-right">2 Rolls (250 ft)</span>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/70">
+                <span class="text-slate-600 font-semibold whitespace-nowrap shrink-0" data-i18n="drywall_tape">Joint Tape Rolls:</span>
+                <span id="resDrywallTape" class="font-black text-slate-900 whitespace-nowrap text-right">2 Rolls (250 ft)</span>
               </div>
             </div>
 
             <!-- Brick Deliverables (When Brick Mode is Active) -->
             <div id="resBrickList" class="hidden space-y-2.5 text-xs sm:text-sm">
-              <div class="p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-center">
-                <span class="text-xs text-rose-300 uppercase font-semibold" data-i18n="brick_total">Total Red Clay Bricks Required</span>
-                <div class="text-3xl font-black text-white mt-1" id="resBrickTotalCount">3,675 Bricks</div>
-                <p class="text-[11px] text-slate-400 mt-0.5">Based on 13.5 bricks per CFT of 9" masonry</p>
+              <div class="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-center">
+                <span class="text-xs text-rose-700 uppercase font-bold tracking-wider" data-i18n="brick_total">Total Red Clay Bricks Required</span>
+                <div class="text-3xl font-black text-rose-900 mt-1" id="resBrickTotalCount">3,675 Bricks</div>
+                <p class="text-[11px] text-rose-600/80 mt-0.5">Based on 13.5 bricks per CFT of 9" masonry</p>
               </div>
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40 gap-3">
-                <span class="text-slate-300 text-xs sm:text-sm whitespace-nowrap shrink-0">Mortar Cement Bags (50kg):</span>
-                <span id="resBrickCementBags" class="font-extrabold text-white text-xs sm:text-sm whitespace-nowrap text-right">10 Bags (50kg)</span>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 gap-3">
+                <span class="text-slate-600 font-semibold text-xs sm:text-sm whitespace-nowrap shrink-0">Mortar Cement Bags (50kg):</span>
+                <span id="resBrickCementBags" class="font-black text-slate-900 text-xs sm:text-sm whitespace-nowrap text-right">10 Bags (50kg)</span>
               </div>
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40 gap-3">
-                <span class="text-slate-300 text-xs sm:text-sm whitespace-nowrap shrink-0">Mortar Sand (Rait):</span>
-                <span id="resBrickSandCft" class="font-bold text-slate-200 text-xs sm:text-sm whitespace-nowrap text-right">72 CFT</span>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 gap-3">
+                <span class="text-slate-600 font-semibold text-xs sm:text-sm whitespace-nowrap shrink-0">Mortar Sand (Rait):</span>
+                <span id="resBrickSandCft" class="font-black text-slate-900 text-xs sm:text-sm whitespace-nowrap text-right">72 CFT</span>
               </div>
             </div>
 
           </div>
 
           <!-- Bottom Total -->
-          <div class="mt-5 pt-4 border-t border-slate-800 flex items-center justify-between">
-            <span class="text-xs uppercase font-bold text-slate-400">Estimated Wall Material Cost:</span>
-            <span id="resFramingCost" class="text-xl font-extrabold text-brand-400">$645.25</span>
+          <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-xs uppercase font-extrabold text-slate-500 tracking-wider">Estimated Wall Material Cost:</span>
+            <span id="resFramingCost" class="text-2xl font-black text-emerald-600">$645.25</span>
           </div>
         </div>
 
@@ -1209,11 +1218,11 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         <!-- Input Form -->
-        <div class="lg:col-span-7 bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-sm">
+        <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-2xs">
           <div class="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
             <div>
               <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
-                <span class="w-3 h-3 rounded-full bg-brand-500"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-purple-600"></span>
                 <span data-i18n="paint_title">Paint & Surface Coatings Takeoff</span>
               </h2>
               <p class="text-xs text-slate-500" data-i18n="paint_desc">Primer & finish coat gallonage, litres & drum breakdown</p>
@@ -1224,7 +1233,7 @@
             <div>
               <label id="lblPaintArea" class="block text-xs font-bold text-slate-700 mb-1">Total Surface Area to Paint (Sq Ft)</label>
               <div class="relative">
-                <input type="number" id="paintArea" value="1200" step="50" min="0" oninput="calcPaint()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-16 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <input type="number" id="paintArea" value="1200" step="50" min="0" oninput="calcPaint()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-16 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 <span id="unitPaintArea" class="absolute right-3 top-2 sm:top-2.5 text-xs text-slate-400 font-bold">sq ft</span>
               </div>
             </div>
@@ -1232,20 +1241,20 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Number of Finish Coats</label>
-                <select id="paintCoats" onchange="onPaintCoatsChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <select id="paintCoats" onchange="onPaintCoatsChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                   <option value="1">1 Coat (Touchup / Refresh)</option>
                   <option value="2" selected>2 Coats (Standard)</option>
                   <option value="3">3 Coats (Deep Color Change)</option>
                   <option value="custom">Custom Coats</option>
                 </select>
                 <div id="paintCoatsCustomBox" class="hidden mt-2">
-                  <input type="number" id="paintCoatsCustom" value="2" step="1" min="1" max="10" oninput="calcPaint()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                  <input type="number" id="paintCoatsCustom" value="2" step="1" min="1" max="10" oninput="calcPaint()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
               </div>
 
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Primer Undercoat Required?</label>
-                <select id="paintPrimer" onchange="calcPaint()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <select id="paintPrimer" onchange="calcPaint()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                   <option value="yes" selected>Yes (New Drywall / Bare Plaster)</option>
                   <option value="no">No (Pre-Painted Surface)</option>
                 </select>
@@ -1255,12 +1264,12 @@
             <div>
               <label id="lblPaintPrice" class="block text-xs font-bold text-slate-700 mb-1">Estimated Paint Price (per Gallon / Litre)</label>
               <div class="relative">
-                <input type="number" id="paintPricePerGal" value="45" step="5" min="0" oninput="calcPaint()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <input type="number" id="paintPricePerGal" value="45" step="5" min="0" oninput="calcPaint()" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-3 pr-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
               </div>
             </div>
 
             <div class="pt-2 flex justify-end">
-              <button type="button" onclick="importPaintToBid()" class="text-xs bg-amber-50 hover:bg-brand-500 hover:text-slate-900 text-brand-700 font-bold px-4 py-2.5 rounded-xl border border-brand-300 transition flex items-center space-x-1.5 shadow-sm">
+              <button type="button" onclick="importPaintToBid()" class="text-xs bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-700 font-bold px-4 py-2.5 rounded-xl border border-blue-200 transition flex items-center space-x-1.5 shadow-2xs">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                 </svg>
@@ -1270,40 +1279,43 @@
           </div>
         </div>
 
-        <!-- Real-Time Output Card -->
-        <div class="lg:col-span-5 bg-slate-900 text-white rounded-2xl border border-slate-800 p-5 sm:p-6 shadow-xl flex flex-col justify-between">
+        <!-- Real-Time Output Card (Clean Technical Light Theme) -->
+        <div class="lg:col-span-5 bg-white text-slate-900 rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-2xs flex flex-col justify-between">
           <div>
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-              <span class="text-xs font-bold text-brand-400 uppercase tracking-wider" data-i18n="paint_summary_title">Paint Takeoff Summary</span>
-              <span class="text-[11px] bg-brand-500/20 text-brand-400 px-2.5 py-0.5 rounded-full font-semibold">Standard 350 SF/Gal</span>
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-purple-600"></span>
+                <span class="text-xs font-bold text-slate-900 uppercase tracking-wider" data-i18n="paint_summary_title">Paint Takeoff Summary</span>
+              </div>
+              <span class="text-[11px] bg-purple-50 text-purple-700 border border-purple-200 px-2.5 py-0.5 rounded-full font-bold">Standard 350 SF/Gal</span>
             </div>
 
             <!-- Volume Metric -->
-            <div class="bg-slate-800/90 rounded-xl p-4 border border-slate-700/60 mb-4 text-center">
-              <span class="text-xs text-slate-400 uppercase font-semibold" data-i18n="paint_total_vol">Total Paint Quantity</span>
+            <div class="bg-purple-50/50 rounded-xl p-4 border border-purple-200/80 mb-4 text-center">
+              <span class="text-xs text-slate-500 uppercase font-bold tracking-wider" data-i18n="paint_total_vol">Total Paint Quantity</span>
               <div class="flex items-baseline justify-center space-x-2 mt-1">
-                <span id="resPaintTotalGal" class="text-3xl sm:text-4xl font-extrabold text-white">7</span>
-                <span id="unitPaintResult" class="text-brand-400 font-bold text-lg">Gallons</span>
+                <span id="resPaintTotalGal" class="text-3xl sm:text-4xl font-black text-slate-900">7</span>
+                <span id="unitPaintResult" class="text-purple-600 font-black text-lg">Gallons</span>
               </div>
-              <p id="resPaintLitres" class="text-xs text-slate-400 mt-0.5">Equivalent to ~26.5 Litres</p>
+              <p id="resPaintLitres" class="text-xs text-slate-500 font-medium mt-0.5">Equivalent to ~26.5 Litres</p>
             </div>
 
             <div class="space-y-2.5 text-xs sm:text-sm">
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="paint_packaging">Container Packaging:</span>
-                <span id="resPaintCanBreakdown" class="font-extrabold text-white whitespace-nowrap text-right">1 x 5-Gal + 2 x 1-Gal</span>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/70">
+                <span class="text-slate-600 font-semibold whitespace-nowrap shrink-0" data-i18n="paint_packaging">Container Packaging:</span>
+                <span id="resPaintCanBreakdown" class="font-black text-slate-900 whitespace-nowrap text-right">1 x 5-Gal + 2 x 1-Gal</span>
               </div>
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0">PVA Primer Undercoat:</span>
-                <span id="resPrimerGal" class="font-bold text-slate-200 whitespace-nowrap text-right">4 Gallons (15.1 L)</span>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/70">
+                <span class="text-slate-600 font-semibold whitespace-nowrap shrink-0">PVA Primer Undercoat:</span>
+                <span id="resPrimerGal" class="font-black text-slate-900 whitespace-nowrap text-right">4 Gallons (15.1 L)</span>
               </div>
             </div>
           </div>
 
           <!-- Total Cost -->
-          <div class="mt-5 pt-4 border-t border-slate-800 flex items-center justify-between">
-            <span class="text-xs uppercase font-bold text-slate-400">Estimated Coating Cost:</span>
-            <span id="resPaintCost" class="text-xl font-extrabold text-brand-400">$441.00</span>
+          <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-xs uppercase font-extrabold text-slate-500 tracking-wider">Estimated Coating Cost:</span>
+            <span id="resPaintCost" class="text-2xl font-black text-purple-600">$441.00</span>
           </div>
         </div>
 
@@ -1316,11 +1328,11 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         <!-- Bid Builder Form -->
-        <div class="lg:col-span-7 bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-sm">
+        <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-2xs">
           <div class="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
             <div>
               <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
-                <span class="w-3 h-3 rounded-full bg-brand-500"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
                 <span data-i18n="bid_title">Contractor Bid & Markup Proposal</span>
               </h2>
               <p class="text-xs text-slate-500" data-i18n="bid_desc">Labor hours, equipment rentals, contingency buffer & margin</p>
@@ -1331,11 +1343,11 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Project Name / Reference</label>
-                <input type="text" id="bidProjectName" value="Modern Luxury Residence Takeoff" oninput="calcBid()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <input type="text" id="bidProjectName" value="Modern Luxury Residence Takeoff" oninput="calcBid()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
               </div>
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Client Name / GC</label>
-                <input type="text" id="bidClientName" value="Apex Development Group" oninput="calcBid()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <input type="text" id="bidClientName" value="Apex Development Group" oninput="calcBid()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
               </div>
             </div>
 
@@ -1343,55 +1355,55 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Direct Material Costs Total</label>
-                <input type="number" id="bidMaterialCost" value="3046" step="50" min="0" oninput="calcBid()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <input type="number" id="bidMaterialCost" value="3046" step="50" min="0" oninput="calcBid()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
               </div>
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Subcontractor Specialty Bids</label>
-                <input type="number" id="bidSubCost" value="850" step="50" min="0" oninput="calcBid()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <input type="number" id="bidSubCost" value="850" step="50" min="0" oninput="calcBid()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
               </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Labor Estimated Hours</label>
-                <input type="number" id="bidLaborHours" value="48" step="1" min="0" oninput="calcBid()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <input type="number" id="bidLaborHours" value="48" step="1" min="0" oninput="calcBid()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
               </div>
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Hourly Crew Labor Rate</label>
-                <input type="number" id="bidLaborRate" value="55" step="5" min="0" oninput="calcBid()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <input type="number" id="bidLaborRate" value="55" step="5" min="0" oninput="calcBid()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
               </div>
             </div>
 
             <div>
               <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="lbl_equipment">Equipment Rentals, Freight & Permits</label>
-              <input type="number" id="bidEquipmentCost" value="450" step="25" min="0" oninput="calcBid()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+              <input type="number" id="bidEquipmentCost" value="450" step="25" min="0" oninput="calcBid()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
             </div>
 
             <!-- Contingency & Profit Margins -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="lbl_contingency">Contingency Buffer Reserve</label>
-                <select id="bidContingency" onchange="onBidContingencyChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <select id="bidContingency" onchange="onBidContingencyChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                   <option value="5">5% (Low Risk)</option>
                   <option value="10" selected>10% (Standard)</option>
                   <option value="15">15% (Remodel / Historic)</option>
                   <option value="custom">Custom Contingency %</option>
                 </select>
                 <div id="bidContingencyCustomBox" class="hidden mt-2">
-                  <input type="number" id="bidContingencyCustom" value="8" step="1" min="0" max="50" oninput="calcBid()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                  <input type="number" id="bidContingencyCustom" value="8" step="1" min="0" max="50" oninput="calcBid()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
               </div>
 
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Contractor Profit Margin</label>
-                <select id="bidProfitMargin" onchange="onBidProfitChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <select id="bidProfitMargin" onchange="onBidProfitChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                   <option value="15">15% (Competitive)</option>
                   <option value="20" selected>20% (Healthy)</option>
                   <option value="25">25% (High End / Complex)</option>
                   <option value="custom">Custom Profit %</option>
                 </select>
                 <div id="bidProfitMarginCustomBox" class="hidden mt-2">
-                  <input type="number" id="bidProfitMarginCustom" value="22" step="1" min="0" max="100" oninput="calcBid()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                  <input type="number" id="bidProfitMarginCustom" value="22" step="1" min="0" max="100" oninput="calcBid()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
 
                 <!-- Profit Calculation Mode Selector (Markup on Cost vs Margin on Selling Price) -->
@@ -1404,11 +1416,11 @@
             </div>
 
             <div class="pt-4 flex flex-col sm:flex-row gap-2.5 justify-end">
-              <button type="button" onclick="saveCurrentEstimate()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center justify-center space-x-1.5 shadow-sm">
+              <button type="button" onclick="saveCurrentEstimate()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center justify-center space-x-1.5 shadow-2xs">
                 <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
                 <span><span data-i18n="btn_save_history">Save to History</span></span>
               </button>
-              <button type="button" onclick="exportPdf()" class="text-xs bg-brand-500 hover:bg-brand-600 text-slate-900 font-extrabold px-5 py-2.5 rounded-xl transition flex items-center justify-center space-x-1.5 shadow-sm">
+              <button type="button" onclick="exportPdf()" class="text-xs bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-2.5 rounded-xl transition flex items-center justify-center space-x-1.5 shadow-2xs">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
                 <span>Print Official 1-Page PDF</span>
               </button>
@@ -1416,49 +1428,52 @@
           </div>
         </div>
 
-        <!-- Master Bid Financial Summary -->
-        <div class="lg:col-span-5 bg-slate-900 text-white rounded-2xl border border-slate-800 p-5 sm:p-6 shadow-xl flex flex-col justify-between">
+        <!-- Master Bid Financial Summary (Clean Technical Light Theme) -->
+        <div class="lg:col-span-5 bg-white text-slate-900 rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-2xs flex flex-col justify-between">
           <div>
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-              <span class="text-xs font-bold text-brand-400 uppercase tracking-wider" data-i18n="bid_summary_title">Executive Bid Summary</span>
-              <span class="text-[11px] bg-emerald-500/20 text-emerald-400 px-2.5 py-0.5 rounded-full font-semibold">Ready for Client</span>
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+                <span class="text-xs font-bold text-slate-900 uppercase tracking-wider" data-i18n="bid_summary_title">Executive Bid Summary</span>
+              </div>
+              <span class="text-[11px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-0.5 rounded-full font-bold">Ready for Client</span>
             </div>
 
             <!-- Big Final Price Callout -->
-            <div class="bg-slate-800/90 rounded-xl p-4 border border-slate-700/60 mb-4 text-center">
-              <span class="text-xs text-slate-400 uppercase font-semibold" data-i18n="bid_final_callout">Total Client Proposal Price</span>
-              <div id="resBidFinalPrice" class="text-3xl sm:text-4xl font-black text-brand-400 mt-1">$9,222.00</div>
-              <p class="text-xs text-slate-400 mt-0.5">Includes Contingency Buffer & Profit</p>
+            <div class="bg-blue-50/60 rounded-xl p-4 border border-blue-200/80 mb-4 text-center">
+              <span class="text-xs text-slate-500 uppercase font-bold tracking-wider" data-i18n="bid_final_callout">Total Client Proposal Price</span>
+              <div id="resBidFinalPrice" class="text-3xl sm:text-4xl font-black text-slate-900 mt-1">$9,222.00</div>
+              <p class="text-xs text-slate-500 font-medium mt-0.5">Includes Contingency Buffer & Contractor Profit</p>
             </div>
 
             <div class="space-y-2 text-xs sm:text-sm">
-              <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="bid_direct_materials">Direct Materials:</span>
-                <span id="resBidMatTotal" class="font-bold text-white whitespace-nowrap text-right">$3,046.00</span>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/70">
+                <span class="text-slate-600 font-semibold whitespace-nowrap shrink-0" data-i18n="bid_direct_materials">Direct Materials:</span>
+                <span id="resBidMatTotal" class="font-black text-slate-900 whitespace-nowrap text-right">$3,046.00</span>
               </div>
-              <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="bid_direct_labor">Direct Labor Costs:</span>
-                <span id="resBidLaborTotal" class="font-bold text-white whitespace-nowrap text-right">$2,640.00</span>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/70">
+                <span class="text-slate-600 font-semibold whitespace-nowrap shrink-0" data-i18n="bid_direct_labor">Direct Labor Costs:</span>
+                <span id="resBidLaborTotal" class="font-black text-slate-900 whitespace-nowrap text-right">$2,640.00</span>
               </div>
-              <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="bid_subcontractor">Subcontractor Total:</span>
-                <span id="resBidSubTotal" class="font-bold text-white whitespace-nowrap text-right">$850.00</span>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/70">
+                <span class="text-slate-600 font-semibold whitespace-nowrap shrink-0" data-i18n="bid_subcontractor">Subcontractor Total:</span>
+                <span id="resBidSubTotal" class="font-black text-slate-900 whitespace-nowrap text-right">$850.00</span>
               </div>
-              <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/40">
-                <span class="text-slate-300 whitespace-nowrap shrink-0" data-i18n="bid_equipment">Equipment & Freight:</span>
-                <span id="resBidEquipTotal" class="font-bold text-white whitespace-nowrap text-right">$450.00</span>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/70">
+                <span class="text-slate-600 font-semibold whitespace-nowrap shrink-0" data-i18n="bid_equipment">Equipment & Freight:</span>
+                <span id="resBidEquipTotal" class="font-black text-slate-900 whitespace-nowrap text-right">$450.00</span>
               </div>
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/70 border border-slate-700/60 font-semibold">
-                <span class="text-slate-200 whitespace-nowrap shrink-0">Total Direct Job Costs:</span>
-                <span id="resBidDirectCost" class="font-bold text-white whitespace-nowrap text-right">$6,986.00</span>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-100 border border-slate-200 font-bold">
+                <span class="text-slate-800 whitespace-nowrap shrink-0">Total Direct Job Costs:</span>
+                <span id="resBidDirectCost" class="font-black text-slate-900 whitespace-nowrap text-right">$6,986.00</span>
               </div>
-              <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/40 text-amber-300">
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-amber-50/70 border border-amber-200 font-semibold text-amber-900">
                 <span class="whitespace-nowrap shrink-0">Contingency Buffer Reserve:</span>
-                <span id="resBidContingencyTotal" class="font-bold whitespace-nowrap text-right">+$698.60</span>
+                <span id="resBidContingencyTotal" class="font-black whitespace-nowrap text-right">+$698.60</span>
               </div>
-              <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/40 text-emerald-400">
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-emerald-50/70 border border-emerald-200 font-semibold text-emerald-900">
                 <span class="whitespace-nowrap shrink-0">Contractor Gross Profit:</span>
-                <span id="resBidGrossProfit" class="font-bold whitespace-nowrap text-right">+$1,536.92</span>
+                <span id="resBidGrossProfit" class="font-black whitespace-nowrap text-right">+$1,536.92</span>
               </div>
             </div>
           </div>
@@ -1470,7 +1485,7 @@
 
     <!-- TAB 5: SAVED ESTIMATES HISTORY -->
     <div id="tab-history" class="tab-panel hidden">
-      <div class="max-w-4xl mx-auto bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-sm">
+      <div class="max-w-4xl mx-auto bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-2xs">
         <div class="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
           <div>
             <h2 class="text-lg font-bold text-slate-900" data-i18n="history_title">Saved Project Estimates</h2>
@@ -1487,28 +1502,7 @@
       </div>
     </div>
 
-    <!-- Dedicated Professional Engineering Footer with GitHub Repository Link -->
-    <footer class="no-print mt-12 pt-8 pb-20 md:pb-8 border-t border-slate-200/90 text-slate-600 text-xs">
-      <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-        <div>
-          <div class="flex items-center justify-center sm:justify-start space-x-2 font-bold text-slate-800 text-sm">
-            <span class="w-2 h-2 rounded-full bg-brand-500"></span>
-            <span>BuildEstimate Pro</span>
-            <span class="text-xs px-2 py-0.5 rounded-full bg-brand-50 text-brand-700 font-semibold border border-brand-200">v3.0 Global</span>
-          </div>
-          <p class="text-[11px] text-slate-500 mt-1">Universal Material Takeoff & Contractor Estimating Suite · Offline Capable PWA</p>
-        </div>
-        <div class="flex items-center space-x-3">
-          <a href="https://github.com/heyshahid/buildestimate-app" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-bold text-xs transition shadow-2xs hover:shadow-xs group" title="View Source & Star BuildEstimate Pro on GitHub">
-            <svg class="w-4 h-4 text-slate-800 group-hover:text-black transition" fill="currentColor" viewBox="0 0 24 24">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-            </svg>
-            <span>Star on GitHub</span>
-            <span class="px-1.5 py-0.5 rounded-md bg-slate-100 text-[10px] text-slate-600 font-mono font-semibold border border-slate-200">heyshahid/buildestimate-app</span>
-          </a>
-        </div>
-      </div>
-    </footer>
+
 
   
         </div>
@@ -1542,31 +1536,31 @@
             </div>
           </div>
 
-          <!-- Canvas Drawing Controls & Mode Bar -->
-          <div class="flex flex-wrap items-center justify-between gap-2 bg-slate-900 text-white p-2.5 rounded-xl shadow-xs">
+          <!-- Canvas Drawing Controls & Mode Bar (Clean Light Technical Theme) -->
+          <div class="flex flex-wrap items-center justify-between gap-2 bg-slate-100 border border-slate-200 p-2.5 rounded-xl shadow-2xs">
             <div class="flex items-center space-x-1.5">
               <button type="button" onclick="BuildEstimateDrawing.setMode('pan')" data-tool="pan" class="takeoff-tool-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white shadow-2xs transition">
                 ✋ Pan & Navigate
               </button>
-              <button type="button" onclick="BuildEstimateDrawing.setMode('calibrate')" data-tool="calibrate" class="takeoff-tool-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
+              <button type="button" onclick="BuildEstimateDrawing.setMode('calibrate')" data-tool="calibrate" class="takeoff-tool-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition">
                 📐 Calibrate Scale
               </button>
-              <button type="button" onclick="BuildEstimateDrawing.setMode('area')" data-tool="area" class="takeoff-tool-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
+              <button type="button" onclick="BuildEstimateDrawing.setMode('area')" data-tool="area" class="takeoff-tool-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition">
                 ⬛ Area Polygon (SF / m²)
               </button>
-              <button type="button" onclick="BuildEstimateDrawing.setMode('linear')" data-tool="linear" class="takeoff-tool-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
+              <button type="button" onclick="BuildEstimateDrawing.setMode('linear')" data-tool="linear" class="takeoff-tool-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition">
                 📏 Linear Run (LF / m)
               </button>
-              <button type="button" onclick="BuildEstimateDrawing.setMode('count')" data-tool="count" class="takeoff-tool-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
+              <button type="button" onclick="BuildEstimateDrawing.setMode('count')" data-tool="count" class="takeoff-tool-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition">
                 📍 Count Stamp
               </button>
             </div>
 
             <!-- Zoom Controls -->
             <div class="flex items-center space-x-1">
-              <button type="button" onclick="BuildEstimateDrawing.zoom *= 1.2; BuildEstimateDrawing.redraw();" title="Zoom In" class="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-xs font-bold">+</button>
-              <button type="button" onclick="BuildEstimateDrawing.zoom /= 1.2; BuildEstimateDrawing.redraw();" title="Zoom Out" class="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-xs font-bold">-</button>
-              <button type="button" onclick="BuildEstimateDrawing.zoom = 1.0; BuildEstimateDrawing.panX = 30; BuildEstimateDrawing.panY = 20; BuildEstimateDrawing.redraw();" title="Reset View" class="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-xs font-semibold">Reset</button>
+              <button type="button" onclick="BuildEstimateDrawing.zoom *= 1.2; BuildEstimateDrawing.redraw();" title="Zoom In" class="px-2.5 py-1 rounded-md bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-bold shadow-2xs">+</button>
+              <button type="button" onclick="BuildEstimateDrawing.zoom /= 1.2; BuildEstimateDrawing.redraw();" title="Zoom Out" class="px-2.5 py-1 rounded-md bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-bold shadow-2xs">-</button>
+              <button type="button" onclick="BuildEstimateDrawing.zoom = 1.0; BuildEstimateDrawing.panX = 30; BuildEstimateDrawing.panY = 20; BuildEstimateDrawing.redraw();" title="Reset View" class="px-2.5 py-1 rounded-md bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-semibold shadow-2xs">Reset</button>
             </div>
           </div>
 
@@ -1629,19 +1623,20 @@
             </div>
           </div>
 
-          <!-- Civil Engineering Instant Unit Converter Widget -->
-          <div class="bg-gradient-to-r from-blue-900 to-slate-900 text-white p-5 rounded-2xl shadow-sm">
+          <!-- Civil Engineering Instant Unit Converter Widget (Clean Light SaaS Theme) -->
+          <div class="bg-blue-50/50 border border-blue-200/80 p-5 rounded-2xl shadow-2xs">
             <div class="flex items-center space-x-2 mb-3">
-              <span class="text-xs font-black uppercase tracking-wider text-blue-300">On-Site Civil Engineering Unit Converter</span>
+              <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+              <span class="text-xs font-bold uppercase tracking-wider text-blue-900">On-Site Civil Engineering Unit Converter</span>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 items-center">
               <div>
-                <label class="block text-[11px] font-bold text-slate-300 mb-1">Quantity Value</label>
-                <input type="number" id="unitConvInput" value="100" step="any" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white focus:outline-none focus:border-blue-400">
+                <label class="block text-[11px] font-bold text-slate-700 mb-1">Quantity Value</label>
+                <input type="number" id="unitConvInput" value="100" step="any" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
               </div>
               <div>
-                <label class="block text-[11px] font-bold text-slate-300 mb-1">From Unit</label>
-                <select id="unitConvFrom" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white focus:outline-none focus:border-blue-400 cursor-pointer">
+                <label class="block text-[11px] font-bold text-slate-700 mb-1">From Unit</label>
+                <select id="unitConvFrom" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
                   <option value="cft" selected>Cubic Feet (CFT)</option>
                   <option value="m3">Cubic Meters (m³)</option>
                   <option value="yd3">Cubic Yards (yd³)</option>
@@ -1656,8 +1651,8 @@
                 </select>
               </div>
               <div>
-                <label class="block text-[11px] font-bold text-slate-300 mb-1">To Unit</label>
-                <select id="unitConvTo" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white focus:outline-none focus:border-blue-400 cursor-pointer">
+                <label class="block text-[11px] font-bold text-slate-700 mb-1">To Unit</label>
+                <select id="unitConvTo" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
                   <option value="m3" selected>Cubic Meters (m³)</option>
                   <option value="cft">Cubic Feet (CFT)</option>
                   <option value="yd3">Cubic Yards (yd³)</option>
@@ -1671,10 +1666,10 @@
                   <option value="kg">Kilograms (kg)</option>
                 </select>
               </div>
-              <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700">
-                <span class="block text-[10px] text-slate-400 font-bold uppercase">Converted Result</span>
-                <span id="unitConvResult" class="text-base font-black text-amber-400">2.8317</span>
-                <span id="unitConvFormula" class="block text-[10px] text-slate-400 truncate">CFT ÷ 35.3147 = m³</span>
+              <div class="bg-white p-3 rounded-xl border border-blue-200 shadow-2xs">
+                <span class="block text-[10px] text-slate-500 font-bold uppercase">Converted Result</span>
+                <span id="unitConvResult" class="text-base font-black text-blue-600">2.8317</span>
+                <span id="unitConvFormula" class="block text-[10px] text-slate-500 truncate">CFT ÷ 35.3147 = m³</span>
               </div>
             </div>
           </div>
@@ -2759,7 +2754,7 @@
 
   <!-- Mobile Bottom Tab Navigation Bar (Sticky at Bottom) -->
   <div class="no-print md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 py-1.5 px-3 flex items-center justify-around shadow-lg">
-    <button onclick="switchTab('concrete')" class="mobile-tab-btn flex flex-col items-center p-1 text-brand-600 font-bold transition" data-target="concrete">
+    <button onclick="switchTab('concrete')" class="mobile-tab-btn flex flex-col items-center p-1 text-blue-600 font-bold transition" data-target="concrete">
       <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
       <span class="text-[10px]" data-i18n="nav_concrete">Concrete</span>
     </button>
@@ -4510,10 +4505,10 @@
       // Desktop Navbar highlight
       document.querySelectorAll('.tab-btn').forEach(btn => {
         if (btn.dataset.target === targetId) {
-          btn.classList.add('border-brand-500', 'text-brand-600');
+          btn.classList.add('border-blue-600', 'text-blue-600');
           btn.classList.remove('border-transparent', 'text-slate-600');
         } else {
-          btn.classList.remove('border-brand-500', 'text-brand-600');
+          btn.classList.remove('border-blue-600', 'text-blue-600');
           btn.classList.add('border-transparent', 'text-slate-600');
         }
       });
@@ -4521,10 +4516,10 @@
       // Mobile Bottom Bar highlight
       document.querySelectorAll('.mobile-tab-btn').forEach(btn => {
         if (btn.dataset.target === targetId) {
-          btn.classList.add('text-brand-600', 'font-bold');
+          btn.classList.add('text-blue-600', 'font-bold');
           btn.classList.remove('text-slate-500', 'font-medium');
         } else {
-          btn.classList.remove('text-brand-600', 'font-bold');
+          btn.classList.remove('text-blue-600', 'font-bold');
           btn.classList.add('text-slate-500', 'font-medium');
         }
       });
@@ -4589,7 +4584,7 @@
         b.className = 'thickness-btn px-3 py-1.5 rounded-lg border font-semibold transition bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300';
       });
       if (activeBtn) {
-        activeBtn.className = 'thickness-btn px-3 py-1.5 rounded-lg border font-bold transition shadow-sm bg-brand-500 text-white border-brand-500';
+        activeBtn.className = 'thickness-btn px-3 py-1.5 rounded-lg border font-bold transition shadow-2xs bg-blue-600 text-white border-blue-600';
       }
     }
 
@@ -5130,7 +5125,7 @@
               <p class="text-xs text-slate-500">Client: ${item.clientName || 'General Client'} · ${new Date(item.date).toLocaleDateString()}</p>
             </div>
             <div class="flex items-center space-x-3">
-              <span class="text-lg font-extrabold text-brand-600">${formattedPrice}</span>
+              <span class="text-lg font-extrabold text-blue-600">${formattedPrice}</span>
               <button onclick="deleteHistoryItem(${idx})" class="text-slate-400 hover:text-rose-600 p-1">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
               </button>
@@ -5225,7 +5220,7 @@
         <p><strong>iPhone / iPad (Safari):</strong> Tap the <em>Share</em> button at the bottom of Safari &gt; select <em>"Add to Home Screen"</em>.</p>
       </div>
       <div class="flex justify-end space-x-2">
-        <button type="button" onclick="closeInstallModal()" class="px-4 py-2 text-xs font-bold bg-brand-500 hover:bg-brand-600 text-slate-900 rounded-xl transition cursor-pointer">Got it</button>
+        <button type="button" onclick="closeInstallModal()" class="px-4 py-2 text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition cursor-pointer">Got it</button>
       </div>
     </div>
   </div>
@@ -5249,4 +5244,6 @@
 
 </body>
 </html>
+
+
 
