@@ -6,7 +6,7 @@
 [![Author: Shahid Akram](https://img.shields.io/badge/Author-Shahid_Akram-1E293B?style=for-the-badge&logo=github&logoColor=white)](https://github.com/heyshahid)
 [![GitHub Stars](https://img.shields.io/github/stars/heyshahid/buildestimate-app?style=for-the-badge&logo=github&color=F59E0B)](https://github.com/heyshahid/buildestimate-app/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/heyshahid/buildestimate-app?style=for-the-badge&logo=github&color=3B82F6)](https://github.com/heyshahid/buildestimate-app/network/members)
-[![CI Pipeline](https://img.shields.io/badge/CI-Passing-brightgreen?style=for-the-badge&logo=githubactions&logoColor=white)](.github/workflows/ci.yml)
+[![Tests: 16 Passing](https://img.shields.io/badge/Tests-16_Passing-10B981?style=for-the-badge&logo=pytest&logoColor=white)](tests/)
 
 > **Universal Construction Takeoff, Cost Estimation, BOQ & Contractor Bidding Platform**  
 > *"Measure Accurately. Estimate Confidently. Build Smarter."*  

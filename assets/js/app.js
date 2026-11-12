@@ -142,6 +142,10 @@
       if (viewName === 'labour' && window.BuildEstimateMaterials) BuildEstimateMaterials.renderLabourAndEquipment();
       if (viewName === 'suppliers' && window.BuildEstimateSuppliers) BuildEstimateSuppliers.render();
       if (viewName === 'quotations' && window.BuildEstimateQuotations) BuildEstimateQuotations.render();
+      if (viewName === 'cost-estimator') this.calcParametric();
+      if (viewName === 'history') this.renderHistoryView();
+      if (viewName === 'reports') this.renderReportsView();
+      if (viewName === 'settings') this.renderSettingsView();
       if (viewName === 'drawing-takeoff' && window.BuildEstimateDrawing) {
         setTimeout(() => {
           BuildEstimateDrawing.resizeCanvas();
@@ -201,9 +205,10 @@
         });
       }
 
-      if (badgeContainer) {
+      const updateBadgeHtml = (el) => {
+        if (!el) return;
         if (!activeProj) {
-          badgeContainer.innerHTML = `
+          el.innerHTML = `
             <div class="flex items-center space-x-2 text-xs text-slate-500 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
               <span class="w-2 h-2 rounded-full bg-slate-400"></span>
               <span>No Active Project</span>
@@ -211,7 +216,7 @@
             </div>
           `;
         } else {
-          badgeContainer.innerHTML = `
+          el.innerHTML = `
             <div class="flex items-center space-x-2 text-xs font-semibold text-slate-800 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200/80 shadow-2xs">
               <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
               <span class="truncate max-w-[180px] sm:max-w-[240px]" title="${activeProj.name}">${activeProj.name}</span>
@@ -219,7 +224,11 @@
             </div>
           `;
         }
-      }
+      };
+
+      updateBadgeHtml(badgeContainer);
+      const mobileBadge = document.getElementById('mobileActiveProjectBadge');
+      updateBadgeHtml(mobileBadge);
     },
 
     // DASHBOARD RENDERING
@@ -659,6 +668,359 @@
           this.renderProjectsList(e.target.value, search);
         });
       }
+    },
+
+    // -------------------------------------------------------------
+    // PARAMETRIC COST ESTIMATOR (VIEW 6)
+    // -------------------------------------------------------------
+    calcParametric: function () {
+      const typologyEl = document.getElementById('paramTypology');
+      const areaEl = document.getElementById('paramArea');
+      const qualityEl = document.getElementById('paramQuality');
+      if (!typologyEl || !areaEl || !qualityEl) return;
+
+      const typology = typologyEl.value || 'single_family';
+      const area = Math.max(10, parseFloat(areaEl.value) || 3200);
+      const quality = qualityEl.value || 'standard';
+
+      // Base Rates per SF (USD Benchmark)
+      const baseRates = {
+        'single_family': 220,
+        'multi_family': 185,
+        'commercial': 240,
+        'industrial': 115,
+        'luxury_villa': 280
+      };
+
+      const qualityMultipliers = {
+        'custom': 1.20,
+        'standard': 1.00,
+        'economy': 0.85
+      };
+
+      const baseRate = baseRates[typology] || 220;
+      const multiplier = qualityMultipliers[quality] || 1.0;
+      const effectiveRate = baseRate * multiplier;
+      const totalFeasibility = effectiveRate * area;
+
+      // CSI Division Percentage Allocations
+      const subCost = totalFeasibility * 0.15;
+      const supCost = totalFeasibility * 0.28;
+      const mepCost = totalFeasibility * 0.22;
+      const finCost = totalFeasibility * 0.25;
+      const genCost = totalFeasibility * 0.10;
+
+      const activeProj = BuildEstimateStorage.getActiveProject();
+      const currSym = (activeProj && activeProj.currency === 'PKR') ? 'Rs ' :
+                      (activeProj && activeProj.currency === 'EUR') ? '€' :
+                      (activeProj && activeProj.currency === 'GBP') ? '£' :
+                      (activeProj && activeProj.currency === 'AED') ? 'AED ' : '$';
+
+      const fmt = (num) => currSym + Math.round(num).toLocaleString('en-US');
+
+      const effRateEl = document.getElementById('paramEffectiveRate');
+      const totalCostEl = document.getElementById('paramTotalCost');
+      const subCostEl = document.getElementById('paramSubCost');
+      const supCostEl = document.getElementById('paramSupCost');
+      const mepCostEl = document.getElementById('paramMepCost');
+      const finCostEl = document.getElementById('paramFinCost');
+      const genCostEl = document.getElementById('paramGenCost');
+
+      if (effRateEl) effRateEl.innerText = currSym + effectiveRate.toFixed(2) + ' / SF';
+      if (totalCostEl) totalCostEl.innerText = fmt(totalFeasibility);
+      if (subCostEl) subCostEl.innerText = fmt(subCost);
+      if (supCostEl) supCostEl.innerText = fmt(supCost);
+      if (mepCostEl) mepCostEl.innerText = fmt(mepCost);
+      if (finCostEl) finCostEl.innerText = fmt(finCost);
+      if (genCostEl) genCostEl.innerText = fmt(genCost);
+
+      // Keep calculated cache for 1-click push to BOQ
+      this._lastParametric = {
+        typology,
+        area,
+        quality,
+        effectiveRate,
+        totalFeasibility,
+        trades: [
+          { section: 'Div 02 - Sitework', itemNo: '02.10', description: 'Substructure & Foundation Works (Parametric)', qty: 1, unit: 'LS', matRate: subCost * 0.6, labRate: subCost * 0.35, equipRate: subCost * 0.05, totalRate: subCost, totalAmount: subCost },
+          { section: 'Div 03 - Concrete', itemNo: '03.10', description: 'Superstructure Framing & Envelope (Parametric)', qty: 1, unit: 'LS', matRate: supCost * 0.65, labRate: supCost * 0.30, equipRate: supCost * 0.05, totalRate: supCost, totalAmount: supCost },
+          { section: 'Div 22 - Plumbing', itemNo: '22.10', description: 'MEP Rough-Ins: Electrical & Plumbing (Parametric)', qty: 1, unit: 'LS', matRate: mepCost * 0.55, labRate: mepCost * 0.40, equipRate: mepCost * 0.05, totalRate: mepCost, totalAmount: mepCost },
+          { section: 'Div 09 - Finishes', itemNo: '09.10', description: 'Interior Finishes, Drywall & Paint (Parametric)', qty: 1, unit: 'LS', matRate: finCost * 0.50, labRate: finCost * 0.45, equipRate: finCost * 0.05, totalRate: finCost, totalAmount: finCost },
+          { section: 'Div 01 - General', itemNo: '01.10', description: 'General Conditions, Supervision & Permits (Parametric)', qty: 1, unit: 'LS', matRate: 0, labRate: genCost * 0.8, equipRate: genCost * 0.2, totalRate: genCost, totalAmount: genCost }
+        ]
+      };
+    },
+
+    pushParametricToBOQ: function () {
+      if (!this._lastParametric) this.calcParametric();
+      const p = this._lastParametric;
+      if (!p) return;
+
+      const activeProj = BuildEstimateStorage.getActiveProject();
+      if (!activeProj) {
+        alert('Please create or select an active project first.');
+        this.openCreateProjectModal();
+        return;
+      }
+
+      if (!Array.isArray(activeProj.boqItems)) activeProj.boqItems = [];
+
+      if (activeProj.boqItems.length > 0) {
+        if (!confirm(`Your active project already has ${activeProj.boqItems.length} BOQ item(s). Do you want to append these 5 parametric trades to the Bill of Quantities?`)) {
+          return;
+        }
+      }
+
+      p.trades.forEach(t => {
+        activeProj.boqItems.push({
+          id: 'boq-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4),
+          ...t
+        });
+      });
+
+      BuildEstimateStorage.saveProject(activeProj);
+      this.switchView('boq');
+      if (window.BuildEstimateBOQ) BuildEstimateBOQ.render();
+      alert('Parametric trade budget successfully transferred to BOQ Studio!');
+    },
+
+    // -------------------------------------------------------------
+    // SAVED ESTIMATES & HISTORY (VIEW 9)
+    // -------------------------------------------------------------
+    renderHistoryView: function () {
+      const historyTableBody = document.getElementById('historyTableBody');
+      const badge = document.getElementById('historyCountBadge');
+      if (!historyTableBody) return;
+
+      const projects = BuildEstimateStorage.getProjects();
+      const activeProj = BuildEstimateStorage.getActiveProject();
+
+      const currSym = (activeProj && activeProj.currency === 'PKR') ? 'Rs ' :
+                      (activeProj && activeProj.currency === 'EUR') ? '€' :
+                      (activeProj && activeProj.currency === 'GBP') ? '£' :
+                      (activeProj && activeProj.currency === 'AED') ? 'AED ' : '$';
+
+      if (projects.length === 0) {
+        historyTableBody.innerHTML = `
+          <tr>
+            <td colspan="7" class="py-12 text-center text-slate-400">
+              <svg class="w-10 h-10 mx-auto text-slate-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <p class="font-bold text-slate-600">No Saved Estimates or Project Revisions Found</p>
+              <p class="text-xs text-slate-400 mt-0.5">Calculations saved in Takeoffs or Project Studio will appear in this audit log.</p>
+              <button onclick="BuildEstimateApp.switchView('takeoffs')" class="mt-4 px-3.5 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-bold hover:bg-blue-700">Start Takeoff Estimate</button>
+            </td>
+          </tr>
+        `;
+        if (badge) badge.innerText = '0 Records';
+        return;
+      }
+
+      if (badge) badge.innerText = `${projects.length} Saved Records`;
+
+      historyTableBody.innerHTML = projects.map(p => {
+        const estCount = (p.estimates || []).length;
+        const boqCount = (p.boqItems || []).length;
+        const totalVal = p.quotation?.grandTotal || 0;
+        const matCost = p.quotation?.materialsCost || (totalVal * 0.42);
+        const labCost = p.quotation?.labourCost || (totalVal * 0.28);
+        const directCost = matCost + labCost;
+        const dateStr = p.updatedAt ? new Date(p.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Active';
+
+        return `
+          <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+            <td class="py-3.5 px-4">
+              <div class="font-bold text-slate-900">${p.name}</div>
+              <div class="text-[11px] text-slate-400">${p.clientName} · ${p.projectType || 'Residential'} · ${estCount} Takeoffs · ${boqCount} BOQ Items</div>
+            </td>
+            <td class="py-3.5 px-4 text-slate-600 font-medium">${dateStr}</td>
+            <td class="py-3.5 px-4 text-right font-semibold text-slate-700">${totalVal > 0 ? currSym + Math.round(directCost).toLocaleString('en-US') : '—'}</td>
+            <td class="py-3.5 px-4 text-right font-semibold text-blue-700">${totalVal > 0 ? currSym + Math.round(matCost).toLocaleString('en-US') : '—'}</td>
+            <td class="py-3.5 px-4 text-right font-semibold text-amber-700">${totalVal > 0 ? currSym + Math.round(labCost).toLocaleString('en-US') : '—'}</td>
+            <td class="py-3.5 px-4 text-right font-black text-slate-900">${totalVal > 0 ? currSym + Math.round(totalVal).toLocaleString('en-US') : 'Draft'}</td>
+            <td class="py-3.5 px-4 text-center">
+              <div class="inline-flex items-center space-x-1.5">
+                <button onclick="BuildEstimateApp.selectAndOpenProject('${p.id}')" title="Open Project" class="p-1.5 rounded-lg text-blue-600 hover:bg-blue-50 font-bold text-xs">Open →</button>
+                <button onclick="BuildEstimateApp.deleteHistoryItem('${p.id}')" title="Delete Project" class="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    },
+
+    deleteHistoryItem: function (id) {
+      this.deleteProject(id);
+      this.renderHistoryView();
+    },
+
+    // -------------------------------------------------------------
+    // EXECUTIVE REPORTS & MATERIAL PROCUREMENT (VIEW 10)
+    // -------------------------------------------------------------
+    renderReportsView: function () {
+      const banner = document.getElementById('reportsProjectSummaryBanner');
+      const tableBody = document.getElementById('procurementOrderTableBody');
+      if (!banner || !tableBody) return;
+
+      const activeProj = BuildEstimateStorage.getActiveProject();
+      if (!activeProj) {
+        banner.innerHTML = `
+          <div>
+            <span class="font-bold">No Active Project Selected.</span>
+            <span class="text-blue-800 ml-1">Select or create a project to aggregate procurement order schedules.</span>
+          </div>
+          <button onclick="BuildEstimateApp.openCreateProjectModal()" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-bold hover:bg-blue-700 text-xs">+ Select Project</button>
+        `;
+        tableBody.innerHTML = `<tr><td colspan="6" class="py-10 text-center text-slate-400 font-medium">Please select an active project to view aggregated procurement requirements.</td></tr>`;
+        return;
+      }
+
+      const currSym = (activeProj.currency === 'PKR') ? 'Rs ' :
+                      (activeProj.currency === 'EUR') ? '€' :
+                      (activeProj.currency === 'GBP') ? '£' :
+                      (activeProj.currency === 'AED') ? 'AED ' : '$';
+
+      const estCount = (activeProj.estimates || []).length;
+      const boqCount = (activeProj.boqItems || []).length;
+      const grandTotal = activeProj.quotation?.grandTotal || 0;
+
+      banner.innerHTML = `
+        <div class="flex items-center space-x-3">
+          <div class="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-sm">
+            ${(activeProj.name || 'P').charAt(0).toUpperCase()}
+          </div>
+          <div>
+            <div class="font-bold text-slate-900 text-sm">${activeProj.name} <span class="ml-1 text-[10px] uppercase font-extrabold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">${activeProj.status || 'Active'}</span></div>
+            <div class="text-slate-500 text-[11px]">${activeProj.clientName} · ${activeProj.projectType || 'General'} · Scope: ${estCount} Takeoffs & ${boqCount} BOQ Items</div>
+          </div>
+        </div>
+        <div class="flex items-center space-x-4">
+          <div class="text-right">
+            <span class="block text-[10px] uppercase font-bold text-slate-400">Total Project Value</span>
+            <span class="text-base font-black text-slate-900">${grandTotal > 0 ? currSym + Math.round(grandTotal).toLocaleString('en-US') : 'In Estimation'}</span>
+          </div>
+          <button onclick="BuildEstimateApp.switchView('quotations')" class="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-bold shadow-2xs">View Proposal →</button>
+        </div>
+      `;
+
+      // Aggregate procurement items from BOQ and Takeoffs
+      let procurementItems = [];
+
+      if (Array.isArray(activeProj.boqItems) && activeProj.boqItems.length > 0) {
+        activeProj.boqItems.forEach(item => {
+          if (item.matRate > 0 || item.totalAmount > 0) {
+            procurementItems.push({
+              description: item.description,
+              category: item.section || 'General Supply',
+              qty: item.qty,
+              unit: item.unit,
+              rate: item.matRate > 0 ? item.matRate : (item.totalRate || 0),
+              subtotal: (item.qty * (item.matRate > 0 ? item.matRate : item.totalRate)) || item.totalAmount
+            });
+          }
+        });
+      }
+
+      // Default baseline procurement schedule if BOQ items haven't been added yet
+      if (procurementItems.length === 0) {
+        procurementItems = [
+          { description: 'Portland Cement Type I/II (50kg Standard Sacks)', category: 'Div 03 - Concrete', qty: 185, unit: 'bags', rate: 11.50, subtotal: 2127.50 },
+          { description: 'Washed Concrete Sand (Fine Aggregate ASTM C33)', category: 'Div 03 - Concrete', qty: 450, unit: 'cft', rate: 1.20, subtotal: 540.00 },
+          { description: 'Crushed Coarse Aggregate Stone (3/4" Graded Bajri)', category: 'Div 03 - Concrete', qty: 890, unit: 'cft', rate: 1.45, subtotal: 1290.50 },
+          { description: 'ASTM A615 Grade 60 #4 Deformed Rebar Reinforcement', category: 'Div 03 - Concrete', qty: 1750, unit: 'lbs', rate: 0.65, subtotal: 1137.50 },
+          { description: '2x4 KD SPF Framing Lumber (96" Wall Studs)', category: 'Div 06 - Carpentry', qty: 240, unit: 'pcs', rate: 4.85, subtotal: 1164.00 },
+          { description: '1/2" Tapered Edge Gypsum Drywall Panels (4ft x 8ft)', category: 'Div 09 - Finishes', qty: 120, unit: 'sheets', rate: 16.50, subtotal: 1980.00 },
+          { description: 'Interior Acrylic Latex Low-VOC Finish Paint', category: 'Div 09 - Finishes', qty: 18, unit: 'gallons', rate: 42.00, subtotal: 756.00 }
+        ];
+      }
+
+      this._currentProcurementItems = procurementItems;
+
+      tableBody.innerHTML = procurementItems.map(item => {
+        return `
+          <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+            <td class="py-3 px-4 font-semibold text-slate-800">${item.description}</td>
+            <td class="py-3 px-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700">${item.category}</span></td>
+            <td class="py-3 px-4 text-right font-black text-slate-900">${typeof item.qty === 'number' ? item.qty.toLocaleString('en-US', { maximumFractionDigits: 1 }) : item.qty}</td>
+            <td class="py-3 px-4 text-center font-bold text-slate-500 uppercase text-[10px]">${item.unit}</td>
+            <td class="py-3 px-4 text-right font-semibold text-slate-600">${currSym + Number(item.rate).toFixed(2)}</td>
+            <td class="py-3 px-4 text-right font-black text-blue-700">${currSym + Math.round(item.subtotal).toLocaleString('en-US')}</td>
+          </tr>
+        `;
+      }).join('');
+    },
+
+    exportProcurementCSV: function () {
+      if (!this._currentProcurementItems || this._currentProcurementItems.length === 0) {
+        this.renderReportsView();
+      }
+      const items = this._currentProcurementItems || [];
+      if (items.length === 0) {
+        alert('No procurement items available to export.');
+        return;
+      }
+
+      const activeProj = BuildEstimateStorage.getActiveProject();
+      const projName = activeProj ? activeProj.name.replace(/[^a-zA-Z0-9]/g, '_') : 'Project';
+
+      let csv = 'Material Description,Trade Category,Required Quantity,Unit,Estimated Unit Rate,Procurement Subtotal\n';
+      items.forEach(it => {
+        const desc = `"${(it.description || '').replace(/"/g, '""')}"`;
+        const cat = `"${(it.category || '').replace(/"/g, '""')}"`;
+        csv += `${desc},${cat},${it.qty},${it.unit},${it.rate},${it.subtotal}\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `Procurement_Schedule_${projName}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    },
+
+    // -------------------------------------------------------------
+    // WORKSPACE & COMPANY SETTINGS (VIEW 14)
+    // -------------------------------------------------------------
+    renderSettingsView: function () {
+      const s = BuildEstimateStorage.getSettings();
+      const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el && val !== undefined && val !== null) el.value = val;
+      };
+
+      setVal('settingCompanyName', s.companyName);
+      setVal('settingEstimatorName', s.estimatorName);
+      setVal('settingPhone', s.phone);
+      setVal('settingEmail', s.email);
+      setVal('settingAddress', s.address);
+      setVal('settingProfitMode', s.profitCalculationMode || 'markup');
+      setVal('settingProfitPct', s.defaultProfitMargin !== undefined ? s.defaultProfitMargin : 20);
+      setVal('settingTaxPct', s.defaultTaxRate !== undefined ? s.defaultTaxRate : 8.5);
+    },
+
+    saveSettingsFromUI: function () {
+      const getVal = (id) => {
+        const el = document.getElementById(id);
+        return el ? el.value : '';
+      };
+
+      const updated = {
+        companyName: getVal('settingCompanyName'),
+        estimatorName: getVal('settingEstimatorName'),
+        phone: getVal('settingPhone'),
+        email: getVal('settingEmail'),
+        address: getVal('settingAddress'),
+        profitCalculationMode: getVal('settingProfitMode') || 'markup',
+        defaultProfitMargin: parseFloat(getVal('settingProfitPct')) || 20,
+        defaultTaxRate: parseFloat(getVal('settingTaxPct')) || 0
+      };
+
+      BuildEstimateStorage.saveSettings(updated);
+      alert('Workspace & Company Settings saved successfully!');
     }
   };
 

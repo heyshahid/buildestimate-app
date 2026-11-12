@@ -3,21 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>BuildEstimate Pro</title>
+  <title>BuildEstimate Pro 2.0 - Universal Construction Takeoff, BOQ & Cost Estimator</title>
   
   <!-- Meta & SEO Tags -->
-  <meta name="description" content="Professional Global Construction Material Takeoff & Contractor Bid Proposal Suite. Accurate regional standards for North America (Imperial), GCC & Middle East (Metric), Asia & Subcontinent (Nominal Mix Ratios 1:2:4, 50kg bags, CFT), and UK/Europe (Eurocode).">
-  <meta name="keywords" content="construction calculator, concrete mix ratio 1:2:4, 1.54 dry factor, concrete takeoff, drywall calculator, framing calculator, contractor bid proposal, civil engineering takeoff, GCC metric construction">
+  <meta name="description" content="Universal Construction Material Takeoff, Quantity Surveying, BOQ and Contractor Bid Management Platform. Measure accurately with regional civil engineering standards. 100% Offline PWA.">
+  <meta name="keywords" content="construction calculator, concrete mix ratio 1:2:4, 1.54 dry factor, concrete takeoff, drywall calculator, framing calculator, contractor bid proposal, civil engineering takeoff, bill of quantities, BOQ builder, GCC metric construction">
   <meta name="author" content="Shahid Akram">
-  <meta name="theme-color" content="#f59e0b">
+  <meta name="theme-color" content="#14213D">
+  <link rel="canonical" href="https://heyshahid.github.io/buildestimate-app/">
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://heyshahid.github.io/buildestimate-app/">
+  <meta property="og:title" content="BuildEstimate Pro 2.0 - Universal Construction Takeoff, BOQ & Cost Estimator">
+  <meta property="og:description" content="Universal Construction Material Takeoff, Quantity Surveying, BOQ and Contractor Bid Management Platform. Measure Accurately. Estimate Confidently. Build Smarter.">
+  <meta property="og:image" content="https://heyshahid.github.io/buildestimate-app/assets/images/construction_hero.jpg">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://heyshahid.github.io/buildestimate-app/">
+  <meta name="twitter:title" content="BuildEstimate Pro 2.0 - Universal Construction Takeoff, BOQ & Cost Estimator">
+  <meta name="twitter:description" content="Universal Construction Material Takeoff, Quantity Surveying, BOQ and Contractor Bid Management Platform. 100% Offline PWA.">
+  <meta name="twitter:image" content="https://heyshahid.github.io/buildestimate-app/assets/images/construction_hero.jpg">
   
-  <!-- PWA Manifest & Favicon (Original App Logo & SVG) -->
+  <!-- PWA Manifest & Favicon (High-DPI Multi-Resolution Icons) -->
   <link rel="manifest" href="./manifest.json">
-  <link rel="icon" type="image/svg+xml" href="./icons/icon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="64x64" href="./icons/favicon.png">
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
   <link rel="shortcut icon" href="./favicon.ico">
-  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="./icons/favicon.png">
+  <link rel="icon" type="image/svg+xml" href="./icons/icon.svg">
+  <link rel="apple-touch-icon" sizes="192x192" href="./icons/icon-192.png">
   
   <!-- Google Fonts: Poppins (Calm & Expressive Typography) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -221,7 +238,7 @@
             </div>
             <div>
               <span class="block font-black text-sm text-[#14213D] tracking-tight leading-tight">BuildEstimate<span class="text-[#2563EB]">Pro</span></span>
-              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">v2.0 Universal</span>
+              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">v2.5 Universal</span>
             </div>
           </a>
         </div>
@@ -306,10 +323,108 @@
         <!-- Footer -->
         <div class="p-3 border-t border-[#E2E8F0] bg-slate-50 text-[11px] text-slate-500 flex items-center justify-between">
           <span class="flex items-center space-x-1.5 font-medium"><span class="w-2 h-2 rounded-full bg-emerald-500"></span><span>MIT Open-Source</span></span>
-          <span class="font-mono bg-white px-1.5 py-0.5 border border-slate-200 rounded">v2.0.0</span>
+          <span class="font-mono bg-white px-1.5 py-0.5 border border-slate-200 rounded">v2.5.0</span>
         </div>
       </div>
     </aside>
+
+    <!-- MOBILE SIDEBAR BACKDROP & DRAWER (Accessible via Hamburger Menu on Mobile) -->
+    <div id="mobileSidebarBackdrop" class="no-print fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden transition-opacity duration-200" onclick="BuildEstimateApp.toggleMobileSidebar(false)">
+      <div id="mobileSidebarDrawer" class="w-72 max-w-[85vw] h-full bg-white flex flex-col justify-between -translate-x-full transition-transform duration-200 ease-in-out shadow-2xl overflow-y-auto" onclick="event.stopPropagation()">
+        <div class="flex flex-col h-full overflow-hidden">
+          <!-- Mobile Drawer Header -->
+          <div class="h-16 flex items-center justify-between px-5 border-b border-[#E2E8F0] shrink-0 bg-white">
+            <a href="#dashboard" onclick="BuildEstimateApp.switchView('dashboard'); BuildEstimateApp.toggleMobileSidebar(false);" class="flex items-center space-x-3">
+              <div class="w-9 h-9 rounded-xl bg-[#14213D] flex items-center justify-center text-white font-black text-sm">BE</div>
+              <div>
+                <span class="block font-black text-sm text-[#14213D] leading-tight">BuildEstimate<span class="text-[#2563EB]">Pro</span></span>
+                <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">v2.5 Universal</span>
+              </div>
+            </a>
+            <button onclick="BuildEstimateApp.toggleMobileSidebar(false)" class="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+
+          <!-- Mobile Active Project Badge -->
+          <div class="p-3 border-b border-slate-100 bg-slate-50/70">
+            <div id="mobileActiveProjectBadge"></div>
+          </div>
+
+          <!-- Mobile Navigation Links -->
+          <nav class="flex-1 overflow-y-auto px-3 py-3 space-y-0.5 text-xs font-semibold scrollbar-none no-scrollbar">
+            <div class="text-[10px] uppercase font-bold text-slate-400 px-3 py-1 tracking-wider">Core Workspace</div>
+            <a href="#dashboard" data-view="dashboard" onclick="BuildEstimateApp.switchView('dashboard'); BuildEstimateApp.toggleMobileSidebar(false);" class="sidebar-nav-link flex items-center space-x-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+              <svg class="w-4 h-4 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+              <span>Dashboard</span>
+            </a>
+            <a href="#projects" data-view="projects" onclick="BuildEstimateApp.switchView('projects'); BuildEstimateApp.toggleMobileSidebar(false);" class="sidebar-nav-link flex items-center space-x-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+              <svg class="w-4 h-4 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+              <span>Projects Studio</span>
+            </a>
+            <a href="#takeoffs" data-view="takeoffs" onclick="BuildEstimateApp.switchView('takeoffs'); BuildEstimateApp.toggleMobileSidebar(false);" class="sidebar-nav-link flex items-center space-x-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+              <svg class="w-4 h-4 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+              <span>Takeoff Tools</span>
+            </a>
+            <a href="#drawing-takeoff" data-view="drawing-takeoff" onclick="BuildEstimateApp.switchView('drawing-takeoff'); BuildEstimateApp.toggleMobileSidebar(false);" class="sidebar-nav-link flex items-center space-x-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+              <svg class="w-4 h-4 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>
+              <span>Drawing Takeoff</span>
+              <span class="text-[9px] font-bold bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded-full ml-auto">CAD</span>
+            </a>
+            <a href="#boq" data-view="boq" onclick="BuildEstimateApp.switchView('boq'); BuildEstimateApp.toggleMobileSidebar(false);" class="sidebar-nav-link flex items-center space-x-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+              <svg class="w-4 h-4 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+              <span>BOQ Builder</span>
+            </a>
+            <a href="#cost-estimator" data-view="cost-estimator" onclick="BuildEstimateApp.switchView('cost-estimator'); BuildEstimateApp.toggleMobileSidebar(false);" class="sidebar-nav-link flex items-center space-x-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+              <svg class="w-4 h-4 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>Cost Estimator</span>
+            </a>
+            <a href="#quotations" data-view="quotations" onclick="BuildEstimateApp.switchView('quotations'); BuildEstimateApp.toggleMobileSidebar(false);" class="sidebar-nav-link flex items-center space-x-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+              <svg class="w-4 h-4 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+              <span>Quotations & Bids</span>
+            </a>
+
+            <div class="text-[10px] uppercase font-bold text-slate-400 px-3 pt-3 pb-1 tracking-wider">Resources & Rates</div>
+            <a href="#materials" data-view="materials" onclick="BuildEstimateApp.switchView('materials'); BuildEstimateApp.toggleMobileSidebar(false);" class="sidebar-nav-link flex items-center space-x-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+              <svg class="w-4 h-4 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+              <span>Material Library</span>
+            </a>
+            <a href="#labour" data-view="labour" onclick="BuildEstimateApp.switchView('labour'); BuildEstimateApp.toggleMobileSidebar(false);" class="sidebar-nav-link flex items-center space-x-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+              <svg class="w-4 h-4 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+              <span>Labour & Equipment</span>
+            </a>
+            <a href="#suppliers" data-view="suppliers" onclick="BuildEstimateApp.switchView('suppliers'); BuildEstimateApp.toggleMobileSidebar(false);" class="sidebar-nav-link flex items-center space-x-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+              <svg class="w-4 h-4 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+              <span>Suppliers Directory</span>
+            </a>
+
+            <div class="text-[10px] uppercase font-bold text-slate-400 px-3 pt-3 pb-1 tracking-wider">Records & Output</div>
+            <a href="#history" data-view="history" onclick="BuildEstimateApp.switchView('history'); BuildEstimateApp.toggleMobileSidebar(false);" class="sidebar-nav-link flex items-center space-x-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+              <svg class="w-4 h-4 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>Saved Estimates</span>
+            </a>
+            <a href="#reports" data-view="reports" onclick="BuildEstimateApp.switchView('reports'); BuildEstimateApp.toggleMobileSidebar(false);" class="sidebar-nav-link flex items-center space-x-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+              <svg class="w-4 h-4 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+              <span>Executive Reports</span>
+            </a>
+
+            <div class="text-[10px] uppercase font-bold text-slate-400 px-3 pt-3 pb-1 tracking-wider">Preferences</div>
+            <a href="#regional" data-view="regional" onclick="BuildEstimateApp.switchView('regional'); BuildEstimateApp.toggleMobileSidebar(false);" class="sidebar-nav-link flex items-center space-x-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+              <svg class="w-4 h-4 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>Regional Standards</span>
+            </a>
+            <a href="#help" data-view="help" onclick="BuildEstimateApp.switchView('help'); BuildEstimateApp.toggleMobileSidebar(false);" class="sidebar-nav-link flex items-center space-x-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+              <svg class="w-4 h-4 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>Help & Manual</span>
+            </a>
+            <a href="#settings" data-view="settings" onclick="BuildEstimateApp.switchView('settings'); BuildEstimateApp.toggleMobileSidebar(false);" class="sidebar-nav-link flex items-center space-x-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+              <svg class="w-4 h-4 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <span>Workspace Settings</span>
+            </a>
+          </nav>
+        </div>
+      </div>
+    </div>
 
 
     <div class="flex-1 flex flex-col min-w-0 min-h-screen">
@@ -412,7 +527,7 @@
           </div>
 
           <!-- Shahid Growth Lab Branding & GitHub Buttons -->
-          <div class="hidden xl:flex items-center space-x-2 pl-2 border-l border-slate-200">
+          <div class="hidden lg:flex items-center space-x-2 pl-2 border-l border-slate-200">
             <span class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold">
               <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
               <span>Shahid Growth Lab</span>
@@ -1797,95 +1912,119 @@
           <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <div class="flex items-center space-x-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-purple-600"></span>
-                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Parametric Modeling</span>
+                <span class="w-2.5 h-2.5 rounded-full bg-purple-600 animate-pulse"></span>
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Parametric Feasibility Modeling</span>
               </div>
-              <h2 class="text-xl font-bold text-slate-900 mt-1">Master Cost Estimator & Feasibility Model</h2>
-              <p class="text-xs text-slate-500">Early-stage building cost-per-square-foot benchmarking across trades and construction divisions.</p>
+              <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-0.5">Master Cost Estimator & Feasibility Model</h2>
+              <p class="text-xs sm:text-sm text-slate-500">Early-stage building cost-per-square-foot benchmarking across trades and construction divisions.</p>
             </div>
-            <button onclick="BuildEstimateApp.switchView('boq')" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-sm">
-              Open BOQ Studio →
-            </button>
+            <div class="flex items-center space-x-2">
+              <button onclick="BuildEstimateApp.pushParametricToBOQ()" class="px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition flex items-center space-x-1.5 shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <span>⚡ Push Feasibility to BOQ</span>
+              </button>
+              <button onclick="BuildEstimateApp.switchView('boq')" class="px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">
+                Open BOQ Studio →
+              </button>
+            </div>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
-              <h3 class="text-sm font-bold text-slate-900">Project Parameters</h3>
+              <h3 class="text-sm font-bold text-slate-900 border-b border-slate-100 pb-2">Project Parameters</h3>
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Building Typology</label>
-                <select class="w-full text-xs font-semibold border border-slate-300 rounded-xl p-2.5 bg-slate-50">
-                  <option>Single Family Luxury Residential ($220/SF)</option>
-                  <option>Multi-Family Apartment Complex ($185/SF)</option>
-                  <option>Commercial Office & Retail ($240/SF)</option>
-                  <option>Industrial Warehouse ($115/SF)</option>
+                <select id="paramTypology" onchange="BuildEstimateApp.calcParametric()" class="w-full text-xs font-semibold border border-slate-300 rounded-xl p-2.5 bg-slate-50 focus:bg-white focus:outline-none focus:border-blue-500">
+                  <option value="single_family" selected>Single Family Residential ($220/SF)</option>
+                  <option value="multi_family">Multi-Family Apartment Complex ($185/SF)</option>
+                  <option value="commercial">Commercial Office & Retail ($240/SF)</option>
+                  <option value="industrial">Industrial Warehouse ($115/SF)</option>
+                  <option value="luxury_villa">Luxury Custom RCC Villa ($280/SF)</option>
                 </select>
               </div>
               <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">Total Gross Building Area (SF)</label>
-                <input type="number" value="3200" class="w-full text-xs font-bold border border-slate-300 rounded-xl p-2.5 bg-slate-50">
+                <div class="flex justify-between items-center mb-1">
+                  <label class="block text-xs font-bold text-slate-700">Gross Floor Area</label>
+                  <span id="paramUnitLabel" class="text-[10px] font-bold text-slate-500 uppercase">Square Feet (SF)</span>
+                </div>
+                <input type="number" id="paramArea" value="3200" min="100" max="500000" oninput="BuildEstimateApp.calcParametric()" class="w-full text-xs font-bold border border-slate-300 rounded-xl p-2.5 bg-slate-50 focus:bg-white focus:outline-none focus:border-blue-500">
               </div>
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Quality & Finishes Tier</label>
-                <select class="w-full text-xs font-semibold border border-slate-300 rounded-xl p-2.5 bg-slate-50">
-                  <option>High-End Custom Architecture (+20%)</option>
-                  <option selected>Standard Developer Spec</option>
-                  <option>Economy Value Engineered (-15%)</option>
+                <select id="paramQuality" onchange="BuildEstimateApp.calcParametric()" class="w-full text-xs font-semibold border border-slate-300 rounded-xl p-2.5 bg-slate-50 focus:bg-white focus:outline-none focus:border-blue-500">
+                  <option value="custom">High-End Custom Architecture (+20%)</option>
+                  <option value="standard" selected>Standard Developer Spec (Baseline)</option>
+                  <option value="economy">Economy Value Engineered (-15%)</option>
                 </select>
+              </div>
+              <div class="p-3 bg-purple-50 rounded-xl border border-purple-100 text-[11px] text-purple-900">
+                <span class="font-bold">Calculated Rate:</span> <span id="paramEffectiveRate" class="font-black">$220.00 / SF</span>
               </div>
             </div>
 
             <div class="md:col-span-2 bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
-              <h3 class="text-sm font-bold text-slate-900">Parametric Trade Cost Distribution</h3>
-              <div class="space-y-3 text-xs">
+              <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                <h3 class="text-sm font-bold text-slate-900">Parametric Trade Cost Distribution</h3>
+                <span class="text-xs text-slate-400 font-medium">CSI Division Allocations</span>
+              </div>
+
+              <div class="space-y-3.5 text-xs">
                 <div>
                   <div class="flex justify-between font-semibold mb-1">
-                    <span class="text-slate-700">Substructure & Foundation (15%)</span>
-                    <span class="text-slate-900 font-bold">$105,600</span>
+                    <span class="text-slate-700 flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span><span>Substructure & Foundation (15%)</span></span>
+                    <span id="paramSubCost" class="text-slate-900 font-black">$105,600</span>
                   </div>
                   <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                    <div class="bg-blue-600 h-full rounded-full" style="width: 15%"></div>
+                    <div id="paramSubBar" class="bg-blue-600 h-full rounded-full transition-all duration-300" style="width: 15%"></div>
                   </div>
                 </div>
                 <div>
                   <div class="flex justify-between font-semibold mb-1">
-                    <span class="text-slate-700">Superstructure Framing & Envelope (28%)</span>
-                    <span class="text-slate-900 font-bold">$197,120</span>
+                    <span class="text-slate-700 flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span><span>Superstructure Framing & Envelope (28%)</span></span>
+                    <span id="paramSupCost" class="text-slate-900 font-black">$197,120</span>
                   </div>
                   <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                    <div class="bg-amber-500 h-full rounded-full" style="width: 28%"></div>
+                    <div id="paramSupBar" class="bg-amber-500 h-full rounded-full transition-all duration-300" style="width: 28%"></div>
                   </div>
                 </div>
                 <div>
                   <div class="flex justify-between font-semibold mb-1">
-                    <span class="text-slate-700">MEP Rough-Ins: Electrical & Plumbing (22%)</span>
-                    <span class="text-slate-900 font-bold">$154,880</span>
+                    <span class="text-slate-700 flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-purple-600"></span><span>MEP Rough-Ins: Electrical & Plumbing (22%)</span></span>
+                    <span id="paramMepCost" class="text-slate-900 font-black">$154,880</span>
                   </div>
                   <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                    <div class="bg-purple-600 h-full rounded-full" style="width: 22%"></div>
+                    <div id="paramMepBar" class="bg-purple-600 h-full rounded-full transition-all duration-300" style="width: 22%"></div>
                   </div>
                 </div>
                 <div>
                   <div class="flex justify-between font-semibold mb-1">
-                    <span class="text-slate-700">Interior Finishes, Drywall & Paint (25%)</span>
-                    <span class="text-slate-900 font-bold">$176,000</span>
+                    <span class="text-slate-700 flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span><span>Interior Finishes, Drywall & Paint (25%)</span></span>
+                    <span id="paramFinCost" class="text-slate-900 font-black">$176,000</span>
                   </div>
                   <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                    <div class="bg-emerald-600 h-full rounded-full" style="width: 25%"></div>
+                    <div id="paramFinBar" class="bg-emerald-600 h-full rounded-full transition-all duration-300" style="width: 25%"></div>
                   </div>
                 </div>
                 <div>
                   <div class="flex justify-between font-semibold mb-1">
-                    <span class="text-slate-700">General Conditions, Supervision & Permits (10%)</span>
-                    <span class="text-slate-900 font-bold">$70,400</span>
+                    <span class="text-slate-700 flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-slate-600"></span><span>General Conditions, Supervision & Permits (10%)</span></span>
+                    <span id="paramGenCost" class="text-slate-900 font-black">$70,400</span>
                   </div>
                   <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                    <div class="bg-slate-600 h-full rounded-full" style="width: 10%"></div>
+                    <div id="paramGenBar" class="bg-slate-600 h-full rounded-full transition-all duration-300" style="width: 10%"></div>
                   </div>
                 </div>
               </div>
-              <div class="pt-4 border-t border-slate-100 flex justify-between items-center">
-                <span class="text-xs font-bold text-slate-500">Estimated Parametric Total:</span>
-                <span class="text-xl font-black text-slate-900">$704,000</span>
+
+              <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Estimated Parametric Feasibility Total:</span>
+                  <span id="paramTotalCost" class="text-2xl font-black text-slate-900">$704,000</span>
+                </div>
+                <button type="button" onclick="BuildEstimateApp.pushParametricToBOQ()" class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-sm flex items-center space-x-1.5 shrink-0">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                  <span>Push Feasibility to BOQ</span>
+                </button>
               </div>
             </div>
           </div>
@@ -2013,14 +2152,102 @@
           </div>
         </div>
 
-        <!-- VIEW 10: EXECUTIVE REPORTS -->
-        <div id="view-reports" class="app-view hidden space-y-6">
-          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs flex justify-between items-center">
+        <!-- VIEW 9: SAVED ESTIMATES & REVISION HISTORY -->
+        <div id="view-history" class="app-view hidden space-y-6">
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h2 class="text-xl font-bold text-slate-900">Executive Reports & Material Order Lists</h2>
-              <p class="text-xs text-slate-500 mt-1">Consolidated delivery schedules, procurement sheets, and variance reports.</p>
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Estimates Ledger</span>
+                <span id="historyCountBadge" class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">0 Saved Records</span>
+              </div>
+              <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-0.5">Saved Estimates & Revision History</h2>
+              <p class="text-xs sm:text-sm text-slate-500">Review all previously saved contractor proposals, cost revisions, and takeoff snapshots.</p>
             </div>
-            <button onclick="window.print()" class="px-3.5 py-1.5 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800">Print Report</button>
+            <div class="flex items-center space-x-2">
+              <button onclick="BuildEstimateApp.switchView('takeoffs')" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-sm">
+                + New Takeoff Estimate
+              </button>
+            </div>
+          </div>
+
+          <!-- History Table Card -->
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-xs text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-200 bg-slate-50/80 text-slate-500 font-bold uppercase text-[10px] tracking-wider">
+                    <th class="py-3 px-4">Project / Scope</th>
+                    <th class="py-3 px-4">Date Saved</th>
+                    <th class="py-3 px-4 text-right">Direct Costs</th>
+                    <th class="py-3 px-4 text-right">Materials</th>
+                    <th class="py-3 px-4 text-right">Labor</th>
+                    <th class="py-3 px-4 text-right">Grand Total Bid</th>
+                    <th class="py-3 px-4 text-center">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="historyTableBody" class="divide-y divide-slate-100 font-medium">
+                  <!-- Rendered dynamically by BuildEstimateApp.renderHistoryView() -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW 10: EXECUTIVE REPORTS & PROCUREMENT -->
+        <div id="view-reports" class="app-view hidden space-y-6">
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Procurement & Order Schedules</span>
+              </div>
+              <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-0.5">Executive Reports & Material Order Lists</h2>
+              <p class="text-xs sm:text-sm text-slate-500">Consolidated purchasing schedules, delivery batches, and payroll allocations for the active project.</p>
+            </div>
+            <div class="flex items-center space-x-2">
+              <button onclick="BuildEstimateApp.exportProcurementCSV()" class="px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition flex items-center space-x-1.5">
+                <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                <span>Export Order CSV</span>
+              </button>
+              <button onclick="window.print()" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition shadow-sm flex items-center space-x-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                <span>Print Schedule</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Active Project Banner for Reports -->
+          <div id="reportsProjectSummaryBanner" class="bg-blue-50/70 border border-blue-200/80 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-blue-900">
+            <!-- Rendered by BuildEstimateApp.renderReportsView() -->
+          </div>
+
+          <!-- Consolidated Material Procurement Schedule -->
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center">
+              <div>
+                <h3 class="text-sm font-bold text-slate-900">Consolidated Jobsite Material Order Schedule</h3>
+                <p class="text-xs text-slate-500">Total estimated material requirements aggregated across all structural takeoffs and BOQ lines.</p>
+              </div>
+              <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-100">Ready for Purchasing</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-xs text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-200 bg-slate-50/80 text-slate-500 font-bold uppercase text-[10px] tracking-wider">
+                    <th class="py-3 px-4">Material Description</th>
+                    <th class="py-3 px-4">Trade Category</th>
+                    <th class="py-3 px-4 text-right">Required Quantity</th>
+                    <th class="py-3 px-4 text-center">Unit</th>
+                    <th class="py-3 px-4 text-right">Estimated Unit Rate</th>
+                    <th class="py-3 px-4 text-right">Procurement Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody id="procurementOrderTableBody" class="divide-y divide-slate-100 font-medium">
+                  <!-- Rendered dynamically by BuildEstimateApp.renderReportsView() -->
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
@@ -2194,7 +2421,10 @@
               </div>
             </div>
             <div class="pt-3 flex justify-end">
-              <button type="button" onclick="alert('Settings saved successfully!');" class="px-5 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition shadow-sm">Save Workspace Settings</button>
+              <button type="button" onclick="BuildEstimateApp.saveSettingsFromUI()" class="px-5 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition shadow-sm flex items-center space-x-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Save Workspace Settings</span>
+              </button>
             </div>
           </div>
 

@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "buildestimate"
-version = "2.4.0"
+version = "2.5.0"
 authors = [
   { name = "Shahid Akram", email = "heyshahidakram@gmail.com" },
 ]
-description = "Mobile-First Construction Material Takeoff & Contractor Bidding Suite"
+description = "Universal Construction Takeoff, Cost Estimation, BOQ & Contractor Bid Management Platform"
 readme = "README.md"
 requires-python = ">=3.9"
 classifiers = [

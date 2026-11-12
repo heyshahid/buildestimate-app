@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use BuildEstimate Pro in your construction estimating workflows, commercial bidding, or civil engineering tools, please cite it as below."
-title: "BuildEstimate Pro: Mobile-First Construction Material Takeoff & Contractor Bidding Suite"
-version: 2.4.0
-date-released: 2026-11-06
+title: "BuildEstimate Pro: Universal Construction Takeoff, Cost Estimation, BOQ & Contractor Bid Management Platform"
+version: 2.5.0
+date-released: 2026-11-12
 url: "https://heyshahid.github.io/buildestimate-app/"
 repository-code: "https://github.com/heyshahid/buildestimate-app"
 authors:
@@ -14,5 +14,8 @@ keywords:
   - "construction-calculator"
   - "material-takeoff"
   - "concrete-estimator"
+  - "bill-of-quantities"
+  - "boq-builder"
+  - "civil-engineering"
   - "progressive-web-app"
   - "contractor-bidding"

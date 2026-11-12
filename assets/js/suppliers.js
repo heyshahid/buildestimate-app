@@ -301,3 +301,4 @@
   global.BuildEstimateSuppliers = SuppliersModule;
 
 })(typeof window !== 'undefined' ? window : this);
+

@@ -6,6 +6,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.5.0] - 2026-11-12
+### Added
+- **14-Module SaaS Platform Architecture:** Complete overhaul from isolated calculators to an integrated construction estimating studio with executive dashboard, project workspaces, and persistent storage.
+- **Bill of Quantities (BOQ) Builder:** CSI MasterFormat 50-division classification with rate buildups (Material + Labor + Equipment), line item modal, 1-click takeoff import, and CSV export.
+- **Central Material Price Database:** 30+ pre-configured civil materials with inline rate editing, custom material creator, on-site Civil Engineering Unit Converter, and CSV price book export.
+- **Digital Blueprint CAD Takeoff Canvas:** HTML5 interactive canvas with smooth pan, zoom, scale calibration, polygon area takeoff (SF/m²), linear wall runs (LF/m), and count markers.
+- **Verified Local Construction Suppliers Directory:** Fully private local trade vendor directory for ready-mix plants, lumber yards, steel mills, and quarries with category filters and CSV export.
+- **Data Ownership & Disaster Recovery:** Full JSON workspace backup download and restore, single project export, and accidental deletion safeguards.
+- **Executive Procurement & Material Order Reports:** Consolidated schedule of ready-mix concrete, cement bags, sand, bajri, rebar sticks, studs, drywall, and paint.
+- **Interactive Parametric Cost Feasibility Model:** Dynamic early-stage cost estimation by building typology, area, and quality tier.
+
+### Fixed
+- **1-Page Official Bid PDF:** Fixed root flex wrapper min-height rendering bug that pushed content to Page 2; bid proposals now render strictly on 1 physical page.
+- **Browser Back/Forward Navigation:** Added window `hashchange` routing listener across all modules.
+- **Clean Initial Project Onboarding:** Prevented auto-loading demo data into blank storage; new users get a clean project creation flow with voluntary demo exploration.
+- **Mobile Responsive Drawer:** Added mobile drawer navigation and backdrop to make all 14 modules accessible via the mobile hamburger icon.
+- **Settings Persistence:** Fixed workspace settings form so contractor company profile, profit mode, and tax rates save and load from local storage.
+
+---
+
 ## [2.4.0] - 2026-11-06
 ### Added
 - **Dynamic Custom Overrides for Every Dropdown:** Added real-time inline custom input fields for Waste Factor Margin (`Custom Waste %`), Rebar Spacing (`Custom Spacing (Inches)`), Stud Spacing, Drywall Sheet Size, Paint Coats, Contingency Buffer, and Profit Margin.

@@ -1,13 +1,13 @@
 {
-  "name": "BuildEstimate Pro – Construction Estimator",
-  "short_name": "BuildEstimate",
-  "description": "Mobile-first Construction Material Takeoff & Project Cost Estimator for contractors and estimators.",
+  "name": "BuildEstimate Pro - Universal Construction Takeoff & BOQ Platform",
+  "short_name": "BuildEstimate Pro",
+  "description": "Universal Construction Material Takeoff, Quantity Surveying, BOQ and Contractor Bid Management Platform.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#0F172A",
-  "theme_color": "#0F172A",
+  "background_color": "#14213D",
+  "theme_color": "#14213D",
   "icons": [
     {
       "src": "icons/icon-192.png",
